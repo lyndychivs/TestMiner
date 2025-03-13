@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestMiner": {
+        "commandName": "Project",
+        "commandLineArgs": ""
+    }
+  }
+}

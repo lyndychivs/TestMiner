@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="12" result="Failed" total="12" passed="11" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="31" engine-version="3.19.2.0" clr-version="8.0.13" start-time="2025-02-25 23:52:45Z" end-time="2025-02-25 23:52:47Z" duration="1.184000">
+  <command-line><![CDATA[C:\PATH\nunit3-console\net8.0\nunit3-console.dll Retry.Tests.dll]]></command-line>
+  <test-suite type="Assembly" id="1-1014" name="Retry.Tests.dll" fullname="C:\git\Retry\Retry.Tests\bin\Debug\net8.0\Retry.Tests.dll" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2025-02-25T23:52:45.9524841Z" end-time="2025-02-25T23:52:47.0062091Z" duration="1.053713" total="12" passed="11" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="31">
+    <environment framework-version="4.3.2.0" clr-version="8.0.13" os-version="Microsoft Windows 10.0.26100" platform="Win32NT" cwd="C:\git\Retry\Retry.Tests\bin\Debug\net8.0" machine-name="DESKTOP" user="lyndy" user-domain="DESKTOP" culture="en-GB" uiculture="en-GB" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\git\Retry\Retry.Tests\bin\Debug\net8.0" />
+      <setting name="NumberOfTestWorkers" value="16" />
+    </settings>
+    <properties>
+      <property name="ParallelScope" value="All" />
+      <property name="_PID" value="115936" />
+      <property name="_APPDOMAIN" value="nunit3-console" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="1-1015" name="Retry" fullname="Retry" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2025-02-25T23:52:45.9546072Z" end-time="2025-02-25T23:52:47.0062056Z" duration="1.051598" total="12" passed="11" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="31">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1-1016" name="Tests" fullname="Retry.Tests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2025-02-25T23:52:45.9547224Z" end-time="2025-02-25T23:52:47.0062027Z" duration="1.051480" total="12" passed="11" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="31">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestFixture" id="1-1000" name="RetryConstructorTests" fullname="Retry.Tests.RetryConstructorTests" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-02-25T23:52:45.9547571Z" end-time="2025-02-25T23:52:45.9619908Z" duration="0.007234" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="16">
+          <test-case id="1-1001" name="Constructor_ValidParameters_ReturnsRetry" fullname="Retry.Tests.RetryConstructorTests.Constructor_ValidParameters_ReturnsRetry" methodname="Constructor_ValidParameters_ReturnsRetry" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="2097974461" result="Passed" start-time="2025-02-25T23:52:45.9558161Z" end-time="2025-02-25T23:52:45.9606907Z" duration="0.004898" asserts="1" />
+          <test-case id="1-1004" name="Constructor_PollingIntervalEqualToMaxWait_ThrowsArgumentException" fullname="Retry.Tests.RetryConstructorTests.Constructor_PollingIntervalEqualToMaxWait_ThrowsArgumentException" methodname="Constructor_PollingIntervalEqualToMaxWait_ThrowsArgumentException" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="1680636020" result="Passed" start-time="2025-02-25T23:52:45.9558031Z" end-time="2025-02-25T23:52:45.9615364Z" duration="0.005733" asserts="3" />
+          <test-case id="1-1006" name="Constructor_NullDateTimeProvider_ThrowsArgumentNullException" fullname="Retry.Tests.RetryConstructorTests.Constructor_NullDateTimeProvider_ThrowsArgumentNullException" methodname="Constructor_NullDateTimeProvider_ThrowsArgumentNullException" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="1700622070" result="Passed" start-time="2025-02-25T23:52:45.9557865Z" end-time="2025-02-25T23:52:45.9615371Z" duration="0.005751" asserts="3" />
+          <test-case id="1-1003" name="Constructor_ZeroPollingInterval_ThrowsArgumentException" fullname="Retry.Tests.RetryConstructorTests.Constructor_ZeroPollingInterval_ThrowsArgumentException" methodname="Constructor_ZeroPollingInterval_ThrowsArgumentException" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="802307589" result="Passed" start-time="2025-02-25T23:52:45.9558282Z" end-time="2025-02-25T23:52:45.9615381Z" duration="0.005710" asserts="3" />
+          <test-case id="1-1002" name="Constructor_ZeroMaxWait_ThrowsArgumentException" fullname="Retry.Tests.RetryConstructorTests.Constructor_ZeroMaxWait_ThrowsArgumentException" methodname="Constructor_ZeroMaxWait_ThrowsArgumentException" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="216226797" result="Passed" start-time="2025-02-25T23:52:45.9558218Z" end-time="2025-02-25T23:52:45.9615367Z" duration="0.005715" asserts="3" />
+          <test-case id="1-1005" name="Constructor_PollingIntervalGreaterThanMaxWait_ThrowsArgumentException" fullname="Retry.Tests.RetryConstructorTests.Constructor_PollingIntervalGreaterThanMaxWait_ThrowsArgumentException" methodname="Constructor_PollingIntervalGreaterThanMaxWait_ThrowsArgumentException" classname="Retry.Tests.RetryConstructorTests" runstate="Runnable" seed="437796820" result="Passed" start-time="2025-02-25T23:52:45.9558060Z" end-time="2025-02-25T23:52:45.9615369Z" duration="0.005731" asserts="3" />
+        </test-suite>
+        <test-suite type="TestFixture" id="1-1007" name="RetryTests" fullname="Retry.Tests.RetryTests" classname="Retry.Tests.RetryTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2025-02-25T23:52:45.9547604Z" end-time="2025-02-25T23:52:47.0061851Z" duration="1.051426" total="6" passed="5" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="15">
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-case id="1-1012" name="Until_FunctionThrowsExceptionOnlyOnFirstCycle_DoesNotThrow" fullname="Retry.Tests.RetryTests.Until_FunctionThrowsExceptionOnlyOnFirstCycle_DoesNotThrow" methodname="Until_FunctionThrowsExceptionOnlyOnFirstCycle_DoesNotThrow" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="1167819633" result="Passed" start-time="2025-02-25T23:52:45.9557906Z" end-time="2025-02-25T23:52:46.0076759Z" duration="0.051885" asserts="1" />
+          <test-case id="1-1009" name="Until_FunctionReturnsTrueOnSecondCycle_ExecutesTwice" fullname="Retry.Tests.RetryTests.Until_FunctionReturnsTrueOnSecondCycle_ExecutesTwice" methodname="Until_FunctionReturnsTrueOnSecondCycle_ExecutesTwice" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="1351518995" result="Passed" start-time="2025-02-25T23:52:45.9557887Z" end-time="2025-02-25T23:52:46.0076783Z" duration="0.051890" asserts="1" />
+          <test-case id="1-1011" name="Until_FunctionReturnsFalse_ThrowsTimeoutException" fullname="Retry.Tests.RetryTests.Until_FunctionReturnsFalse_ThrowsTimeoutException" methodname="Until_FunctionReturnsFalse_ThrowsTimeoutException" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="1431192742" result="Passed" start-time="2025-02-25T23:52:45.9557858Z" end-time="2025-02-25T23:52:46.0078017Z" duration="0.052016" asserts="5" />
+          <test-case id="1-1013" name="Until_FunctionThrowsException_ThrowsTimeoutException" fullname="Retry.Tests.RetryTests.Until_FunctionThrowsException_ThrowsTimeoutException" methodname="Until_FunctionThrowsException_ThrowsTimeoutException" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="724796866" result="Passed" start-time="2025-02-25T23:52:45.9557870Z" end-time="2025-02-25T23:52:46.0086235Z" duration="0.052837" asserts="6" />
+          <test-case id="1-1008" name="Until_FunctionReturnsTrue_ExecutesOnce" fullname="Retry.Tests.RetryTests.Until_FunctionReturnsTrue_ExecutesOnce" methodname="Until_FunctionReturnsTrue_ExecutesOnce" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="1589168695" result="Failed" label="Error" start-time="2025-02-25T23:52:45.9557862Z" end-time="2025-02-25T23:52:46.0151643Z" duration="0.059378" asserts="0">
+            <failure>
+              <message><![CDATA[System.Exception : testing exception has been thrown]]></message>
+              <stack-trace><![CDATA[   at Retry.Tests.RetryTests.Until_FunctionReturnsTrue_ExecutesOnce() in C:\git\Retry\Retry.Tests\RetryTests.cs:line 29
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)]]></stack-trace>
+            </failure>
+          </test-case>
+          <test-case id="1-1010" name="Until_WithPollingInterval_CorrectlyAwaitsPollingIntervalBeforeSecondCycle" fullname="Retry.Tests.RetryTests.Until_WithPollingInterval_CorrectlyAwaitsPollingIntervalBeforeSecondCycle" methodname="Until_WithPollingInterval_CorrectlyAwaitsPollingIntervalBeforeSecondCycle" classname="Retry.Tests.RetryTests" runstate="Runnable" seed="415746594" result="Passed" start-time="2025-02-25T23:52:45.9557949Z" end-time="2025-02-25T23:52:47.0060384Z" duration="1.050246" asserts="2" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
