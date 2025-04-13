@@ -35,7 +35,6 @@
                   new TestRunMapper(),
                   new TestMinerDal(connectionString))
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
         }
 
         internal TestMinerApplication(

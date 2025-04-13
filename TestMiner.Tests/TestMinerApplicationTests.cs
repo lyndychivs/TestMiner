@@ -116,6 +116,7 @@
 
             Assert.That(result, Is.EqualTo(0));
             _mockLogWrapper.Verify(log => log.Warning(It.IsAny<FileNotFoundException>(), "No File Exists."), Times.Once);
+            _mockFileWrapper.Verify(file => file.ReadAllText(It.IsAny<string>()), Times.Never);
         }
 
         [TestCase("")]
@@ -134,6 +135,7 @@
             // Assert
             Assert.That(result, Is.EqualTo(0));
             _mockLogWrapper.Verify(log => log.Warning(It.IsAny<InvalidDataException>(), $"No Text Found in File. {emptyFile}"), Times.Once);
+            _mockTestReportSerializer.Verify(serializer => serializer.Deserialize(It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -151,6 +153,7 @@
             // Assert
             Assert.That(result, Is.EqualTo(0));
             _mockLogWrapper.Verify(log => log.Warning(It.IsAny<InvalidDataException>(), $"No Text Found in File. {nullResponseFile}"), Times.Once);
+            _mockTestReportSerializer.Verify(serializer => serializer.Deserialize(It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -232,6 +235,7 @@
             // Assert
             Assert.That(result, Is.EqualTo(0));
             _mockLogWrapper.Verify(log => log.Info($"Test Run already exists in Database. c - {filePath}"), Times.Once);
+            _mockTestMinerDal.Verify(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>()), Times.Never);
         }
 
         [Test]
