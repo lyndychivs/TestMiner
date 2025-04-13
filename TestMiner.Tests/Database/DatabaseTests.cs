@@ -126,11 +126,14 @@
         {
             _mockDbConnection.SetupDapper(db => db.Execute(SpTestRunUpdateTestMinerStatus, null, null, null, CommandType.StoredProcedure)).Returns(1);
 
-            _database.UpdateTestRunTestMinerStatus(1, 1);
+            _database.UpdateTestRunTestMinerStatus(1, 2);
 
             _mockDbConnection.Verify(db => db.Open(), Times.Once);
             _mockDbConnection.Verify(db => db.Close(), Times.Once);
             _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testRunId", 1, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testMinerStatusId", 2, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
         }
 
         [Test]
@@ -145,6 +148,7 @@
                 Assert.That(ex?.Message, Is.EqualTo("Database error"));
 
                 _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to update TestMinerStatus for TestRun. TestRunId=1"), Times.Once);
+                _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
             });
         }
 
@@ -153,12 +157,26 @@
         {
             _mockDbConnection.SetupDapper(db => db.Execute(SpTestRunAddTestRun, null, null, null, CommandType.StoredProcedure)).Returns(1);
 
-            var result = _database.AddTestRun(DateTime.UtcNow, DateTime.UtcNow, 0, 0, 0, 0, 0, 0, 0, 0, "a", "b", "c");
+            var result = _database.AddTestRun(DateTime.UtcNow, DateTime.UtcNow, 0, 1, 2, 3, 4, 5, 6, 7, "a", "b", "c");
 
             Assert.That(result, Is.EqualTo(1));
             _mockDbConnection.Verify(db => db.Open(), Times.Once);
             _mockDbConnection.Verify(db => db.Close(), Times.Once);
             _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@startTime", It.IsAny<DateTime>(), DbType.DateTime), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@endTime", It.IsAny<DateTime>(), DbType.DateTime), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@duration", 0L, DbType.Int64), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@total", 1, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@inconclusive", 2, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@passed", 3, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@warning", 4, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@skipped", 5, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@failed", 6, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@error", 7, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@user", "a", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@machine", "b", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@hex", "c", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
         }
 
         [Test]
@@ -174,6 +192,7 @@
                 Assert.That(ex?.Message, Is.EqualTo("Database error"));
 
                 _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to add TestRun."), Times.Once);
+                _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
             });
         }
 
@@ -393,11 +412,25 @@
         {
             _mockDbConnection.SetupDapper(db => db.Execute(SpTestExecutionAddTest, null, null, null, CommandType.StoredProcedure)).Returns(1);
 
-            _database.AddTestExecution(1, "a", "b", "c", 0, "d", DateTime.UtcNow, DateTime.UtcNow, 0, 0, "e", "f", "g");
+            _database.AddTestExecution(1, "a", "b", "c", 2, "d", DateTime.UtcNow, DateTime.UtcNow, 3, 4, "e", "f", "g");
 
             _mockDbConnection.Verify(db => db.Open(), Times.Once);
             _mockDbConnection.Verify(db => db.Close(), Times.Once);
             _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testRunId", 1, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@name", "a", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@class", "b", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@result", "c", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@seed", 2L, DbType.Int64), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@label", "d", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@startTime", It.IsAny<DateTime>(), DbType.DateTime), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@endTime", It.IsAny<DateTime>(), DbType.DateTime), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@duration", 3L, DbType.Int64), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@assertCount", 4, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@failureMessage", "e", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@stackTrace", "f", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@reason", "g", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
         }
 
         [Test]
@@ -412,6 +445,7 @@
 
                 Assert.That(ex?.Message, Is.EqualTo("Database error"));
                 _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to add TestExecution."), Times.Once);
+                _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
             });
         }
 

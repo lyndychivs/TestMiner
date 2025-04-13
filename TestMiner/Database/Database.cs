@@ -104,9 +104,9 @@
             _dynamicParametersWrapper.Add("@endTime", endTime, DbType.DateTime);
             _dynamicParametersWrapper.Add("@duration", duration, DbType.Int64);
             _dynamicParametersWrapper.Add("@assertCount", asserts, DbType.Int32);
-            _dynamicParametersWrapper.Add("@failureMessage", label.GetNullable(), DbType.String);
-            _dynamicParametersWrapper.Add("@stackTrace", label.GetNullable(), DbType.String);
-            _dynamicParametersWrapper.Add("@reason", label.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@failureMessage", failureMessage.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@stackTrace", stackTrace.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@reason", reason.GetNullable(), DbType.String);
             DynamicParameters dynamicParameters = _dynamicParametersWrapper.GetDynamicParameters();
 
             try
