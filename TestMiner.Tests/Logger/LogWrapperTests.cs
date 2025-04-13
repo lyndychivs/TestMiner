@@ -1,0 +1,69 @@
+﻿namespace TestMiner.Tests.Logger
+{
+    using System;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    using TestMiner.Logger;
+
+    [TestFixture]
+    public class LogWrapperTests
+    {
+        private readonly Mock<ILogger> _mockLogger = new();
+
+        private readonly LogWrapper _logWrapper;
+
+        public LogWrapperTests()
+        {
+            _logWrapper = new LogWrapper(_mockLogger.Object);
+        }
+
+        [Test]
+        public void Debug_WhenCalled_CallsLogDebug()
+        {
+            _logWrapper.Debug("a");
+
+            _mockLogger.VerifyLogging("a", LogLevel.Debug, Times.Once());
+        }
+
+        [Test]
+        public void Info_WhenCalled_CallsLogInformation()
+        {
+            _logWrapper.Info("a");
+
+            _mockLogger.VerifyLogging("a", LogLevel.Information, Times.Once());
+        }
+
+        [Test]
+        public void Warning_WhenCalled_CallsLogWarning()
+        {
+            _logWrapper.Warning("a");
+
+            _mockLogger.VerifyLogging("a", LogLevel.Warning, Times.Once());
+        }
+
+        [Test]
+        public void Warning_WhenCalledWithException_CallsLogWarning()
+        {
+            var exception = new Exception("a");
+
+            _logWrapper.Warning(exception, "b");
+
+            _mockLogger.VerifyLogging("b", LogLevel.Warning, Times.Once());
+        }
+
+        [Test]
+        public void Error_WhenCalledWithException_CallsLogError()
+        {
+            var exception = new Exception("a");
+
+            _logWrapper.Error(exception, "b");
+
+            _mockLogger.VerifyLogging("b", LogLevel.Error, Times.Once());
+        }
+    }
+}
