@@ -132,7 +132,7 @@
             _mockDbConnection.Verify(db => db.Close(), Times.Once);
             _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
             _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testRunId", 1, DbType.Int32), Times.Once);
-            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testMinerStatusId", 2, DbType.Int32), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@testMinerStatusId", 2, DbType.Byte), Times.Once);
             _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
         }
 
