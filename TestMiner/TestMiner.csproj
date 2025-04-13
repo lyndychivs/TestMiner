@@ -24,9 +24,14 @@
     <FileVersion>1.0.1</FileVersion>
     <AnalysisLevel>latest-minimum</AnalysisLevel>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <Configurations>Debug;Release</Configurations>
+    <Configurations>Debug;Release;GitHub</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningLevel>9999</WarningLevel>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GitHub|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <WarningLevel>9999</WarningLevel>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
