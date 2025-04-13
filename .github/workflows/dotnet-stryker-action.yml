@@ -17,6 +17,8 @@ jobs:
         uses: lyndychivs/dotnet-stryker-action@v1
         with:
           configurationFile: "stryker-config.json"
+          dashboardApiKey: ${{ secrets.STRYKER_DASHBOARD }}
+          version: ${{ github.ref_name }}
 
       - name: Upload Stryker.NET Report
         uses: actions/upload-artifact@v4
