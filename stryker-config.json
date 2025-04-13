@@ -10,7 +10,8 @@
     "language-version": "latest",
     "additional-timeout": 5000,
     "mutate": [
-      "**/*"
+      "**/*",
+      "!**/FileWrapper.cs"
     ],
     "solution": "TestMiner.sln",
     "configuration": "Github",
