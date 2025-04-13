@@ -20,8 +20,11 @@
             var dynamicParameters = wrapper.GetDynamicParameters();
 
             // Assert
-            Assert.That(dynamicParameters.ParameterNames, Does.Contain("a"));
-            Assert.That(dynamicParameters.Get<string>("a"), Is.EqualTo("b"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(dynamicParameters.ParameterNames, Does.Contain("a"));
+                Assert.That(dynamicParameters.Get<string>("a"), Is.EqualTo("b"));
+            });
         }
 
         [Test]

@@ -155,7 +155,7 @@
         [Test]
         public void AddTestRun_ValidParameters_CallsDatabase()
         {
-            _mockDbConnection.SetupDapper(db => db.Execute(SpTestRunAddTestRun, null, null, null, CommandType.StoredProcedure)).Returns(1);
+            _mockDbConnection.SetupDapper(db => db.ExecuteScalar<int>(SpTestRunAddTestRun, null, null, null, CommandType.StoredProcedure)).Returns(1);
 
             var result = _database.AddTestRun(DateTime.UtcNow, DateTime.UtcNow, 0, 1, 2, 3, 4, 5, 6, 7, "a", "b", "c");
 

@@ -171,7 +171,7 @@
             int testRunId;
             try
             {
-                testRunId = _dbConnection.Execute(SpTestRunAddTestRun, dynamicParameters, commandTimeout: TimeoutInSeconds, commandType: CommandType.StoredProcedure);
+                testRunId = _dbConnection.ExecuteScalar<int>(SpTestRunAddTestRun, dynamicParameters, commandTimeout: TimeoutInSeconds, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
