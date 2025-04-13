@@ -5,11 +5,11 @@
 
     public interface ITestRunDto
     {
-        DateTime StartTime { get; set; }
+        DateTime StartTime { get; }
 
-        DateTime EndTime { get; set; }
+        DateTime EndTime { get; }
 
-        TimeSpan Duration { get; set; }
+        TimeSpan Duration { get; }
 
         int Total { get; }
 
@@ -25,7 +25,7 @@
 
         int Error { get; }
 
-        IEnvironmentDto Environment { get; set; }
+        IEnvironmentDto Environment { get; }
 
         TestMinerStatus TestMinerStatus { get; set; }
 

@@ -7,13 +7,28 @@
 
     public class TestRunDto : ITestRunDto
     {
-        private readonly List<ITestDto> _tests = [];
+        private readonly List<ITestDto> _tests;
 
-        public DateTime StartTime { get; set; }
+        public TestRunDto(DateTime startTime, DateTime endTime, TimeSpan duration, IEnvironmentDto environment)
+        {
+            ArgumentOutOfRangeException.ThrowIfEqual(startTime, default);
+            ArgumentOutOfRangeException.ThrowIfEqual(endTime, default);
+            ArgumentNullException.ThrowIfNull(duration);
+            ArgumentNullException.ThrowIfNull(environment);
 
-        public DateTime EndTime { get; set; }
+            StartTime = startTime;
+            EndTime = endTime;
+            Duration = duration;
+            Environment = environment;
 
-        public TimeSpan Duration { get; set; }
+            _tests = [];
+        }
+
+        public DateTime StartTime { get; private set; }
+
+        public DateTime EndTime { get; private set; }
+
+        public TimeSpan Duration { get; private set; }
 
         public int Total
         {
@@ -32,7 +47,7 @@
 
         public int Error { get; private set; }
 
-        required public IEnvironmentDto Environment { get; set; }
+        public IEnvironmentDto Environment { get; private set; }
 
         public TestMinerStatus TestMinerStatus { get; set; } = TestMinerStatus.Processing;
 
@@ -52,18 +67,23 @@
                 case Result.Inconclusive:
                     Inconclusive++;
                     break;
+
                 case Result.Passed:
                     Passed++;
                     break;
+
                 case Result.Warning:
                     Warning++;
                     break;
+
                 case Result.Skipped:
                     Skipped++;
                     break;
+
                 case Result.Failed:
                     Failed++;
                     break;
+
                 case Result.Error:
                     Error++;
                     break;

@@ -28,13 +28,11 @@
 
             try
             {
-                var testRunDto = new TestRunDto
-                {
-                    Environment = GetTestEnvironmentDto(testRun.TestSuites),
-                    StartTime = testRun.StartDateTimeUtc,
-                    EndTime = testRun.EndDateTimeUtc,
-                    Duration = testRun.DurationTimeSpan,
-                };
+                var testRunDto = new TestRunDto(
+                    testRun.StartDateTimeUtc,
+                    testRun.EndDateTimeUtc,
+                    testRun.DurationTimeSpan,
+                    GetTestEnvironmentDto(testRun.TestSuites));
 
                 IList<TestCase> testCases = GetTestCases(testRun.TestSuites);
 
