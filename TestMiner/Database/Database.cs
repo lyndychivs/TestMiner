@@ -38,8 +38,8 @@
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(md5Hash);
 
+            _dynamicParametersWrapper.Add("@hex", md5Hash, DbType.String);
             DynamicParameters dynamicParameters = _dynamicParametersWrapper.GetDynamicParameters();
-            dynamicParameters.Add("@hex", md5Hash, DbType.String);
 
             int testRunId;
             try
@@ -50,6 +50,10 @@
             {
                 _logWrapper.Error(ex, "Failed to get TestRunId from Hex.");
                 throw;
+            }
+            finally
+            {
+                _dynamicParametersWrapper.Clear();
             }
 
             return testRunId;
@@ -90,20 +94,20 @@
             ArgumentNullException.ThrowIfNull(stackTrace);
             ArgumentNullException.ThrowIfNull(reason);
 
+            _dynamicParametersWrapper.Add("@testRunId", testRunId, DbType.Int32);
+            _dynamicParametersWrapper.Add("@name", name, DbType.String);
+            _dynamicParametersWrapper.Add("@class", className, DbType.String);
+            _dynamicParametersWrapper.Add("@result", result, DbType.String);
+            _dynamicParametersWrapper.Add("@seed", seed, DbType.Int64);
+            _dynamicParametersWrapper.Add("@label", label.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@startTime", startTime, DbType.DateTime);
+            _dynamicParametersWrapper.Add("@endTime", endTime, DbType.DateTime);
+            _dynamicParametersWrapper.Add("@duration", duration, DbType.Int64);
+            _dynamicParametersWrapper.Add("@assertCount", asserts, DbType.Int32);
+            _dynamicParametersWrapper.Add("@failureMessage", label.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@stackTrace", label.GetNullable(), DbType.String);
+            _dynamicParametersWrapper.Add("@reason", label.GetNullable(), DbType.String);
             DynamicParameters dynamicParameters = _dynamicParametersWrapper.GetDynamicParameters();
-            dynamicParameters.Add("@testRunId", testRunId, DbType.Int32);
-            dynamicParameters.Add("@name", name, DbType.String);
-            dynamicParameters.Add("@class", className, DbType.String);
-            dynamicParameters.Add("@result", result, DbType.String);
-            dynamicParameters.Add("@seed", seed, DbType.Int64);
-            dynamicParameters.Add("@label", label.GetNullable(), DbType.String);
-            dynamicParameters.Add("@startTime", startTime, DbType.DateTime);
-            dynamicParameters.Add("@endTime", endTime, DbType.DateTime);
-            dynamicParameters.Add("@duration", duration, DbType.Int64);
-            dynamicParameters.Add("@assertCount", asserts, DbType.Int32);
-            dynamicParameters.Add("@failureMessage", label.GetNullable(), DbType.String);
-            dynamicParameters.Add("@stackTrace", label.GetNullable(), DbType.String);
-            dynamicParameters.Add("@reason", label.GetNullable(), DbType.String);
 
             try
             {
@@ -113,6 +117,10 @@
             {
                 _logWrapper.Error(ex, "Failed to add TestExecution.");
                 throw;
+            }
+            finally
+            {
+                _dynamicParametersWrapper.Clear();
             }
         }
 
@@ -145,20 +153,20 @@
             ArgumentException.ThrowIfNullOrWhiteSpace(machine);
             ArgumentException.ThrowIfNullOrWhiteSpace(hex);
 
+            _dynamicParametersWrapper.Add("@startTime", startTime, DbType.DateTime);
+            _dynamicParametersWrapper.Add("@endTime", endTime, DbType.DateTime);
+            _dynamicParametersWrapper.Add("@duration", duration, DbType.Int64);
+            _dynamicParametersWrapper.Add("@total", total, DbType.Int32);
+            _dynamicParametersWrapper.Add("@inconclusive", inconclusive, DbType.Int32);
+            _dynamicParametersWrapper.Add("@passed", passed, DbType.Int32);
+            _dynamicParametersWrapper.Add("@warning", warning, DbType.Int32);
+            _dynamicParametersWrapper.Add("@skipped", skipped, DbType.Int32);
+            _dynamicParametersWrapper.Add("@failed", failed, DbType.Int32);
+            _dynamicParametersWrapper.Add("@error", error, DbType.Int32);
+            _dynamicParametersWrapper.Add("@user", user, DbType.String);
+            _dynamicParametersWrapper.Add("@machine", machine, DbType.String);
+            _dynamicParametersWrapper.Add("@hex", hex, DbType.String);
             DynamicParameters dynamicParameters = _dynamicParametersWrapper.GetDynamicParameters();
-            dynamicParameters.Add("@startTime", startTime, DbType.DateTime);
-            dynamicParameters.Add("@endTime", endTime, DbType.DateTime);
-            dynamicParameters.Add("@duration", duration, DbType.Int64);
-            dynamicParameters.Add("@total", total, DbType.Int32);
-            dynamicParameters.Add("@inconclusive", inconclusive, DbType.Int32);
-            dynamicParameters.Add("@passed", passed, DbType.Int32);
-            dynamicParameters.Add("@warning", warning, DbType.Int32);
-            dynamicParameters.Add("@skipped", skipped, DbType.Int32);
-            dynamicParameters.Add("@failed", failed, DbType.Int32);
-            dynamicParameters.Add("@error", error, DbType.Int32);
-            dynamicParameters.Add("@user", user, DbType.String);
-            dynamicParameters.Add("@machine", machine, DbType.String);
-            dynamicParameters.Add("@hex", hex, DbType.String);
 
             int testRunId;
             try
@@ -170,6 +178,10 @@
                 _logWrapper.Error(ex, "Failed to add TestRun.");
                 throw;
             }
+            finally
+            {
+                _dynamicParametersWrapper.Clear();
+            }
 
             return testRunId;
         }
@@ -179,9 +191,9 @@
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(testRunId);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(testMinerStatusId);
 
+            _dynamicParametersWrapper.Add("@testRunId", testRunId, DbType.Int32);
+            _dynamicParametersWrapper.Add("@testMinerStatusId", testMinerStatusId, DbType.Byte);
             DynamicParameters dynamicParameters = _dynamicParametersWrapper.GetDynamicParameters();
-            dynamicParameters.Add("@testRunId", testRunId, DbType.Int32);
-            dynamicParameters.Add("@testMinerStatusId", testMinerStatusId, DbType.Byte);
 
             try
             {
@@ -191,6 +203,10 @@
             {
                 _logWrapper.Error(ex, $"Failed to update TestMinerStatus for TestRun. TestRunId={testRunId}");
                 throw;
+            }
+            finally
+            {
+                _dynamicParametersWrapper.Clear();
             }
         }
     }

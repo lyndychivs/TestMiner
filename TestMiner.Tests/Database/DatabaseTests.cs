@@ -75,6 +75,8 @@
             Assert.That(result, Is.EqualTo(1));
             _mockDbConnection.Verify(db => db.Open(), Times.Once);
             _mockDbConnection.Verify(db => db.Close(), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Add("@hex", "a", DbType.String), Times.Once);
+            _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
         }
 
         [Test]
@@ -89,6 +91,7 @@
                 Assert.That(ex?.Message, Is.EqualTo("Database error"));
 
                 _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to get TestRunId from Hex."), Times.Once);
+                _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
             });
         }
 
