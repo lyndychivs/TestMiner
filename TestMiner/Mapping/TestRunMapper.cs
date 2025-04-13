@@ -94,16 +94,6 @@
 
         private IList<TestCase> GetTestCases(IList<TestCase> testCases, IEnumerable<Test> tests)
         {
-            if (tests == null)
-            {
-                return testCases;
-            }
-
-            if (!tests.Any())
-            {
-                return testCases;
-            }
-
             foreach (Test test in tests)
             {
                 GetTestCase(testCases, test);

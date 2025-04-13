@@ -171,7 +171,8 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(0));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "ProcessFiles Failed."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to Deserialize Test Run. a"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "ProcessFiles Failed."), Times.Never);
         }
 
         [Test]
@@ -190,7 +191,8 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(0));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "ProcessFiles Failed."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to Deserialize Test Run. a"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "ProcessFiles Failed."), Times.Never);
         }
 
         [Test]

@@ -82,9 +82,18 @@
                         continue;
                     }
 
-                    TestRun testRun = _testReportSerializer.Deserialize(allText);
+                    ITestRunDto testRunDto;
+                    try
+                    {
+                        TestRun testRun = _testReportSerializer.Deserialize(allText);
 
-                    ITestRunDto testRunDto = _testRunMapper.MapTestRunToDto(testRun);
+                        testRunDto = _testRunMapper.MapTestRunToDto(testRun);
+                    }
+                    catch (Exception exception)
+                    {
+                        _logWrapper.Error(exception, $"Failed to Deserialize Test Run. {filePath}");
+                        continue;
+                    }
 
                     string md5Hash = testRunDto.CalculateMd5Hash();
                     if (_testMinerDal.IsTestRunPreviouslyRecorded(md5Hash))
