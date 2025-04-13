@@ -15,7 +15,7 @@
       "!**/FileWrapper.cs"
     ],
     "solution": "TestMiner.sln",
-    "configuration": "Github",
+    "configuration": "GitHub",
     "target-framework": "net8.0",
     "project": "/TestMiner/TestMiner.csproj",
     "coverage-analysis": "perTest",
@@ -44,7 +44,7 @@
       "fallback-version": "master"
     },
     "dashboard-url": "https://dashboard.stryker-mutator.io",
-    "test-projects": ["/TestMiner.Tests/TestMiner.Tests.csproj"],
+    "test-projects": ["/TestMiner.Tests/TestMiner.Tests.csproj", "/TestMiner.Models.Tests/TestMiner.Models.Tests.csproj"],
     "test-case-filter": "",
     "ignore-mutations": [],
     "ignore-methods": [],

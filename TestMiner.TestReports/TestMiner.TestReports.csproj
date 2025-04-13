@@ -3,6 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Configurations>Debug;Release;Github</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 </Project>

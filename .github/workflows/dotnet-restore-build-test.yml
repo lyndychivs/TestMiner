@@ -22,7 +22,7 @@ jobs:
       run: dotnet restore
 
     - name: dotnet build
-      run: dotnet build --no-restore --configuration Github
+      run: dotnet build --no-restore --configuration GitHub
 
     - name: dotnet test
-      run: dotnet test --no-build --configuration Github --verbosity normal --list-tests --blame
+      run: dotnet test --no-build --configuration GitHub --verbosity normal --list-tests --blame

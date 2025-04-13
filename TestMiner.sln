@@ -18,45 +18,53 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Tests", "TestMine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.TestReports", "TestMiner.TestReports\TestMiner.TestReports.csproj", "{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Models.Tests", "TestMiner.Models.Tests\TestMiner.Models.Tests.csproj", "{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Github|Any CPU = Github|Any CPU
+		GitHub|Any CPU = GitHub|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Github|Any CPU.ActiveCfg = Github|Any CPU
-		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Github|Any CPU.Build.0 = Github|Any CPU
+		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.GitHub|Any CPU.Build.0 = Debug|Any CPU
 		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871604A9-5CFD-42FF-B3CC-CFAF531175AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Github|Any CPU.ActiveCfg = Github|Any CPU
-		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Github|Any CPU.Deploy.0 = Github|Any CPU
+		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.GitHub|Any CPU.Deploy.0 = Debug|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22761F4F-DD89-401D-9C2F-5F0037C5168C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Github|Any CPU.ActiveCfg = Github|Any CPU
-		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Github|Any CPU.Build.0 = Github|Any CPU
+		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.GitHub|Any CPU.Build.0 = Debug|Any CPU
 		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{697CD498-87CA-487C-95CF-04EA0FB3C4EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Github|Any CPU.ActiveCfg = Github|Any CPU
-		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Github|Any CPU.Build.0 = Github|Any CPU
+		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.GitHub|Any CPU.Build.0 = Debug|Any CPU
 		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F716347-8BEF-44CD-B8BA-0B189D373CDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Github|Any CPU.ActiveCfg = Github|Any CPU
-		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Github|Any CPU.Build.0 = Github|Any CPU
+		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.GitHub|Any CPU.Build.0 = Debug|Any CPU
 		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18EB2D6F-F959-4A19-86B8-AD06E7609DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.GitHub|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.GitHub|Any CPU.Build.0 = Debug|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

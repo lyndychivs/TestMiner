@@ -13,7 +13,6 @@
         {
             ArgumentOutOfRangeException.ThrowIfEqual(startTime, default);
             ArgumentOutOfRangeException.ThrowIfEqual(endTime, default);
-            ArgumentNullException.ThrowIfNull(duration);
             ArgumentNullException.ThrowIfNull(environment);
 
             StartTime = startTime;

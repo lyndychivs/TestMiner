@@ -52,7 +52,7 @@
 
         private static TestDto MapTestCaseToTestRun(TestCase testCase)
         {
-            var testDto = new TestDto
+            var testDto = new TestDto()
             {
                 Name = testCase.Name,
                 ClassName = testCase.ClassName,
