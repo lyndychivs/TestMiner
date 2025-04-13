@@ -73,7 +73,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -94,7 +94,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -115,7 +115,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -136,7 +136,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -157,7 +157,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -178,7 +178,7 @@
                                 Label = "f",
                                 Reason = new TestReason
                                 {
-                                    Messages = "g",
+                                    Message = "g",
                                 },
                                 Failure = new TestFailure
                                 {
@@ -350,7 +350,7 @@
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
-        public void MapTestRunToDto_InvalidReason_ReturnsTestDtoWithStringEmptyReason(string? messages)
+        public void MapTestRunToDto_InvalidReason_ReturnsTestDtoWithStringEmptyReason(string? message)
         {
             // Arrange
             var testRun = new TestRun
@@ -374,7 +374,7 @@
                                 ClassName = "e",
                                 Reason = new TestReason()
                                 {
-                                    Messages = messages,
+                                    Message = message,
                                 },
                             },
                         ],

@@ -5,6 +5,6 @@
     public class TestReason
     {
         [XmlElement("message")]
-        public string? Messages { get; set; }
+        public string? Message { get; set; }
     }
 }

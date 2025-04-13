@@ -69,9 +69,9 @@
                 testDto.Label = testCase.Label;
             }
 
-            if (!string.IsNullOrWhiteSpace(testCase?.Reason?.Messages))
+            if (!string.IsNullOrWhiteSpace(testCase?.Reason?.Message))
             {
-                testDto.Reason = testCase.Reason.Messages;
+                testDto.Reason = testCase.Reason.Message;
             }
 
             if (!string.IsNullOrWhiteSpace(testCase?.Failure?.Message))
