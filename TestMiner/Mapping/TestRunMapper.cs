@@ -40,15 +40,7 @@
 
                 foreach (TestCase testCase in testCases)
                 {
-                    try
-                    {
-                        MapTestCaseToTestRun(testRunDto, testCase);
-                    }
-                    catch (Exception exception)
-                    {
-                        _logWrapper.Warning(exception, "Failed to map TestCase.");
-                        continue;
-                    }
+                    testRunDto.AddTest(MapTestCaseToTestRun(testCase));
                 }
 
                 return testRunDto;
@@ -60,7 +52,7 @@
             }
         }
 
-        private static void MapTestCaseToTestRun(TestRunDto testRunDto, TestCase testCase)
+        private static TestDto MapTestCaseToTestRun(TestCase testCase)
         {
             var testDto = new TestDto
             {
@@ -94,7 +86,7 @@
                 testDto.StackTrace = testCase.Failure.StackTrace;
             }
 
-            testRunDto.AddTest(testDto);
+            return testDto;
         }
 
         private IList<TestCase> GetTestCases(IList<TestSuite> testSuites)
