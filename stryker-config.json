@@ -11,6 +11,7 @@
     "additional-timeout": 5000,
     "mutate": [
       "**/*",
+      "!**/Program.cs",
       "!**/FileWrapper.cs"
     ],
     "solution": "TestMiner.sln",
