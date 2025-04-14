@@ -1,6 +1,7 @@
 ﻿namespace TestMiner.Database.IntegrationTests
 {
     using System.Collections.Generic;
+
     using Microsoft.Data.SqlClient;
 
     using NUnit.Framework;
@@ -11,8 +12,6 @@
     {
         protected const string ConnectionString = "";
 
-        protected readonly SqlConnection DbConnection;
-
         protected DatabaseTestsBase()
         {
             if (string.IsNullOrWhiteSpace(ConnectionString))
@@ -22,6 +21,8 @@
 
             DbConnection = new SqlConnection(ConnectionString);
         }
+
+        protected SqlConnection DbConnection { get; private init; }
 
         protected static void AssertTableInformationSchemasAreEqual(List<InformationSchemaTable> actual, List<InformationSchemaTable> expected)
         {
