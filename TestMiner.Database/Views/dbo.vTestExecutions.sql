@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[v_TestExecutions] AS
+﻿CREATE VIEW [dbo].[vTestExecutions] AS
 SELECT
     te.Id as 'TestExecutionId',
     te.TestId as 'TestId',

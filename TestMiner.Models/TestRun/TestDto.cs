@@ -4,23 +4,23 @@
 
     public class TestDto : ITestDto
     {
-        required public string Name { get; set; }
+        required public string Name { get; init; }
 
-        required public string ClassName { get; set; }
+        required public string ClassName { get; init; }
 
-        public Result Result { get; set; }
+        public Result Result { get; init; }
 
-        public long Seed { get; set; }
+        public long Seed { get; init; }
 
         public string Label { get; set; } = string.Empty;
 
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime { get; init; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime EndTime { get; init; }
 
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Duration { get; init; }
 
-        public int Asserts { get; set; }
+        public int Asserts { get; init; }
 
         public string FailureMessage { get; set; } = string.Empty;
 
