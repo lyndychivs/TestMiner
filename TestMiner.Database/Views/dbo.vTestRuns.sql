@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[v_TestRuns] AS
+﻿CREATE VIEW [dbo].[vTestRuns] AS
 SELECT
     tr.Id as 'TestRunId',
     tr.Total as 'Total',

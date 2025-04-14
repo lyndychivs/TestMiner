@@ -1,4 +1,4 @@
-﻿USE [TestMinerHistory]
+﻿USE [TestMiner]
 GO
 
 IF NOT EXISTS (SELECT [Status] FROM [dbo].[TestMinerStatus] WHERE [Status] = 'Processing')

@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>TestMinerHistory</RootNamespace>
-    <AssemblyName>TestMinerHistory</AssemblyName>
+    <RootNamespace>TestMiner</RootNamespace>
+    <AssemblyName>TestMiner</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
