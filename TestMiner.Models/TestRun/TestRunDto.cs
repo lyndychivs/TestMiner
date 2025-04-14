@@ -48,7 +48,7 @@
 
         public IEnvironmentDto Environment { get; private set; }
 
-        public TestMinerStatus TestMinerStatus { get; set; } = TestMinerStatus.Processing;
+        public TestMinerStatus TestMinerStatus { get; } = TestMinerStatus.Processing;
 
         public IList<ITestDto> Tests
         {

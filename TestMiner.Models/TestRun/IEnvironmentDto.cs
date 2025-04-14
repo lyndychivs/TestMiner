@@ -2,9 +2,9 @@
 {
     public interface IEnvironmentDto
     {
-        string MachineName { get; set; }
+        string MachineName { get; init; }
 
-        string User { get; set; }
+        string User { get; init; }
 
         string ToString();
     }

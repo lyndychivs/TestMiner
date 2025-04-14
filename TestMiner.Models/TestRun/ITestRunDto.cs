@@ -27,7 +27,7 @@
 
         IEnvironmentDto Environment { get; }
 
-        TestMinerStatus TestMinerStatus { get; set; }
+        TestMinerStatus TestMinerStatus { get; }
 
         IList<ITestDto> Tests { get; }
 

@@ -8,9 +8,9 @@
     internal class TestMinerOptions : ITestMinerOptions
     {
         [Option('r', "reports", Required = true, HelpText = "\nFile paths of the NUnit3 Test Report files to process.")]
-        required public IEnumerable<string> ReportFilePaths { get; set; }
+        required public IEnumerable<string> ReportFilePaths { get; init; }
 
         [Option('c', "connection", Required = false, HelpText = "\nThe Connection String to the Database. (can also be specified by the Connection.json)")]
-        public string ConnectionString { get; set; } = string.Empty;
+        public string ConnectionString { get; init; } = string.Empty;
     }
 }

@@ -4,23 +4,23 @@
 
     public interface ITestDto
     {
-        string Name { get; set; }
+        string Name { get; init; }
 
-        string ClassName { get; set; }
+        string ClassName { get; init; }
 
-        Result Result { get; set; }
+        Result Result { get; init; }
 
-        long Seed { get; set; }
+        long Seed { get; init; }
 
         string Label { get; set; }
 
-        DateTime StartTime { get; set; }
+        DateTime StartTime { get; init; }
 
-        DateTime EndTime { get; set; }
+        DateTime EndTime { get; init; }
 
-        TimeSpan Duration { get; set; }
+        TimeSpan Duration { get; init; }
 
-        int Asserts { get; set; }
+        int Asserts { get; init; }
 
         string FailureMessage { get; set; }
 
