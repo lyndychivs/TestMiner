@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.TestReports", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Models.Tests", "TestMiner.Models.Tests\TestMiner.Models.Tests.csproj", "{BB5B7FC5-7DCC-4ABE-8FE2-A01935D2076B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Database.IntegrationTests", "TestMiner.Database.Tests\TestMiner.Database.IntegrationTests.csproj", "{5976F7F6-CD7E-4808-AED5-49406F5C0082}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Database.IntegrationTests", "TestMiner.Database.IntegrationTests\TestMiner.Database.IntegrationTests.csproj", "{5976F7F6-CD7E-4808-AED5-49406F5C0082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
