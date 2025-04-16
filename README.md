@@ -36,9 +36,9 @@ TestMiner.exe --reports "C:\SampleData\TestResults1.xml" --connection "Server=lo
 It's also possible to specify the Database Connection string via the [Connection.json](TestMiner/Connection.json) file.
 
 ## Database
-The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to any SQL Express Server instance.
+The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to your own SQL Server instance.
 
-I plan on implementing a docker container for this also.
+I plan on implementing a Docker container for this also. (soon...)
 
 ## Testing
 - Unit Testing
