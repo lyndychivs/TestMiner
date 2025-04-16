@@ -1,8 +1,8 @@
-﻿namespace TestMiner.Database.IntegrationTests.StoredProcedures
+﻿namespace TestMiner.Database.ComponentTests.StoredProcedures
 {
     using System.Collections.Generic;
 
-    internal static class TestExecutionsAddTestInformationSchema
+    internal static class TestRunsGetIdFromHexInformationSchema
     {
         internal static List<InformationSchemaRoutine> Get()
         {
@@ -12,7 +12,7 @@
                 {
                     ROUTINE_CATALOG = "TestMiner",
                     ROUTINE_SCHEMA = "dbo",
-                    ROUTINE_NAME = "spTestExecutions_AddTest",
+                    ROUTINE_NAME = "spTestRuns_GetIdFromHex",
                     ROUTINE_TYPE = "PROCEDURE",
                 },
                 ];

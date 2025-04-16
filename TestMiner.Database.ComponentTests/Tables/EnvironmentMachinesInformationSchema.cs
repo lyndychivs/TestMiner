@@ -1,14 +1,14 @@
-﻿namespace TestMiner.Database.IntegrationTests.Tables
+﻿namespace TestMiner.Database.ComponentTests.Tables
 {
     using System.Collections.Generic;
 
-    internal static class TestResultsInformationSchema
+    internal class EnvironmentMachinesInformationSchema
     {
         private const string TableCatalog = "TestMiner";
 
         private const string TableSchema = "dbo";
 
-        private const string TableName = "TestResults";
+        private const string TableName = "EnvironmentMachines";
 
         internal static List<InformationSchemaTable> Get()
         {
@@ -22,7 +22,7 @@
                     COLUMN_NAME = "Id",
                     ORDINAL_POSITION = "1",
                     IS_NULLABLE = "NO",
-                    DATA_TYPE = "tinyint",
+                    DATA_TYPE = "int",
                     CHARACTER_MAXIMUM_LENGTH = null,
                 },
                 new ()
@@ -30,13 +30,13 @@
                     TABLE_CATALOG = TableCatalog,
                     TABLE_SCHEMA = TableSchema,
                     TABLE_NAME = TableName,
-                    COLUMN_NAME = "Result",
+                    COLUMN_NAME = "Machine",
                     ORDINAL_POSITION = "2",
                     IS_NULLABLE = "NO",
-                    DATA_TYPE = "varchar",
-                    CHARACTER_MAXIMUM_LENGTH = "12",
+                    DATA_TYPE = "nvarchar",
+                    CHARACTER_MAXIMUM_LENGTH = "200",
                 },
-            ];
+                ];
         }
     }
 }

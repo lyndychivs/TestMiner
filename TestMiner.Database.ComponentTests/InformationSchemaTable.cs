@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Database.IntegrationTests
+﻿namespace TestMiner.Database.ComponentTests
 {
     public class InformationSchemaTable
     {

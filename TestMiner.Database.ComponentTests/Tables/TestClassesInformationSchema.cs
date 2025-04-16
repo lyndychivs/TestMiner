@@ -1,14 +1,14 @@
-﻿namespace TestMiner.Database.IntegrationTests.Tables
+﻿namespace TestMiner.Database.ComponentTests.Tables
 {
     using System.Collections.Generic;
 
-    internal static class TestsInformationSchema
+    internal static class TestClassesInformationSchema
     {
         private const string TableCatalog = "TestMiner";
 
         private const string TableSchema = "dbo";
 
-        private const string TableName = "Tests";
+        private const string TableName = "TestClasses";
 
         internal static List<InformationSchemaTable> Get()
         {
@@ -30,19 +30,8 @@
                     TABLE_CATALOG = TableCatalog,
                     TABLE_SCHEMA = TableSchema,
                     TABLE_NAME = TableName,
-                    COLUMN_NAME = "TestClassId",
+                    COLUMN_NAME = "Class",
                     ORDINAL_POSITION = "2",
-                    IS_NULLABLE = "NO",
-                    DATA_TYPE = "int",
-                    CHARACTER_MAXIMUM_LENGTH = null,
-                },
-                new ()
-                {
-                    TABLE_CATALOG = TableCatalog,
-                    TABLE_SCHEMA = TableSchema,
-                    TABLE_NAME = TableName,
-                    COLUMN_NAME = "Name",
-                    ORDINAL_POSITION = "3",
                     IS_NULLABLE = "NO",
                     DATA_TYPE = "nvarchar",
                     CHARACTER_MAXIMUM_LENGTH = "500",

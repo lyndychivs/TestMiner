@@ -71,7 +71,7 @@ You should now be able to connect to the SQL Server, using `localhost` on port `
 - Unit Testing
   - [TestMiner.Tests](TestMiner.Tests)
   - [TestMiner.Models.Tests](TestMiner.Models.Tests)
-- Integration Testing
-  - [TestMiner.Database.IntegrationTests](TestMiner.Database.IntegrationTests)
+- Component Testing
+  - [TestMiner.Database.ComponentTests](TestMiner.Database.ComponentTests)
 - Mutation Testing
   - [Strkyer.NET](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/master) with [my GitHub Action](https://github.com/lyndychivs/dotnet-stryker-action)

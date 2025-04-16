@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Database.IntegrationTests.Tables
+﻿namespace TestMiner.Database.ComponentTests.Tables
 {
     using System.Data;
     using System.Linq;

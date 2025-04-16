@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Database.IntegrationTests.Views
+﻿namespace TestMiner.Database.ComponentTests.Views
 {
     using System.Data;
     using System.Linq;

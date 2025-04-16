@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Database.IntegrationTests.StoredProcedures
+﻿namespace TestMiner.Database.ComponentTests.StoredProcedures
 {
     using System.Data;
     using System.Linq;

@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Database.IntegrationTests
+﻿namespace TestMiner.Database.ComponentTests
 {
     using System.Collections.Generic;
 
@@ -6,7 +6,7 @@
 
     using NUnit.Framework;
 
-    using TestMiner.Database.IntegrationTests.StoredProcedures;
+    using TestMiner.Database.ComponentTests.StoredProcedures;
 
     public class DatabaseTestsBase
     {
