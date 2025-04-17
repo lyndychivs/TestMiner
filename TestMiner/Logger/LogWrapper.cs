@@ -9,7 +9,7 @@
         private readonly ILogger _logger;
 
         internal LogWrapper(Type type)
-            : this(LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.Trace).AddConsole()).CreateLogger(type))
+            : this(LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.Information).AddConsole()).CreateLogger(type))
         {
         }
 
