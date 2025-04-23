@@ -1,4 +1,4 @@
-﻿namespace TestMiner.Tests.Logger
+﻿namespace TestMiner.IntegrationTests
 {
     using System;
 

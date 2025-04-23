@@ -8,7 +8,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    [Explicit("Integration Tests require a live Database Connection.")]
+    [Explicit("Tests require a live Database Connection.")]
     public class StoredProceduresTests : DatabaseTestsBase
     {
         [Test]

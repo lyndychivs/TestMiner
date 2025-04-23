@@ -7,7 +7,7 @@
 
     using TestMiner.Logger;
 
-    public class Database : IDatabase
+    internal class Database : IDatabase
     {
         private const string SpTestRunUpdateTestMinerStatus = "dbo.spTestRuns_UpdateTestMinerStatus";
         private const string SpTestRunAddTestRun = "dbo.spTestRuns_AddTestRun";
@@ -22,7 +22,7 @@
 
         private readonly IDynamicParametersWrapper _dynamicParametersWrapper;
 
-        public Database(IDbConnection dbConnection)
+        internal Database(IDbConnection dbConnection)
             : this(new LogWrapper(typeof(Database)), dbConnection, new DynamicParametersWrapper())
         {
         }
