@@ -16,7 +16,7 @@
         {
             if (string.IsNullOrWhiteSpace(ConnectionString))
             {
-                Assert.Ignore("ConnectionString is not set. Integration Tests require a live Database Connection.");
+                Assert.Ignore("ConnectionString is not set. Test requires a live Database Connection.");
             }
 
             DbConnection = new SqlConnection(ConnectionString);

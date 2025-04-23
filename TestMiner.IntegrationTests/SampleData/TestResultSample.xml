@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="6" result="Passed" total="6" passed="1" failed="1" warnings="1" inconclusive="1" skipped="1" asserts="21" engine-version="3.19.2.0" clr-version="8.0.13" start-time="2025-02-23 18:10:16Z" end-time="2025-02-23 18:10:17Z" duration="1.271509">
+    <command-line><![CDATA[C:\PATH\nunit3-console\net8.0\nunit3-console.dll ./TestMiner.Tests.dll]]></command-line>
+    <test-suite type="Assembly" id="1-1014" name="TestMiner.Tests.dll" fullname="C:\git\TestMiner\TestMiner.Tests\bin\Debug\net8.0\TestMiner.Tests.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-02-23T18:10:16.2102663Z" end-time="2025-02-23T18:10:17.3855674Z" duration="1.065288" total="6" passed="1" failed="1" warnings="1" inconclusive="1" skipped="1" asserts="21">
+        <environment framework-version="4.3.2.0" clr-version="8.0.13" os-version="Microsoft Windows 10" platform="Win32NT" cwd="C:\git\TestMiner" machine-name="DESKTOP" user="Administrator" user-domain="DESKTOP" culture="en-GB" uiculture="en-GB" os-architecture="x64" />
+        <settings>
+            <setting name="DisposeRunners" value="True" />
+            <setting name="WorkDirectory" value="C:\git\TestMiner" />
+            <setting name="NumberOfTestWorkers" value="16" />
+        </settings>
+        <properties>
+            <property name="ParallelScope" value="All" />
+            <property name="_PID" value="55772" />
+            <property name="_APPDOMAIN" value="nunit3-console" />
+        </properties>
+        <test-suite type="TestSuite" id="1-1015" name="TestMiner" fullname="TestMiner" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-02-23T18:10:16.2125843Z" end-time="2025-02-23T18:10:17.3855621Z" duration="1.062979" total="6" passed="1" failed="1" warnings="1" inconclusive="1" skipped="1" asserts="21">
+            <test-suite type="TestSuite" id="1-1016" name="Tests" fullname="TestMiner.Tests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-02-23T18:10:16.2127119Z" end-time="2025-02-23T18:10:17.3855595Z" duration="1.062848" total="6" passed="1" failed="1" warnings="1" inconclusive="1" skipped="1" asserts="21">
+                <test-suite type="TestFixture" id="1-1000" name="TestMinerConstructorTests" fullname="TestMiner.Tests.TestMinerConstructorTests" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-02-23T18:10:16.2127627Z" end-time="2025-02-23T18:10:16.2198252Z" duration="0.007062" total="6" passed="1" failed="1" warnings="1" inconclusive="1" skipped="1" asserts="21">
+                    <test-case id="1-1001" name="Constructor_ValidParameters_Passes" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Passes" methodname="Constructor_ValidParameters_Passes" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" seed="1736395274" result="Passed" start-time="2025-02-23T18:10:16.2137485Z" end-time="2025-02-23T18:10:16.2182720Z" duration="0.004549" asserts="1" />
+                    <test-case id="1-1006" name="Constructor_ValidParameters_Inconclusive" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Inconclusive" methodname="Constructor_ValidParameters_Inconclusive" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" seed="62699635" result="Inconclusive" start-time="2025-02-23T18:10:16.2137444Z" end-time="2025-02-23T18:10:16.2194043Z" duration="0.005660" asserts="2" />
+                    <test-case id="1-1002" name="Constructor_ValidParameters_Warning" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Warning" methodname="Constructor_ValidParameters_Warning" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" seed="543897017" result="Warning" start-time="2025-02-23T18:10:16.2137495Z" end-time="2025-02-23T18:10:16.2194049Z" duration="0.005655" asserts="3" />
+                    <test-case id="1-1004" name="Constructor_ValidParameters_Skipped" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Skipped" methodname="Constructor_ValidParameters_Skipped" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Ignored" seed="2082741864" result="Skipped" start-time="2025-02-23T18:10:16.2137447Z" end-time="2025-02-23T18:10:16.2194057Z" duration="0.005657" asserts="4">
+                        <properties>
+                            <property name="_SKIPREASON" value="ignoring a test." />
+                        </properties>
+                        <reason>
+                            <message><![CDATA[ignoring a test.]]></message>
+                        </reason>
+                    </test-case>
+                    <test-case id="1-1003" name="Constructor_ValidParameters_Failed" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Failed" methodname="Constructor_ValidParameters_Failed" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" seed="300089673" result="Failed" label="Error" start-time="2025-02-23T18:10:16.2137504Z" end-time="2025-02-23T18:10:16.2194054Z" duration="0.005655" asserts="5">
+                        <failure>
+                            <message>
+                                <![CDATA[  Assert.That(counter, Is.EqualTo(2))
+  Expected: 2
+  But was:  1]]>
+                            </message>
+                            <stack-trace>
+                                <![CDATA[   at TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Failed() in C:\git\TestMiner\TestMiner.Tests\TestMinerConstructorTests.cs:line 29]]>
+                            </stack-trace>
+                        </failure>
+                        <assertions>
+                            <assertion result="Failed">
+                                <message>
+                                    <![CDATA[  Assert.That(counter, Is.EqualTo(2))
+  Expected: 2
+  But was:  1]]>
+                                </message>
+                                <stack-trace>
+                                    <![CDATA[   at TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Failed() in C:\git\TestMiner\TestMiner.Tests\TestMinerConstructorTests.cs:line 29]]>
+                                </stack-trace>
+                            </assertion>
+                        </assertions>
+                    </test-case>
+                    <test-case id="1-1005" name="Constructor_ValidParameters_Error" fullname="TestMiner.Tests.TestMinerConstructorTests.Constructor_ValidParameters_Error" methodname="Constructor_ValidParameters_Error" classname="TestMiner.Tests.TestMinerConstructorTests" runstate="Runnable" seed="264476735" result="Error" label="Error" start-time="2025-02-23T18:10:16.2137447Z" end-time="2025-02-23T18:10:16.2194047Z" duration="0.005660" asserts="6" />
+                </test-suite>
+            </test-suite>
+        </test-suite>
+    </test-suite>
+</test-run>
