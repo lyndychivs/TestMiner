@@ -22,7 +22,7 @@ File paths of the NUnit3 Test Report files to process.
 ```sh
 TestMiner.exe --reports "C:\SampleData\TestResults1.xml"
 ```
-or multiple reports:
+*or multiple reports:*
 ```sh
 TestMiner.exe --reports "C:\SampleData\TestResults1.xml" "C:\SampleData\TestResults2.xml"
 ```
@@ -53,17 +53,22 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=TestMinerPass1!" -p 1433:143
 > [!CAUTION]
 > When you stop and remove a container, your SQL Server data in the container is permanently deleted.
 
-View the Docker containers:
+*View the Docker containers:*
 ```bash
 docker ps -a
 ```
-Example output:
+*Example output:*
 ```bash
 CONTAINER ID   IMAGE                                        COMMAND                    CREATED         STATUS         PORTS                                       NAMES
 d4a1999ef83e   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/perm..."   2 minutes ago   Up 2 minutes   0.0.0.0:1433->1433/tcp, :::1433->1433/tcp   testminer
 ```
 
 You should now be able to connect to the SQL Server, using `localhost` on port `1433` with the username `sa` and password `TestMinerPass1!`
+
+*Connection String Example:*
+```
+Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1!;Encrypt=true;TrustServerCertificate=true;
+```
 
 [Publish](https://learn.microsoft.com/en-us/sql/tools/sql-database-projects/get-started?view=sql-server-ver16&pivots=sq1-visual-studio#step-4-deploy-the-project) [TestMiner.Database](TestMiner.Database) to the the Docker container.
 
