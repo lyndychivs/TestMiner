@@ -111,12 +111,18 @@
         [Test]
         public void SaveConnectionString_ValidConnectionString_ReturnsZero()
         {
-            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.Is<Connection>(c => c.ConnectionString.Equals("a")))).Returns("b");
+            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("b");
             _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), "b"));
 
             var result = _connectionManager.SaveConnectionString("a");
 
             Assert.That(result, Is.EqualTo(0));
+            _mockConnectionSerializer.Verify(
+                serializer => serializer.Serialize(
+                It.Is<Connection>(
+                    c =>
+                    c.ConnectionString.Equals("a"))),
+                Times.Once);
             _mockLogWrapper.Verify(log => log.Info($"Connection String saved."), Times.Once);
         }
 
