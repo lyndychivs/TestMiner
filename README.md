@@ -50,7 +50,7 @@ save [parameters]
 TestMiner.exe save --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner;"
 ```
 
-## Database
+## 💽 Database
 The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to your own SQL Server instance.
 
 ### SQL Server in Docker
@@ -89,7 +89,7 @@ Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1
 
 Using Visual Studio, Publish [TestMiner.Database](TestMiner.Database) to the the Docker container.
 
-## Testing
+## 🧪 Testing
 - Unit Testing
   - [TestMiner.Tests](TestMiner.Tests)
   - [TestMiner.Models.Tests](TestMiner.Models.Tests)
