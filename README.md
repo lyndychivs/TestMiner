@@ -1,55 +1,71 @@
 # TestMiner
 [![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Flyndychivs%2FTestMiner%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/master)
 
-## High Level
-Test Miner was designed to parse NUnit3 Test Reports and store the information into a Relational Database.
+## 🔭 High Level
+Test Miner was designed to parse NUnit3 Test Reports and store the results into a Relational Database.
 
 The Database would provide users with the means to historically track and monitor trends of Test Results.
 
 ![Test Miner Diagram](/Resources/TestMinerDiagram.png)
 
-### Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (you're on the hook to pay for the storage 😂)
-- NUnit3 Test Results in XML format (use `--result=TestResult.xml;format=nunit3` when running tests).
+## Prerequisites
+| Prerequisite        | Note |
+| :---                | :--- |
+| .NET8 SDK           | .NET8 or greater required.<br/>Check current .NET version `dotnet --version`.<br/>Download .NET8 [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). |
+| SQL Server          | The Database template can be found within this repository [here](TestMiner.Database). <br/>Download SQL Server Express [here](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).<br/>You're on the hook to pay for the storage. 😂 |
+| NUnit3 Test Results | The NUnit3 Test Results must be in XML format.<br/>Use `--result=TestResult.xml;format=nunit3` when executing tests. |
 
-## Test Miner Console Application
+## 🖥️ Test Miner Console Application
 Specify the following commands & arguments:
 
-#### `--reports` or `-r` (required)
-File paths of the NUnit3 Test Report files to process.
-##### Example:
-```sh
-TestMiner.exe --reports "C:\SampleData\TestResults1.xml"
+### 🛠️Command Line Usages
+#### ⛏️ mine
+Mine Test Report files to the Database.
+```bash
+mine [parameters]
 ```
-*or multiple reports:*
-```sh
-TestMiner.exe --reports "C:\SampleData\TestResults1.xml" "C:\SampleData\TestResults2.xml"
+##### Parameters
+| Argument                          | Description | Default | Required |
+| :---                              | :---        | :---    | :---     |
+| `--reports <filePath>`            | File paths of the NUnit3 Test Report files to upload ("mine") to the Database.<br/>Can specify multiple file paths. | — | Yes |
+| `--connection <connectionString>` | The Connection String to the Database. | — | No |
+
+###### Example
+```bash
+TestMiner.exe mine --reports "C:\SampleData\TestResults1.xml" --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner;"
 ```
 
-#### `--connection` or `-c` (optional)
-The Connection String to the Database.
-##### Example:
-```sh
-TestMiner.exe --reports "C:\SampleData\TestResults1.xml" --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner;"
+#### 💾 save
+Saves the Database Connection String locally.
+```bash
+save [parameters]
 ```
-It's also possible to specify the Database Connection string via the [Connection.json](TestMiner/Connection.json) file.
+##### Parameters
+| Argument                          | Description | Default | Required |
+| :---                              | :---        | :---    | :---     |
+| `--connection <connectionString>` | The Connection String to the Database. | — | Yes |
+
+###### Example
+```bash
+TestMiner.exe save --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner;"
+```
 
 ## Database
 The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to your own SQL Server instance.
 
 ### SQL Server in Docker
-Incase any guidance changes; [here](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker) is a link to the Microsoft documentation for installing SQL Server on Docker.
+In case any guidance changes; [here](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker) is a link to the Microsoft documentation for installing SQL Server on Docker.
 
-Pull the SQL Server 2022 (16.x) Linux container image from the Microsoft Container Registry.
+*Pull the SQL Server 2022 (16.x) Linux container image from the Microsoft Container Registry.*
 ```bash
 docker pull mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-To run the Linux container image with Docker, you can use the following command from a bash shell or elevated PowerShell command prompt.
+*Run the Linux container image with Docker, use the following command from a bash shell or elevated PowerShell command prompt.*
 ```bash
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=TestMinerPass1!" -p 1433:1433 --name testminer --hostname testminer -d mcr.microsoft.com/mssql/server:2022-latest
 ```
+
 > [!CAUTION]
 > When you stop and remove a container, your SQL Server data in the container is permanently deleted.
 
@@ -57,6 +73,7 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=TestMinerPass1!" -p 1433:143
 ```bash
 docker ps -a
 ```
+
 *Example output:*
 ```bash
 CONTAINER ID   IMAGE                                        COMMAND                    CREATED         STATUS         PORTS                                       NAMES
@@ -70,7 +87,7 @@ You should now be able to connect to the SQL Server, using `localhost` on port `
 Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1!;Encrypt=true;TrustServerCertificate=true;
 ```
 
-[Publish](https://learn.microsoft.com/en-us/sql/tools/sql-database-projects/get-started?view=sql-server-ver16&pivots=sq1-visual-studio#step-4-deploy-the-project) [TestMiner.Database](TestMiner.Database) to the the Docker container.
+Using Visual Studio, Publish [TestMiner.Database](TestMiner.Database) to the the Docker container.
 
 ## Testing
 - Unit Testing
