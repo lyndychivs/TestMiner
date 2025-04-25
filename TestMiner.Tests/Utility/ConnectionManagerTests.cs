@@ -22,6 +22,8 @@
 
         private readonly Mock<IFileWrapper> _mockFileWrapper;
 
+        private readonly Mock<IConnectionSerializer> _mockConnectionSerializer;
+
         private readonly ConnectionManager _connectionManager;
 
         public ConnectionManagerTests()
@@ -29,8 +31,13 @@
             _mockLogWrapper = new Mock<ILogWrapper>();
             _mockConnectionConfigurationBuilder = new Mock<IConnectionConfigurationBuilder>();
             _mockFileWrapper = new Mock<IFileWrapper>();
+            _mockConnectionSerializer = new Mock<IConnectionSerializer>();
 
-            _connectionManager = new ConnectionManager(_mockLogWrapper.Object, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object);
+            _connectionManager = new ConnectionManager(
+                _mockLogWrapper.Object,
+                _mockConnectionConfigurationBuilder.Object,
+                _mockFileWrapper.Object,
+                _mockConnectionSerializer.Object);
         }
 
         [Test]
@@ -99,6 +106,52 @@
                 Assert.That(ex?.Message, Is.EqualTo($"ConnectionString cannot be null."));
                 _mockLogWrapper.Verify(log => log.Error(It.IsAny<NullReferenceException>(), $"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
             });
+        }
+
+        [Test]
+        public void SaveConnectionString_ValidConnectionString_ReturnsZero()
+        {
+            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("a");
+            _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
+
+            var result = _connectionManager.SaveConnectionString("a");
+
+            Assert.That(result, Is.EqualTo(0));
+            _mockLogWrapper.Verify(log => log.Info($"Connection String saved."), Times.Once);
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void SaveConnectionString_InvalidConnectionString_ReturnsOne(string? connectionString)
+        {
+            var result = _connectionManager.SaveConnectionString(connectionString!);
+
+            Assert.That(result, Is.EqualTo(1));
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<ArgumentNullException>(), $"Connection String cannot be null or empty."), Times.Once);
+        }
+
+        [Test]
+        public void SaveConnectionString_SerializerThrowsException_ReturnsOne()
+        {
+            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Throws(new Exception());
+
+            var result = _connectionManager.SaveConnectionString("a");
+
+            Assert.That(result, Is.EqualTo(1));
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to Save Connection String."), Times.Once);
+        }
+
+        [Test]
+        public void SaveConnectionString_WriteAllTextThrowsExection_ReturnsOne()
+        {
+            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("a");
+            _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
+
+            var result = _connectionManager.SaveConnectionString("a");
+
+            Assert.That(result, Is.EqualTo(1));
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to Save Connection String."), Times.Once);
         }
     }
 }

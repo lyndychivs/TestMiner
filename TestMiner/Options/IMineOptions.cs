@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    internal interface ITestMinerOptions
+    internal interface IMineOptions
     {
         IEnumerable<string> ReportFilePaths { get; }
 

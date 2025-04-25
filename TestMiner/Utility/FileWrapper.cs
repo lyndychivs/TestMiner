@@ -44,7 +44,25 @@
             catch (Exception exception)
             {
                 _logWrapper.Error(exception, "Failed to Read All Text.");
+
                 return string.Empty;
+            }
+        }
+
+        public void WriteAllText(string filePath, string content)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
+            ArgumentException.ThrowIfNullOrWhiteSpace(content);
+
+            try
+            {
+                File.WriteAllText(filePath, content);
+            }
+            catch (Exception exception)
+            {
+                _logWrapper.Error(exception, "Failed to Write All Text.");
+
+                throw;
             }
         }
     }
