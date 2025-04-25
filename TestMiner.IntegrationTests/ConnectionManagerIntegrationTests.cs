@@ -9,14 +9,15 @@
     using TestMiner.Logger;
     using TestMiner.Utility;
 
+    [TestFixture]
     public class ConnectionManagerIntegrationTests
     {
         [Test]
         [Explicit("Limited Mocks Integration Test; Performs IO operations.")]
         public void ConnectionManager_WhenSaveConnectionStringIsCalled_OverwritesConnectionFile()
         {
-            // Arrange
             File.Delete("Connection.json");
+
             var mockLogWrapper = new Mock<ILogWrapper>();
 
             var connectionManager = new ConnectionManager(
@@ -27,10 +28,8 @@
 
             var connectionString = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;";
 
-            // Act
             connectionManager.SaveConnectionString(connectionString);
 
-            // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(File.Exists("Connection.json"), Is.EqualTo(true));
