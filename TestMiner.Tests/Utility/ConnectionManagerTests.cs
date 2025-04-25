@@ -120,8 +120,7 @@
             _mockConnectionSerializer.Verify(
                 serializer => serializer.Serialize(
                 It.Is<Connection>(
-                    c =>
-                    c.ConnectionString.Equals("a"))),
+                    c => c.ConnectionString.Equals("a"))),
                 Times.Once);
             _mockLogWrapper.Verify(log => log.Info($"Connection String saved."), Times.Once);
         }
