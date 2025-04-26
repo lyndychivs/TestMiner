@@ -53,41 +53,7 @@ TestMiner.exe save --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner
 ## 💽 Database
 The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to your own SQL Server instance.
 
-### SQL Server in Docker
-In case any guidance changes; [here](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker) is a link to the Microsoft documentation for installing SQL Server on Docker.
-
-*Pull the SQL Server 2022 (16.x) Linux container image from the Microsoft Container Registry.*
-```bash
-docker pull mcr.microsoft.com/mssql/server:2022-latest
-```
-
-*Run the Linux container image with Docker, use the following command from a bash shell or elevated PowerShell command prompt.*
-```bash
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=TestMinerPass1!" -p 1433:1433 --name testminer --hostname testminer -d mcr.microsoft.com/mssql/server:2022-latest
-```
-
-> [!CAUTION]
-> When you stop and remove a container, your SQL Server data in the container is permanently deleted.
-
-*View the Docker containers:*
-```bash
-docker ps -a
-```
-
-*Example output:*
-```bash
-CONTAINER ID   IMAGE                                        COMMAND                    CREATED         STATUS         PORTS                                       NAMES
-d4a1999ef83e   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/perm..."   2 minutes ago   Up 2 minutes   0.0.0.0:1433->1433/tcp, :::1433->1433/tcp   testminer
-```
-
-You should now be able to connect to the SQL Server, using `localhost` on port `1433` with the username `sa` and password `TestMinerPass1!`
-
-*Connection String Example:*
-```
-Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1!;Encrypt=true;TrustServerCertificate=true;
-```
-
-Using Visual Studio, Publish [TestMiner.Database](TestMiner.Database) to the the Docker container.
+I have included guidance on how to deploy the Database to localhost for testing (with Docker) [here](TestMiner.Database/README.md)
 
 ## 🧪 Testing
 - Unit Testing
