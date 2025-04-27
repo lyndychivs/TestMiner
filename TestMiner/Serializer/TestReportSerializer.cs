@@ -12,7 +12,7 @@
         private readonly ILogWrapper _logWrapper;
 
         internal TestReportSerializer()
-            : this(new LogWrapper(typeof(TestReportSerializer)))
+            : this(new LogWrapper())
         {
         }
 

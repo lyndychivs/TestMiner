@@ -24,6 +24,11 @@
         {
             string connectionString = new ConnectionManager().GetConnectionString(testMinerOptions.ConnectionString);
 
+            if (!new ConnectionStringValidator().IsConnectionStringValid(connectionString))
+            {
+                return 1;
+            }
+
             return new TestMinerApplication(connectionString).ProcessFiles(testMinerOptions.ReportFilePaths);
         }
 

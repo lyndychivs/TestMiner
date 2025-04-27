@@ -13,7 +13,7 @@
         private readonly ILogWrapper _logWrapper;
 
         internal TestRunMapper()
-            : this(new LogWrapper(typeof(TestRunMapper)))
+            : this(new LogWrapper())
         {
         }
 

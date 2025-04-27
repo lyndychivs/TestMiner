@@ -4,7 +4,7 @@
 
     using CommandLine;
 
-    [Verb("mine", true, ["m", "M"], HelpText = "Mine Test Report files to the Database.")]
+    [Verb("mine", false, ["m", "M"], HelpText = "Mine Test Report files to the Database.")]
     internal class MineOptions : IMineOptions
     {
         [Option('r', "reports", Required = true, HelpText = "\nFile paths of the NUnit3 Test Report files to upload (\"mine\") to the Database.\nCan specify multiple file paths.")]

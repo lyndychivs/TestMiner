@@ -1,7 +1,6 @@
 ﻿namespace TestMiner.Utility
 {
     using System;
-    using System.IO;
 
     using TestMiner.Logger;
 
@@ -19,7 +18,7 @@
 
         public ConnectionManager()
             : this(
-                  new LogWrapper(typeof(ConnectionManager)),
+                  new LogWrapper(),
                   new ConnectionConfigurationBuilder(),
                   new FileWrapper(),
                   new ConnectionSerializer())
@@ -49,35 +48,22 @@
                 return connectionString;
             }
 
-            _logWrapper.Info($"Connection String not provided as parameter. Getting Connection String from {_connectionFileName}");
+            _logWrapper.Info($"Connection String not provided as parameter. Fetching Connection String from {_connectionFileName}");
 
             if (!_fileWrapper.Exists(_connectionFileName))
             {
-                var fileNotFoundException = new FileNotFoundException(nameof(_connectionFileName), _connectionFileName);
+                _logWrapper.Error($"Connection String file not found: {_connectionFileName}");
 
-                _logWrapper.Error(fileNotFoundException, $"Connection String file not found: {_connectionFileName}");
-
-                throw fileNotFoundException;
+                return string.Empty;
             }
 
             Connection? connection = _connectionConfigurationBuilder.BuildConnection(_connectionFileName);
 
-            if (connection == null)
+            if (connection == null || string.IsNullOrWhiteSpace(connection.ConnectionString))
             {
-                var nullReferenceException = new NullReferenceException($"{nameof(connection)} cannot be null.");
+                _logWrapper.Error($"Connection String not found in {_connectionFileName} or provided via Commandline arguments.");
 
-                _logWrapper.Error(nullReferenceException, $"Connection String not found in {_connectionFileName} or provided via Commandline arguments.");
-
-                throw nullReferenceException;
-            }
-
-            if (string.IsNullOrWhiteSpace(connection.ConnectionString))
-            {
-                var nullReferenceException = new NullReferenceException($"{nameof(connection.ConnectionString)} cannot be null.");
-
-                _logWrapper.Error(nullReferenceException, $"Connection String not found in {_connectionFileName} or provided via Commandline arguments.");
-
-                throw nullReferenceException;
+                return string.Empty;
             }
 
             return connection.ConnectionString;

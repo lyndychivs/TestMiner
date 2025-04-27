@@ -58,54 +58,45 @@
             var connectionString = _connectionManager.GetConnectionString(string.Empty);
 
             Assert.That(connectionString, Is.EqualTo("a"));
-            _mockLogWrapper.Verify(log => log.Info($"Connection String not provided as parameter. Getting Connection String from {FileName}"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Info($"Connection String not provided as parameter. Fetching Connection String from {FileName}"), Times.Once);
         }
 
         [Test]
-        public void GetConnectionString_FileNotFound_ThrowsFileNotFoundException()
+        public void GetConnectionString_FileNotFound_ReturnsStringEmpty()
         {
             _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(false);
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<FileNotFoundException>(() => _connectionManager.GetConnectionString(string.Empty));
+            var result = _connectionManager.GetConnectionString(string.Empty);
 
-                Assert.That(ex?.FileName, Is.EqualTo(FileName));
-                _mockLogWrapper.Verify(log => log.Error(It.IsAny<FileNotFoundException>(), $"Connection String file not found: {FileName}"), Times.Once);
-            });
+            Assert.That(result, Is.EqualTo(string.Empty));
+            _mockLogWrapper.Verify(log => log.Error($"Connection String file not found: {FileName}"), Times.Once);
         }
 
         [Test]
-        public void GetConnectionString_NullConnection_ThrowsNullReferenceException()
+        public void GetConnectionString_NullConnection_ReturnsStringEmpty()
         {
             _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
             _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns((Connection)null!);
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<NullReferenceException>(() => _connectionManager.GetConnectionString(string.Empty));
+            var result = _connectionManager.GetConnectionString(string.Empty);
 
-                Assert.That(ex?.Message, Is.EqualTo($"connection cannot be null."));
-                _mockLogWrapper.Verify(log => log.Error(It.IsAny<NullReferenceException>(), $"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
-            });
+            Assert.That(result, Is.EqualTo(string.Empty));
+            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
         }
 
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
 
-        public void GetConnectionString_InvalidConnectionString_ThrowsNullReferenceException(string? connectionString)
+        public void GetConnectionString_InvalidConnectionString_ReturnsStringEmpty(string? connectionString)
         {
             _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
             _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns(new Connection { ConnectionString = connectionString! });
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<NullReferenceException>(() => _connectionManager.GetConnectionString(string.Empty));
+            var result = _connectionManager.GetConnectionString(string.Empty);
 
-                Assert.That(ex?.Message, Is.EqualTo($"ConnectionString cannot be null."));
-                _mockLogWrapper.Verify(log => log.Error(It.IsAny<NullReferenceException>(), $"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
-            });
+            Assert.That(result, Is.EqualTo(string.Empty));
+            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
         }
 
         [Test]

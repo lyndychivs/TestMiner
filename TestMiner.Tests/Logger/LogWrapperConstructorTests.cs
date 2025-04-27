@@ -14,11 +14,9 @@
     public class LogWrapperConstructorTests
     {
         [Test]
-        public void Constructor_ValidType_ReturnsLogWrapper()
+        public void Constructor_WhenCalled_ReturnsLogWrapper()
         {
-            var type = typeof(LogWrapperConstructorTests);
-
-            var logWrapper = new LogWrapper(type);
+            var logWrapper = new LogWrapper();
 
             Assert.That(logWrapper, Is.Not.Null);
         }
@@ -31,18 +29,6 @@
             var logWrapper = new LogWrapper(logger.Object);
 
             Assert.That(logWrapper, Is.Not.Null);
-        }
-
-        [Test]
-        public void Constructor_NullType_ThrowsArgumentNullException()
-        {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new LogWrapper(type: null!));
-
-                Assert.That(ex?.ParamName, Is.EqualTo("type"));
-                Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'type')"));
-            });
         }
 
         [Test]

@@ -29,7 +29,7 @@
 
         internal TestMinerApplication(string connectionString)
             : this(
-                  new LogWrapper(typeof(TestMinerApplication)),
+                  new LogWrapper(),
                   new FileWrapper(),
                   new TestReportSerializer(),
                   new TestRunMapper(),

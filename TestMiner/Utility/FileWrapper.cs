@@ -10,7 +10,7 @@
         private readonly ILogWrapper _logWrapper;
 
         public FileWrapper()
-            : this(new LogWrapper(typeof(FileWrapper)))
+            : this(new LogWrapper())
         {
         }
 

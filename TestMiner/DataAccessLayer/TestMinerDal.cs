@@ -15,7 +15,7 @@
         private readonly IDatabase _database;
 
         internal TestMinerDal(string connectionString)
-            : this(new LogWrapper(typeof(TestMinerDal)), new Database(new SqlConnection(connectionString)))
+            : this(new LogWrapper(), new Database(new SqlConnection(connectionString)))
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
         }

@@ -57,6 +57,14 @@
         }
 
         [Test]
+        public void Error_WhenCalled_CallsLogError()
+        {
+            _logWrapper.Error("b");
+
+            _mockLogger.VerifyLogging("b", LogLevel.Error, Times.Once());
+        }
+
+        [Test]
         public void Error_WhenCalledWithException_CallsLogError()
         {
             var exception = new Exception("a");

@@ -32,12 +32,12 @@
 
             Assert.Multiple(() =>
             {
-                Assert.That(File.Exists("Connection.json"), Is.EqualTo(true));
+                Assert.That(File.Exists("Connection.json"), Is.True);
                 Assert.That(File.ReadAllText("Connection.json"), Is.EqualTo(GetConnectionStringContent(connectionString)));
             });
         }
 
-        private string GetConnectionStringContent(string connectionString)
+        private static string GetConnectionStringContent(string connectionString)
         {
             return $@"{{""ConnectionString"":""{connectionString}""}}";
         }
