@@ -35,11 +35,6 @@
             ArgumentException.ThrowIfNullOrWhiteSpace(logFilePath);
         }
 
-        public void Debug(string message)
-        {
-            _logger.LogDebug(message);
-        }
-
         public void Error(string message)
         {
             _logger.LogError(message);

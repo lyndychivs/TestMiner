@@ -47,13 +47,14 @@
         }
 
         [Test]
-        public void Error_WhenCalledWithException_CallsLogError()
+        public void Error_WhenCalledWithException_CallsLogErrorAndDebug()
         {
             var exception = new Exception("a");
 
             _logWrapper.Error(exception, "b");
 
             _mockLogger.VerifyLogging("b", LogLevel.Error, Times.Once());
+            _mockLogger.VerifyLogging("b", LogLevel.Debug, Times.Once());
         }
     }
 }
