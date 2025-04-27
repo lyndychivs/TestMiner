@@ -27,8 +27,13 @@
         internal LogWrapper(string logFilePath)
             : this(new SerilogLoggerFactory(
                 new LoggerConfiguration()
-                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information)
-                .WriteTo.File(logFilePath, restrictedToMinimumLevel: LogEventLevel.Verbose)
+                .WriteTo.Console(
+                    restrictedToMinimumLevel: LogEventLevel.Information)
+                .WriteTo.File(
+                    logFilePath,
+                    restrictedToMinimumLevel: LogEventLevel.Verbose,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 3)
                 .CreateLogger())
                   .CreateLogger<ILogWrapper>())
         {
