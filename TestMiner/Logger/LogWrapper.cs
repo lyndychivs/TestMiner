@@ -5,6 +5,7 @@
     using Microsoft.Extensions.Logging;
 
     using Serilog;
+    using Serilog.Events;
     using Serilog.Extensions.Logging;
 
     using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -26,8 +27,8 @@
         internal LogWrapper(string logFilePath)
             : this(new SerilogLoggerFactory(
                 new LoggerConfiguration()
-                .WriteTo.Console()
-                .WriteTo.File(logFilePath)
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information)
+                .WriteTo.File(logFilePath, restrictedToMinimumLevel: LogEventLevel.Verbose)
                 .CreateLogger())
                   .CreateLogger<ILogWrapper>())
         {
@@ -46,7 +47,8 @@
 
         public void Error(Exception exception, string message)
         {
-            _logger.LogError(exception, message);
+            _logger.LogError(message);
+            _logger.LogDebug(exception, message);
         }
 
         public void Info(string message)
@@ -57,11 +59,6 @@
         public void Warning(string message)
         {
             _logger.LogWarning(message);
-        }
-
-        public void Warning(Exception exception, string message)
-        {
-            _logger.LogWarning(exception, message);
         }
     }
 }

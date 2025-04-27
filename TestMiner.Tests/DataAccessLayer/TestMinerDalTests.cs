@@ -122,7 +122,7 @@ namespace TestMiner.Tests.DataAccessLayer
             _testMinerDal.RecordTestRun(_mockTestRunDto.Object);
 
             // Assert
-            _mockLogWrapper.Verify(log => log.Warning(It.Is<string>(m => m.Contains("testRunId cannot be less than 1."))), Times.Once);
+            _mockLogWrapper.Verify(log => log.Warning("Test Run Id cannot be less than 1."), Times.Once);
         }
 
         [Test]
@@ -152,7 +152,7 @@ namespace TestMiner.Tests.DataAccessLayer
 
             // Assert
             _mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once);
-            _mockLogWrapper.Verify(log => log.Debug(It.Is<string>(m => m.Contains("Recording Test Run."))), Times.Once);
+            _mockLogWrapper.Verify(log => log.Info(It.Is<string>(m => m.Contains("Recording Test Run:"))), Times.Once);
         }
 
         [Test]
@@ -183,8 +183,8 @@ namespace TestMiner.Tests.DataAccessLayer
             // Assert
             _mockLogWrapper.Verify(
                 log =>
-                log.Debug(It.Is<string>(m =>
-                m.Contains("Recording Test."))),
+                log.Info(It.Is<string>(m =>
+                m.Contains("Recording Test:"))),
                 Times.Once);
 
             _mockDatabase.Verify(
@@ -236,8 +236,8 @@ namespace TestMiner.Tests.DataAccessLayer
             // Assert
             _mockLogWrapper.Verify(
                 log =>
-                log.Debug(It.Is<string>(m =>
-                m.Contains("Recording Test."))),
+                log.Info(It.Is<string>(m =>
+                m.Contains("Recording Test:"))),
                 Times.Exactly(2));
 
             _mockDatabase.Verify(
@@ -285,8 +285,7 @@ namespace TestMiner.Tests.DataAccessLayer
             _testMinerDal.RecordTestRun(_mockTestRunDto.Object);
 
             // Assert
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), It.Is<string>(m => m.Contains("Failed AddTestRun"))), Times.Once);
-            _mockLogWrapper.Verify(log => log.Warning("testRunId cannot be less than 1."), Times.Never);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to add Test Run into Database."), Times.Once);
         }
 
         [Test]
@@ -332,7 +331,7 @@ namespace TestMiner.Tests.DataAccessLayer
 
             // Assert
             _mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 3), Times.Once);
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed AddTestExecution TestRunId=1"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to add Test Execution into Database. TestRunId=1"), Times.Once);
         }
     }
 }

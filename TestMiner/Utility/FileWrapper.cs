@@ -43,7 +43,7 @@
             }
             catch (Exception exception)
             {
-                _logWrapper.Error(exception, "Failed to Read All Text.");
+                _logWrapper.Error(exception, "Failed to read content from File.");
 
                 return string.Empty;
             }
@@ -60,7 +60,7 @@
             }
             catch (Exception exception)
             {
-                _logWrapper.Error(exception, "Failed to Write All Text.");
+                _logWrapper.Error(exception, "Failed to write content to File.");
 
                 throw;
             }

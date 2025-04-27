@@ -502,7 +502,7 @@
                 Assert.That(result.Environment, Is.Not.Null);
                 Assert.That(result.Environment.User, Is.EqualTo("Unknown"));
                 Assert.That(result.Environment.MachineName, Is.EqualTo("Unknown"));
-                _mockLogWrapper.Verify(x => x.Warning(It.IsAny<InvalidOperationException>(), "Failed to get Test Environment Configuration."), Times.Once);
+                _mockLogWrapper.Verify(x => x.Error(It.IsAny<InvalidOperationException>(), "Failed to extract Test Environment configuration."), Times.Once);
             });
         }
 
@@ -535,7 +535,7 @@
                 Assert.That(result.Environment, Is.Not.Null);
                 Assert.That(result.Environment.User, Is.EqualTo("Unknown"));
                 Assert.That(result.Environment.MachineName, Is.EqualTo("Unknown"));
-                _mockLogWrapper.Verify(x => x.Warning("Failed to get Test Environment Configuration."), Times.Once);
+                _mockLogWrapper.Verify(x => x.Warning("Failed to extract Test Environment configuration."), Times.Once);
             });
         }
     }

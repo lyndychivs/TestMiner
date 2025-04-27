@@ -73,7 +73,7 @@
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                _logWrapper.Error(new ArgumentNullException(nameof(connectionString)), "Connection String cannot be null or empty.");
+                _logWrapper.Error("Connection String cannot be null or empty.");
 
                 return 1;
             }
@@ -93,7 +93,7 @@
             }
             catch (Exception exception)
             {
-                _logWrapper.Error(exception, "Failed to Save Connection String.");
+                _logWrapper.Error(exception, "Failed to save Connection String.");
 
                 return 1;
             }

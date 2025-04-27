@@ -123,7 +123,7 @@
 
                 if (assemblyTestSuite.Environment == null)
                 {
-                    _logWrapper.Warning("Failed to get Test Environment Configuration.");
+                    _logWrapper.Warning("Failed to extract Test Environment configuration.");
 
                     return new EnvironmentDto();
                 }
@@ -136,7 +136,7 @@
             }
             catch (Exception exception)
             {
-                _logWrapper.Warning(exception, "Failed to get Test Environment Configuration.");
+                _logWrapper.Error(exception, "Failed to extract Test Environment configuration.");
 
                 return new EnvironmentDto();
             }

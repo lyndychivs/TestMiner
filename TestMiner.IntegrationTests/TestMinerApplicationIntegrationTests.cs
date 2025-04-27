@@ -76,7 +76,7 @@
 
             mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once());
 
-            mockLogger.VerifyLogging("Finished Processing File with Hash: 033BB4EC0C66302D5A01B467C18111E2 - SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
+            mockLogger.VerifyLogging("Finished Processing File: 033BB4EC0C66302D5A01B467C18111E2 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     using TestMiner.DataAccessLayer;
@@ -27,6 +26,8 @@
 
         private readonly ITestMinerDal _testMinerDal;
 
+        private int _responseCode;
+
         internal TestMinerApplication(string connectionString)
             : this(
                   new LogWrapper(),
@@ -49,13 +50,15 @@
             _testRunMapper = testRunMapper ?? throw new ArgumentNullException(nameof(testRunMapper));
             _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
             _testMinerDal = testMinerDal ?? throw new ArgumentNullException(nameof(testMinerDal));
+
+            _responseCode = 0;
         }
 
         internal int ProcessFiles(IEnumerable<string> filePaths)
         {
             if (filePaths == null)
             {
-                _logWrapper.Error(new ArgumentNullException(nameof(filePaths)), $"{nameof(filePaths)} cannot be null.");
+                _logWrapper.Error($"{nameof(filePaths)} cannot be null.");
                 return 1;
             }
 
@@ -69,16 +72,31 @@
             {
                 try
                 {
+                    if (string.IsNullOrWhiteSpace(filePath))
+                    {
+                        _logWrapper.Warning($"{nameof(filePath)} cannot be null or empty.");
+
+                        _responseCode = 1;
+
+                        continue;
+                    }
+
                     if (!_fileWrapper.Exists(filePath))
                     {
-                        _logWrapper.Warning(new FileNotFoundException(nameof(filePath), filePath), "No File Exists.");
+                        _logWrapper.Warning($"No File exists: {filePath}");
+
+                        _responseCode = 1;
+
                         continue;
                     }
 
                     string allText = _fileWrapper.ReadAllText(filePath);
                     if (string.IsNullOrWhiteSpace(allText))
                     {
-                        _logWrapper.Warning(new InvalidDataException(nameof(filePath)), $"No Text Found in File. {filePath}");
+                        _logWrapper.Warning($"No Data found in File: {filePath}");
+
+                        _responseCode = 1;
+
                         continue;
                     }
 
@@ -91,28 +109,36 @@
                     }
                     catch (Exception exception)
                     {
-                        _logWrapper.Error(exception, $"Failed to Deserialize Test Run. {filePath}");
+                        _logWrapper.Error(exception, $"Failed to deserialize Test Run from File: {filePath}");
+
+                        _responseCode = 1;
+
                         continue;
                     }
 
                     string md5Hash = testRunDto.CalculateMd5Hash();
                     if (_testMinerDal.IsTestRunPreviouslyRecorded(md5Hash))
                     {
-                        _logWrapper.Info($"Test Run already exists in Database. {md5Hash} - {filePath}");
+                        _logWrapper.Info($"Test Run already exists in Database: {md5Hash} : {filePath}");
+
+                        _responseCode = 1;
+
                         continue;
                     }
 
                     _testMinerDal.RecordTestRun(testRunDto);
 
-                    _logWrapper.Info($"Finished Processing File with Hash: {md5Hash} - {filePath}");
+                    _logWrapper.Info($"Finished Processing File: {md5Hash} : {filePath}");
                 }
                 catch (Exception exception)
                 {
-                    _logWrapper.Error(exception, $"{nameof(ProcessFiles)} Failed.");
+                    _logWrapper.Error(exception, $"Failed to process the input.");
+
+                    _responseCode = 1;
                 }
             }
 
-            return 0;
+            return _responseCode;
         }
     }
 }

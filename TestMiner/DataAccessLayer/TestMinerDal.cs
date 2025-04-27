@@ -37,7 +37,7 @@
         {
             ArgumentNullException.ThrowIfNull(testRunDto);
 
-            _logWrapper.Debug($"Recording Test Run...\n{testRunDto}");
+            _logWrapper.Info($"Recording Test Run:\n{testRunDto}");
 
             int testRunId;
             try
@@ -59,19 +59,19 @@
             }
             catch (Exception exception)
             {
-                _logWrapper.Error(exception, $"Failed AddTestRun\n{testRunDto}");
+                _logWrapper.Error(exception, $"Failed to add Test Run into Database.");
                 return;
             }
 
             if (testRunId < 1)
             {
-                _logWrapper.Warning($"testRunId cannot be less than 1.\n{testRunDto}");
+                _logWrapper.Warning($"Test Run Id cannot be less than 1.");
                 return;
             }
 
             foreach (ITestDto testDto in testRunDto.Tests)
             {
-                _logWrapper.Debug($"Recording Test...\n{testDto}");
+                _logWrapper.Info($"Recording Test:\n{testDto}");
 
                 try
                 {
@@ -92,7 +92,7 @@
                 }
                 catch (Exception exception)
                 {
-                    _logWrapper.Error(exception, $"Failed AddTestExecution TestRunId={testRunId}");
+                    _logWrapper.Error(exception, $"Failed to add Test Execution into Database. TestRunId={testRunId}");
 
                     _database.UpdateTestRunTestMinerStatus(testRunId, (int)TestMinerStatus.Failed);
 

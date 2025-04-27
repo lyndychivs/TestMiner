@@ -124,7 +124,7 @@
             var result = _connectionManager.SaveConnectionString(connectionString!);
 
             Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<ArgumentNullException>(), $"Connection String cannot be null or empty."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error($"Connection String cannot be null or empty."), Times.Once);
         }
 
         [Test]
@@ -135,7 +135,7 @@
             var result = _connectionManager.SaveConnectionString("a");
 
             Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to Save Connection String."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
         }
 
         [Test]
@@ -147,7 +147,7 @@
             var result = _connectionManager.SaveConnectionString("a");
 
             Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to Save Connection String."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
         }
     }
 }

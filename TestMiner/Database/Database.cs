@@ -48,7 +48,7 @@
             }
             catch (Exception ex)
             {
-                _logWrapper.Error(ex, "Failed to get TestRunId from Hex.");
+                _logWrapper.Error(ex, $"Failed fetch Test Run Id for Hex from the Database. Hex={md5Hash}");
                 throw;
             }
             finally
@@ -115,7 +115,7 @@
             }
             catch (Exception ex)
             {
-                _logWrapper.Error(ex, "Failed to add TestExecution.");
+                _logWrapper.Error(ex, "Failed to add Test Execution into Database.");
                 throw;
             }
             finally
@@ -175,7 +175,7 @@
             }
             catch (Exception ex)
             {
-                _logWrapper.Error(ex, "Failed to add TestRun.");
+                _logWrapper.Error(ex, "Failed to add Test Run into Database.");
                 throw;
             }
             finally
@@ -201,7 +201,7 @@
             }
             catch (Exception ex)
             {
-                _logWrapper.Error(ex, $"Failed to update TestMinerStatus for TestRun. TestRunId={testRunId}");
+                _logWrapper.Error(ex, $"Failed to update Test Miner Status in Database for Test Run. TestRunId={testRunId}");
                 throw;
             }
             finally

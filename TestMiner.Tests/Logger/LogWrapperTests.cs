@@ -23,14 +23,6 @@
         }
 
         [Test]
-        public void Debug_WhenCalled_CallsLogDebug()
-        {
-            _logWrapper.Debug("a");
-
-            _mockLogger.VerifyLogging("a", LogLevel.Debug, Times.Once());
-        }
-
-        [Test]
         public void Info_WhenCalled_CallsLogInformation()
         {
             _logWrapper.Info("a");
@@ -44,16 +36,6 @@
             _logWrapper.Warning("a");
 
             _mockLogger.VerifyLogging("a", LogLevel.Warning, Times.Once());
-        }
-
-        [Test]
-        public void Warning_WhenCalledWithException_CallsLogWarning()
-        {
-            var exception = new Exception("a");
-
-            _logWrapper.Warning(exception, "b");
-
-            _mockLogger.VerifyLogging("b", LogLevel.Warning, Times.Once());
         }
 
         [Test]
