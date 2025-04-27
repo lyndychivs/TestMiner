@@ -32,6 +32,39 @@
         }
 
         [Test]
+        public void Constructor_ValidLogFilePath_ReturnsLogWrapper()
+        {
+            var logWrapper = new LogWrapper("a");
+
+            Assert.That(logWrapper, Is.Not.Null);
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Constructor_InvalidLogFilePath_ThrowsArgumentException(string logFilePath)
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentException>(() => new LogWrapper(logFilePath!));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logFilePath"));
+                Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'logFilePath')"));
+            });
+        }
+
+        [Test]
+        public void Constructor_NullLogFilePath_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new LogWrapper(logFilePath: null!));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("path"));
+                Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'path')"));
+            });
+        }
+
+        [Test]
         public void Constructor_NullILogger_ThrowsArgumentNullException()
         {
             Assert.Multiple(() =>

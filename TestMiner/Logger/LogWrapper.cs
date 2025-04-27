@@ -14,18 +14,24 @@
         private readonly ILogger _logger;
 
         internal LogWrapper()
-            : this(new SerilogLoggerFactory(
-                new LoggerConfiguration()
-                .WriteTo.Console()
-                .WriteTo.File($"Logs\\{nameof(TestMiner)}.log")
-                .CreateLogger())
-                  .CreateLogger<ILogWrapper>())
+            : this($"Logs\\{nameof(TestMiner)}.log")
         {
         }
 
         internal LogWrapper(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        internal LogWrapper(string logFilePath)
+            : this(new SerilogLoggerFactory(
+                new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File(logFilePath)
+                .CreateLogger())
+                  .CreateLogger<ILogWrapper>())
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(logFilePath);
         }
 
         public void Debug(string message)
