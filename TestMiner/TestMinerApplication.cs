@@ -54,7 +54,7 @@
             _responseCode = 0;
         }
 
-        internal int ProcessFiles(IEnumerable<string> filePaths)
+        internal int MineFiles(IEnumerable<string> filePaths)
         {
             if (filePaths == null)
             {
@@ -64,7 +64,7 @@
 
             if (!filePaths.Any())
             {
-                _logWrapper.Warning("No Files to Process.");
+                _logWrapper.Warning("No Files to mine.");
                 return 0;
             }
 
@@ -128,11 +128,11 @@
 
                     _testMinerDal.RecordTestRun(testRunDto);
 
-                    _logWrapper.Info($"Finished Processing File: {md5Hash} : {filePath}");
+                    _logWrapper.Info($"Finished mining File: {md5Hash} : {filePath}");
                 }
                 catch (Exception exception)
                 {
-                    _logWrapper.Error(exception, $"Failed to process the input.");
+                    _logWrapper.Error(exception, $"Failed to mine File: {filePath}");
 
                     _responseCode = 1;
                 }

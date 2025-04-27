@@ -29,7 +29,7 @@
                 return 1;
             }
 
-            return new TestMinerApplication(connectionString).ProcessFiles(testMinerOptions.ReportFilePaths);
+            return new TestMinerApplication(connectionString).MineFiles(testMinerOptions.ReportFilePaths);
         }
 
         private static int SaveConnectionString(ISaveOptions saveOptions)

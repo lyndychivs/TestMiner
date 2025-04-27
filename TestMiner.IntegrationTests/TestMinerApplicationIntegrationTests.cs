@@ -20,7 +20,7 @@
     {
         [Test]
         [Explicit("Limited Mocks Integration Test; Performs IO operations.")]
-        public void TestMinerApplication_WhenCalledWithFilesToProcess_AddsTestRunToTheDatabase()
+        public void TestMinerApplication_WhenCalledWithFilesToMine_AddsTestRunToTheDatabase()
         {
             var mockLogger = new Mock<ILogger>();
             var mockDatabase = new Mock<IDatabase>();
@@ -51,7 +51,7 @@
                 new TestRunMapper(),
                 testMinerDal);
 
-            var result = testMinerApplication.ProcessFiles(["SampleData\\TestResultSample.xml"]);
+            var result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);
 
             Assert.That(result, Is.EqualTo(0));
 
@@ -76,7 +76,7 @@
 
             mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once());
 
-            mockLogger.VerifyLogging("Finished Processing File: 033BB4EC0C66302D5A01B467C18111E2 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
+            mockLogger.VerifyLogging("Finished mining File: 033BB4EC0C66302D5A01B467C18111E2 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
         }
     }
 }

@@ -40,7 +40,7 @@
         }
 
         [Test]
-        public void ProcessFiles_ValidFilePathOfTestReport_ReturnsZero()
+        public void MineFiles_ValidFilePathOfTestReport_ReturnsZero()
         {
             // Arrange
             var filePath = "report.xml";
@@ -54,16 +54,16 @@
             _mockTestMinerDal.Setup(dal => dal.IsTestRunPreviouslyRecorded("md5hash")).Returns(false);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(0));
             _mockTestMinerDal.Verify(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>()), Times.Once);
-            _mockLogWrapper.Verify(log => log.Info($"Finished Processing File: md5hash : {filePath}"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Info($"Finished mining File: md5hash : {filePath}"), Times.Once);
         }
 
         [Test]
-        public void ProcessFiles_MultipleValidFilePathOfTestReports_ReturnsZero()
+        public void MineFiles_MultipleValidFilePathOfTestReports_ReturnsZero()
         {
             // Arrange
             var filePath = "report.xml";
@@ -77,41 +77,41 @@
             _mockTestMinerDal.Setup(dal => dal.IsTestRunPreviouslyRecorded("md5hash")).Returns(false);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(0));
             _mockTestMinerDal.Verify(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>()), Times.Exactly(2));
-            _mockLogWrapper.Verify(log => log.Info($"Finished Processing File: md5hash : {filePath}"), Times.Exactly(2));
+            _mockLogWrapper.Verify(log => log.Info($"Finished mining File: md5hash : {filePath}"), Times.Exactly(2));
         }
 
         [Test]
-        public void ProcessFiles_NullFilePaths_ReturnsOne()
+        public void MineFiles_NullFilePaths_ReturnsOne()
         {
-            var result = _testMinerApplication.ProcessFiles(null!);
+            var result = _testMinerApplication.MineFiles(null!);
 
             Assert.That(result, Is.EqualTo(1));
             _mockLogWrapper.Verify(log => log.Error("filePaths cannot be null."), Times.Once);
         }
 
         [Test]
-        public void ProcessFiles_EmptyFilePaths_ReturnsZero()
+        public void MineFiles_EmptyFilePaths_ReturnsZero()
         {
             var filePaths = Array.Empty<string>();
 
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             Assert.That(result, Is.EqualTo(0));
-            _mockLogWrapper.Verify(log => log.Warning("No Files to Process."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Warning("No Files to mine."), Times.Once);
         }
 
         [Test]
-        public void ProcessFiles_FilePathDoesNotExist_ReturnsOne()
+        public void MineFiles_FilePathDoesNotExist_ReturnsOne()
         {
             var filePaths = new[] { "nonexistentfile.xml" };
             _mockFileWrapper.Setup(file => file.Exists("nonexistentfile.xml")).Returns(false);
 
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             Assert.That(result, Is.EqualTo(1));
             _mockLogWrapper.Verify(log => log.Warning("No File exists: nonexistentfile.xml"), Times.Once);
@@ -119,7 +119,7 @@
 
         [TestCase("")]
         [TestCase(" ")]
-        public void ProcessFiles_FileContentIsInvalid_ReturnsOne(string? fileContent)
+        public void MineFiles_FileContentIsInvalid_ReturnsOne(string? fileContent)
         {
             // Arrange
             var emptyFile = "emptyfile.xml";
@@ -128,7 +128,7 @@
             _mockFileWrapper.Setup(file => file.ReadAllText(emptyFile)).Returns(fileContent!);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
@@ -136,7 +136,7 @@
         }
 
         [Test]
-        public void ProcessFiles_FileContentIsNull_ReturnsOne()
+        public void MineFiles_FileContentIsNull_ReturnsOne()
         {
             // Arrange
             var nullResponseFile = "null.xml";
@@ -145,7 +145,7 @@
             _mockFileWrapper.Setup(file => file.ReadAllText(nullResponseFile)).Returns((string)null!);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
@@ -153,7 +153,7 @@
         }
 
         [Test]
-        public void ProcessFiles_DeserializeThrowsAnException_ReturnsOne()
+        public void MineFiles_DeserializeThrowsAnException_ReturnsOne()
         {
             // Arrange
             var filePath = "a";
@@ -163,7 +163,7 @@
             _mockTestReportSerializer.Setup(serializer => serializer.Deserialize("b")).Throws(new Exception());
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
@@ -171,7 +171,7 @@
         }
 
         [Test]
-        public void ProcessFiles_MapTestRunToDtoThrowsAnException_ReturnsOne()
+        public void MineFiles_MapTestRunToDtoThrowsAnException_ReturnsOne()
         {
             // Arrange
             var filePath = "a";
@@ -182,7 +182,7 @@
             _mockTestRunMapper.Setup(mapper => mapper.MapTestRunToDto(It.IsAny<TestRun>())).Throws(new Exception());
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
@@ -190,7 +190,7 @@
         }
 
         [Test]
-        public void ProcessFiles_CalculateMd5HashThrowsAnException_ReturnsOne()
+        public void MineFiles_CalculateMd5HashThrowsAnException_ReturnsOne()
         {
             // Arrange
             var filePath = "a";
@@ -204,15 +204,15 @@
             _mockTestRunMapper.Setup(mapper => mapper.MapTestRunToDto(It.IsAny<TestRun>())).Returns(mockTestRunDto.Object);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to process the input."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to mine File: a"), Times.Once);
         }
 
         [Test]
-        public void ProcessFiles_TestRunAlreadyExistsInDatabase_ReturnsOne()
+        public void MineFiles_TestRunAlreadyExistsInDatabase_ReturnsOne()
         {
             // Arrange
             var filePath = "a";
@@ -226,7 +226,7 @@
             _mockTestMinerDal.Setup(dal => dal.IsTestRunPreviouslyRecorded("c")).Returns(true);
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
@@ -234,7 +234,7 @@
         }
 
         [Test]
-        public void ProcessFiles_RecordTestRunThrowsAnException_ReturnsOne()
+        public void MineFiles_RecordTestRunThrowsAnException_ReturnsOne()
         {
             var filePath = "a";
             var filePaths = new[] { filePath };
@@ -248,11 +248,11 @@
             _mockTestMinerDal.Setup(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>())).Throws(new Exception());
 
             // Act
-            var result = _testMinerApplication.ProcessFiles(filePaths);
+            var result = _testMinerApplication.MineFiles(filePaths);
 
             // Assert
             Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to process the input."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed to mine File: a"), Times.Once);
         }
     }
 }
