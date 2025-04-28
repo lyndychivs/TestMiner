@@ -1,7 +1,5 @@
-# Ensure the script stops on errors
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-
 docker compose up --build -d
+
+Start-Sleep -Seconds 5
 
 .\DeployToDocker.ps1
