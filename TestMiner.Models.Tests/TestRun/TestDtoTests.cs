@@ -28,7 +28,7 @@
 
             var result = test.ToString();
 
-            Assert.That(result, Is.EqualTo("b.a Result: Passed StartTime: 01/01/0001 00:00:00 EndTime: 01/01/0001 00:00:00 Duration: 00:00:01 Asserts: 2 FailureMessage: c"));
+            Assert.That(result, Is.EqualTo("b.a : Passed"));
         }
 
         [Test]
@@ -42,7 +42,7 @@
 
             var result = test.ToString();
 
-            Assert.That(result, Is.EqualTo("b.a Result: Inconclusive StartTime: 01/01/0001 00:00:00 EndTime: 01/01/0001 00:00:00 Duration: 00:00:00 Asserts: 0 FailureMessage: "));
+            Assert.That(result, Is.EqualTo("b.a : Inconclusive"));
         }
     }
 }

@@ -30,7 +30,7 @@
 
         public override string ToString()
         {
-            return $"{ClassName}.{Name} {nameof(Result)}: {Result} {nameof(StartTime)}: {StartTime} {nameof(EndTime)}: {EndTime} {nameof(Duration)}: {Duration} {nameof(Asserts)}: {Asserts} {nameof(FailureMessage)}: {FailureMessage}";
+            return $"{ClassName}.{Name} : {Result}";
         }
     }
 }
