@@ -48,7 +48,7 @@
                 return connectionString;
             }
 
-            _logWrapper.Info($"Connection String not provided as parameter. Fetching Connection String from {_connectionFileName}");
+            _logWrapper.Info($"Fetching Connection String from {_connectionFileName}");
 
             if (!_fileWrapper.Exists(_connectionFileName))
             {
@@ -61,7 +61,7 @@
 
             if (connection == null || string.IsNullOrWhiteSpace(connection.ConnectionString))
             {
-                _logWrapper.Error($"Connection String not found in {_connectionFileName} or provided via Commandline arguments.");
+                _logWrapper.Error($"Connection String not found in {_connectionFileName}; Try 'save' argument?");
 
                 return string.Empty;
             }

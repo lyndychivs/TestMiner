@@ -58,7 +58,7 @@
             var connectionString = _connectionManager.GetConnectionString(string.Empty);
 
             Assert.That(connectionString, Is.EqualTo("a"));
-            _mockLogWrapper.Verify(log => log.Info($"Connection String not provided as parameter. Fetching Connection String from {FileName}"), Times.Once);
+            _mockLogWrapper.Verify(log => log.Info($"Fetching Connection String from {FileName}"), Times.Once);
         }
 
         [Test]
@@ -81,7 +81,7 @@
             var result = _connectionManager.GetConnectionString(string.Empty);
 
             Assert.That(result, Is.EqualTo(string.Empty));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
         }
 
         [TestCase("")]
@@ -96,7 +96,7 @@
             var result = _connectionManager.GetConnectionString(string.Empty);
 
             Assert.That(result, Is.EqualTo(string.Empty));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName} or provided via Commandline arguments."), Times.Once);
+            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
         }
 
         [Test]
