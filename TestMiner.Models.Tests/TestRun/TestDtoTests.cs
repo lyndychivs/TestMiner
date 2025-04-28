@@ -28,7 +28,7 @@
 
             var result = test.ToString();
 
-            Assert.That(result, Is.EqualTo("b.a : Passed"));
+            Assert.That(result, Is.EqualTo("b.a"));
         }
 
         [Test]
@@ -42,7 +42,7 @@
 
             var result = test.ToString();
 
-            Assert.That(result, Is.EqualTo("b.a : Inconclusive"));
+            Assert.That(result, Is.EqualTo("b.a"));
         }
     }
 }

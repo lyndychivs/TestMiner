@@ -30,7 +30,7 @@
 
         public override string ToString()
         {
-            return $"{ClassName}.{Name} : {Result}";
+            return $"{ClassName}.{Name}";
         }
     }
 }

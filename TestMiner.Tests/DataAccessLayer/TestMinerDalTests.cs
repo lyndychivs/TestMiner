@@ -152,7 +152,6 @@ namespace TestMiner.Tests.DataAccessLayer
 
             // Assert
             _mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once);
-            _mockLogWrapper.Verify(log => log.Info(It.Is<string>(m => m.Contains("Recording Test Run:"))), Times.Once);
         }
 
         [Test]

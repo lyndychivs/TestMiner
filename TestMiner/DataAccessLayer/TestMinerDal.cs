@@ -37,8 +37,6 @@
         {
             ArgumentNullException.ThrowIfNull(testRunDto);
 
-            _logWrapper.Info($"Recording Test Run:\n{testRunDto}");
-
             int testRunId;
             try
             {
@@ -71,7 +69,7 @@
 
             foreach (ITestDto testDto in testRunDto.Tests)
             {
-                _logWrapper.Info($"Recording Test:\n{testDto}");
+                _logWrapper.Info($"Recording Test: {testDto}");
 
                 try
                 {
