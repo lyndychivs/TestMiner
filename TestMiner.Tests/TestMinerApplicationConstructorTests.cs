@@ -84,7 +84,7 @@
         }
 
         [Test]
-        public void Constructor_LogWrapperNull_ThrowsArgumentNullException()
+        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
         {
             Assert.Multiple(() =>
             {

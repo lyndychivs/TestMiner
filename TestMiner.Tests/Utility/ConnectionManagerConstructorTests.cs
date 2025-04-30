@@ -41,6 +41,18 @@
         }
 
         [Test]
+        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(null!));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
+            });
+        }
+
+        [Test]
         public void Constructor_NullConnectionConfigurationBuilder_ThrowsArgumentNullException()
         {
             Assert.Multiple(() =>
