@@ -12,7 +12,7 @@
     using TestMiner.TestReports.NUnit3;
     using TestMiner.Utility;
 
-    internal class TestMinerApplication
+    public class TestMinerApplication
     {
         internal const string Name = "Test Miner";
 
@@ -28,7 +28,7 @@
 
         private int _responseCode;
 
-        internal TestMinerApplication(ILogWrapper logWrapper, string connectionString)
+        public TestMinerApplication(ILogWrapper logWrapper, string connectionString)
             : this(
                   logWrapper,
                   new FileWrapper(logWrapper),
@@ -54,7 +54,7 @@
             _responseCode = 0;
         }
 
-        internal int MineFiles(IEnumerable<string> filePaths)
+        public int MineFiles(IEnumerable<string> filePaths)
         {
             if (filePaths == null)
             {

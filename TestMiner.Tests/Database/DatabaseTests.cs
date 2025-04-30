@@ -90,7 +90,7 @@
 
                 Assert.That(ex?.Message, Is.EqualTo("Database error"));
 
-                _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed fetch Test Run Id for Hex from the Database. Hex=a"), Times.Once);
+                _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), "Failed fetching Test Run Id for Hex from the Database. Hex=a"), Times.Once);
                 _mockDynamicParametersWrapper.Verify(dp => dp.Clear(), Times.Once);
             });
         }

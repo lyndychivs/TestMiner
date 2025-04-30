@@ -48,7 +48,7 @@
             }
             catch (Exception ex)
             {
-                _logWrapper.Error(ex, $"Failed fetch Test Run Id for Hex from the Database. Hex={md5Hash}");
+                _logWrapper.Error(ex, $"Failed fetching Test Run Id for Hex from the Database. Hex={md5Hash}");
                 throw;
             }
             finally

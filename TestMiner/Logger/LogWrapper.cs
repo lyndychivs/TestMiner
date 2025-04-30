@@ -4,11 +4,11 @@
 
     using Microsoft.Extensions.Logging;
 
-    internal class LogWrapper : ILogWrapper
+    public class LogWrapper : ILogWrapper
     {
         private readonly ILogger _logger;
 
-        internal LogWrapper(ILogger logger)
+        public LogWrapper(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -21,7 +21,7 @@
         public void Error(Exception exception, string message)
         {
             _logger.LogError(message);
-            _logger.LogDebug(exception, message);
+            _logger.LogDebug(exception.ToString());
         }
 
         public void Info(string message)

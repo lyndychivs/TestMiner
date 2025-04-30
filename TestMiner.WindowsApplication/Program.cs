@@ -6,10 +6,10 @@ namespace TestMiner.WindowsApplication
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        internal static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new TestMiner());
+            Application.Run(new TestMinerForm());
         }
     }
 }

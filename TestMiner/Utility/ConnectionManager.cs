@@ -4,7 +4,7 @@
 
     using TestMiner.Logger;
 
-    internal class ConnectionManager
+    public class ConnectionManager
     {
         private readonly ILogWrapper _logWrapper;
 
@@ -25,7 +25,7 @@
         {
         }
 
-        public ConnectionManager(
+        internal ConnectionManager(
             ILogWrapper logWrapper,
             IConnectionConfigurationBuilder connectionConfigurationBuilder,
             IFileWrapper fileWrapper,

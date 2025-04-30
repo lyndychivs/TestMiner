@@ -61,6 +61,7 @@
         {
             return new LogWrapper(new SerilogLoggerFactory(
                 new LoggerConfiguration()
+                .MinimumLevel.Verbose()
                 .WriteTo.Console(
                     restrictedToMinimumLevel: LogEventLevel.Information)
                 .WriteTo.File(
