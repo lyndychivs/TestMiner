@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: '0 8 * * *'
 jobs:
-  dotnet-restore-build-test-publish:
+  dotnet-restore-build-test:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
