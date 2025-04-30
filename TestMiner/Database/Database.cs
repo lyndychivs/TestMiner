@@ -22,8 +22,8 @@
 
         private readonly IDynamicParametersWrapper _dynamicParametersWrapper;
 
-        internal Database(IDbConnection dbConnection)
-            : this(new LogWrapper(), dbConnection, new DynamicParametersWrapper())
+        internal Database(ILogWrapper logWrapper, IDbConnection dbConnection)
+            : this(logWrapper, dbConnection, new DynamicParametersWrapper())
         {
         }
 

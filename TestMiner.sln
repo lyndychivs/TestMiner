@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.Database.Componen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.IntegrationTests", "TestMiner.IntegrationTests\TestMiner.IntegrationTests.csproj", "{1F4C7C19-56AE-4302-941D-749B9B10EC75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMiner.WindowsApplication", "TestMiner.WindowsApplication\TestMiner.WindowsApplication.csproj", "{61BD33DE-88D1-411B-83F3-F58902D3C5DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,12 @@ Global
 		{1F4C7C19-56AE-4302-941D-749B9B10EC75}.GitHub|Any CPU.Build.0 = GitHub|Any CPU
 		{1F4C7C19-56AE-4302-941D-749B9B10EC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F4C7C19-56AE-4302-941D-749B9B10EC75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.GitHub|Any CPU.ActiveCfg = GitHub|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.GitHub|Any CPU.Build.0 = GitHub|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61BD33DE-88D1-411B-83F3-F58902D3C5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

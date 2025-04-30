@@ -10,11 +10,6 @@
     {
         private readonly ILogWrapper _logWrapper;
 
-        public ConnectionStringValidator()
-            : this(new LogWrapper())
-        {
-        }
-
         public ConnectionStringValidator(ILogWrapper logWrapper)
         {
             _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));

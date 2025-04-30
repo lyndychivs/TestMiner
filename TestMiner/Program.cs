@@ -4,6 +4,13 @@
 
     using CommandLine;
 
+    using Microsoft.Extensions.Logging;
+
+    using Serilog;
+    using Serilog.Events;
+    using Serilog.Extensions.Logging;
+
+    using TestMiner.Logger;
     using TestMiner.Options;
     using TestMiner.Utility;
 
@@ -13,28 +20,30 @@
         {
             TrySetTitle();
 
+            var logWrapper = CreateLogWrapper();
+
             return Parser.Default.ParseArguments<MineOptions, SaveOptions>(args)
                 .MapResult(
-                (IMineOptions mineOptions) => RunWithOptions(mineOptions),
-                (ISaveOptions saveOptions) => SaveConnectionString(saveOptions),
+                (IMineOptions mineOptions) => RunWithOptions(mineOptions, logWrapper),
+                (ISaveOptions saveOptions) => SaveConnectionString(saveOptions, logWrapper),
                 (errors) => 1);
         }
 
-        private static int RunWithOptions(IMineOptions testMinerOptions)
+        private static int RunWithOptions(IMineOptions testMinerOptions, ILogWrapper logWrapper)
         {
-            string connectionString = new ConnectionManager().GetConnectionString(testMinerOptions.ConnectionString);
+            string connectionString = new ConnectionManager(logWrapper).GetConnectionString(testMinerOptions.ConnectionString);
 
-            if (!new ConnectionStringValidator().IsConnectionStringValid(connectionString))
+            if (!new ConnectionStringValidator(logWrapper).IsConnectionStringValid(connectionString))
             {
                 return 1;
             }
 
-            return new TestMinerApplication(connectionString).MineFiles(testMinerOptions.ReportFilePaths);
+            return new TestMinerApplication(logWrapper, connectionString).MineFiles(testMinerOptions.ReportFilePaths);
         }
 
-        private static int SaveConnectionString(ISaveOptions saveOptions)
+        private static int SaveConnectionString(ISaveOptions saveOptions, ILogWrapper logWrapper)
         {
-            return new ConnectionManager().SaveConnectionString(saveOptions.ConnectionString);
+            return new ConnectionManager(logWrapper).SaveConnectionString(saveOptions.ConnectionString);
         }
 
         private static void TrySetTitle()
@@ -46,6 +55,20 @@
             catch
             {
             }
+        }
+
+        private static LogWrapper CreateLogWrapper()
+        {
+            return new LogWrapper(new SerilogLoggerFactory(
+                new LoggerConfiguration()
+                .WriteTo.Console(
+                    restrictedToMinimumLevel: LogEventLevel.Information)
+                .WriteTo.File(
+                    $"Logs\\{nameof(TestMiner)}.log",
+                    restrictedToMinimumLevel: LogEventLevel.Verbose,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 3)
+                .CreateLogger()).CreateLogger<ILogWrapper>());
         }
     }
 }

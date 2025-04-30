@@ -13,14 +13,6 @@
     public class ConnectionStringValidatorConstructorTests
     {
         [Test]
-        public void Constructor_WhenCalled_ReturnsConnectionStringValidator()
-        {
-            var connectionStringValidator = new ConnectionStringValidator();
-
-            Assert.That(connectionStringValidator, Is.Not.Null);
-        }
-
-        [Test]
         public void Constructor_WithLogWrapper_ReturnsConnectionStringValidator()
         {
             var mockLogWrapper = new Mock<ILogWrapper>();

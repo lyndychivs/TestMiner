@@ -28,13 +28,13 @@
 
         private int _responseCode;
 
-        internal TestMinerApplication(string connectionString)
+        internal TestMinerApplication(ILogWrapper logWrapper, string connectionString)
             : this(
-                  new LogWrapper(),
-                  new FileWrapper(),
-                  new TestReportSerializer(),
-                  new TestRunMapper(),
-                  new TestMinerDal(connectionString))
+                  logWrapper,
+                  new FileWrapper(logWrapper),
+                  new TestReportSerializer(logWrapper),
+                  new TestRunMapper(logWrapper),
+                  new TestMinerDal(logWrapper, connectionString))
         {
         }
 

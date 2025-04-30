@@ -2,8 +2,11 @@
 {
     using System;
 
+    using Moq;
+
     using NUnit.Framework;
 
+    using TestMiner.Logger;
     using TestMiner.Serializer;
 
     [TestFixture]
@@ -12,7 +15,9 @@
         [Test]
         public void Constructor_ValidParameters_ReturnsTestReportSerializer()
         {
-            var testReportSerializer = new TestReportSerializer();
+            var logWrapper = new Mock<ILogWrapper>().Object;
+
+            var testReportSerializer = new TestReportSerializer(logWrapper);
 
             Assert.That(testReportSerializer, Is.Not.Null);
         }

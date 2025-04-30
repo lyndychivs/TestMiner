@@ -28,7 +28,7 @@
         [Test]
         public void Constructor_ValidConnectionString_ReturnsTestMinerApplication()
         {
-            var testMinerApplication = new TestMinerApplication("Data Source=localhost\\Database=DatabaseName;");
+            var testMinerApplication = new TestMinerApplication(_mockLogWrapper.Object, "Data Source=localhost\\Database=DatabaseName;");
 
             Assert.That(testMinerApplication, Is.Not.Null);
         }
@@ -46,13 +46,25 @@
             Assert.That(testMinerApplication, Is.Not.Null);
         }
 
+        [Test]
+        public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(null!, "Data Source=localhost\\Database=DatabaseName;"));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+                Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'logWrapper')"));
+            });
+        }
+
         [TestCase("")]
         [TestCase(" ")]
         public void Constructor_InvalidConnectionString_ThrowsArgumentException(string? connectionString)
         {
             Assert.Multiple(() =>
             {
-                var ex = Assert.Throws<ArgumentException>(() => new TestMinerApplication(connectionString!));
+                var ex = Assert.Throws<ArgumentException>(() => new TestMinerApplication(_mockLogWrapper.Object, connectionString!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
                 Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'connectionString')"));
@@ -64,7 +76,7 @@
         {
             Assert.Multiple(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(null!));
+                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(_mockLogWrapper.Object, null!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
                 Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'connectionString')"));
@@ -72,7 +84,7 @@
         }
 
         [Test]
-        public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
+        public void Constructor_LogWrapperNull_ThrowsArgumentNullException()
         {
             Assert.Multiple(() =>
             {

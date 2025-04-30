@@ -30,7 +30,7 @@
         [Test]
         public void Constructor_ValidDbConnection_ReturnsDatabase()
         {
-            var database = new Database(_mockDbConnection.Object);
+            var database = new Database(_mockLogWrapper.Object, _mockDbConnection.Object);
 
             Assert.That(database, Is.Not.Null);
         }
@@ -41,6 +41,18 @@
             Assert.Multiple(() =>
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
+            });
+        }
+
+        [Test]
+        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
                 Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));

@@ -16,11 +16,11 @@
 
         private readonly string _connectionFileName;
 
-        public ConnectionManager()
+        public ConnectionManager(ILogWrapper logWrapper)
             : this(
-                  new LogWrapper(),
+                  logWrapper,
                   new ConnectionConfigurationBuilder(),
-                  new FileWrapper(),
+                  new FileWrapper(logWrapper),
                   new ConnectionSerializer())
         {
         }

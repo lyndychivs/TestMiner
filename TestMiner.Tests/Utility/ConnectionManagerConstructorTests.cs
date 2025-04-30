@@ -21,14 +21,6 @@
         private readonly Mock<IConnectionSerializer> _mockConnectionSerializer = new();
 
         [Test]
-        public void Constructor_NoParameters_ReturnsConnectionManager()
-        {
-            var connectionManager = new ConnectionManager();
-
-            Assert.That(connectionManager, Is.Not.Null);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ReturnsConnectionManager()
         {
             var connectionManager = new ConnectionManager(_mockLogWrapper.Object, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object, _mockConnectionSerializer.Object);
