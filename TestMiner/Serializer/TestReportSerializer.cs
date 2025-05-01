@@ -11,11 +11,6 @@
     {
         private readonly ILogWrapper _logWrapper;
 
-        internal TestReportSerializer()
-            : this(new LogWrapper())
-        {
-        }
-
         internal TestReportSerializer(ILogWrapper logWrapper)
         {
             _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));

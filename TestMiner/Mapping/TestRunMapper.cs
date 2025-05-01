@@ -12,11 +12,6 @@
     {
         private readonly ILogWrapper _logWrapper;
 
-        internal TestRunMapper()
-            : this(new LogWrapper())
-        {
-        }
-
         internal TestRunMapper(ILogWrapper logWrapper)
         {
             _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));

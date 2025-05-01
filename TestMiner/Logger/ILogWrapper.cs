@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal interface ILogWrapper
+    public interface ILogWrapper
     {
         void Error(string message);
 

@@ -6,14 +6,9 @@
 
     using TestMiner.Logger;
 
-    internal class ConnectionStringValidator
+    public class ConnectionStringValidator
     {
         private readonly ILogWrapper _logWrapper;
-
-        public ConnectionStringValidator()
-            : this(new LogWrapper())
-        {
-        }
 
         public ConnectionStringValidator(ILogWrapper logWrapper)
         {

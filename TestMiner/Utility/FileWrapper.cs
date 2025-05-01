@@ -9,12 +9,7 @@
     {
         private readonly ILogWrapper _logWrapper;
 
-        public FileWrapper()
-            : this(new LogWrapper())
-        {
-        }
-
-        public FileWrapper(ILogWrapper logWrapper)
+        internal FileWrapper(ILogWrapper logWrapper)
         {
             _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
         }

@@ -21,14 +21,6 @@
         private readonly Mock<IConnectionSerializer> _mockConnectionSerializer = new();
 
         [Test]
-        public void Constructor_NoParameters_ReturnsConnectionManager()
-        {
-            var connectionManager = new ConnectionManager();
-
-            Assert.That(connectionManager, Is.Not.Null);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ReturnsConnectionManager()
         {
             var connectionManager = new ConnectionManager(_mockLogWrapper.Object, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object, _mockConnectionSerializer.Object);
@@ -42,6 +34,18 @@
             Assert.Multiple(() =>
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(null!, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object, _mockConnectionSerializer.Object));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
+            });
+        }
+
+        [Test]
+        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(null!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
                 Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));

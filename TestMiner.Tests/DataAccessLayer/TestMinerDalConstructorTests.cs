@@ -42,7 +42,7 @@
         {
             Assert.Multiple(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerDal(_mockLogWrapper.Object, null!));
+                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerDal(_mockLogWrapper.Object, database: null!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("database"));
                 Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'database')"));
@@ -55,7 +55,7 @@
         {
             Assert.Multiple(() =>
             {
-                var ex = Assert.Throws<ArgumentException>(() => new TestMinerDal(connectionString!));
+                var ex = Assert.Throws<ArgumentException>(() => new TestMinerDal(_mockLogWrapper.Object, connectionString!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
                 Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'connectionString')"));
@@ -67,10 +67,22 @@
         {
             Assert.Multiple(() =>
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerDal(null!));
+                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerDal(_mockLogWrapper.Object, connectionString: null!));
 
                 Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
                 Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'connectionString')"));
+            });
+        }
+
+        [Test]
+        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+        {
+            Assert.Multiple(() =>
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerDal(null!, "Data Source=localhost\\Database=DatabaseName;"));
+
+                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+                Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'logWrapper')"));
             });
         }
     }

@@ -2,8 +2,11 @@
 {
     using System;
 
+    using Moq;
+
     using NUnit.Framework;
 
+    using TestMiner.Logger;
     using TestMiner.Mapping;
 
     [TestFixture]
@@ -12,7 +15,9 @@
         [Test]
         public void Constructor_ValidParameters_ReturnsTestRunMapper()
         {
-            var testRunMapper = new TestRunMapper();
+            var logWrapper = new Mock<ILogWrapper>().Object;
+
+            var testRunMapper = new TestRunMapper(logWrapper);
 
             Assert.That(testRunMapper, Is.Not.Null);
         }

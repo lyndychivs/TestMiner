@@ -46,9 +46,9 @@
             var testMinerDal = new TestMinerDal(logWrapper, mockDatabase.Object);
             var testMinerApplication = new TestMinerApplication(
                 logWrapper,
-                new FileWrapper(),
-                new TestReportSerializer(),
-                new TestRunMapper(),
+                new FileWrapper(logWrapper),
+                new TestReportSerializer(logWrapper),
+                new TestRunMapper(logWrapper),
                 testMinerDal);
 
             var result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);

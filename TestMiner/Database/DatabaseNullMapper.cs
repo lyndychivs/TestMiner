@@ -2,7 +2,7 @@
 {
     internal static class DatabaseNullMapper
     {
-        public static string? GetNullable(this string? value)
+        internal static string? GetNullable(this string? value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

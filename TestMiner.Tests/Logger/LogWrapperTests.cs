@@ -54,7 +54,7 @@
             _logWrapper.Error(exception, "b");
 
             _mockLogger.VerifyLogging("b", LogLevel.Error, Times.Once());
-            _mockLogger.VerifyLogging("b", LogLevel.Debug, Times.Once());
+            _mockLogger.VerifyLogging("System.Exception: a", LogLevel.Debug, Times.Once());
         }
     }
 }

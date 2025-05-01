@@ -13,14 +13,6 @@
     public class FileWrapperConstructorTests
     {
         [Test]
-        public void Constructor_NoParameters_ReturnsFileWrapper()
-        {
-            var fileWrapper = new FileWrapper();
-
-            Assert.That(fileWrapper, Is.Not.Null);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ReturnsFileWrapper()
         {
             var logWrapper = new Mock<ILogWrapper>().Object;

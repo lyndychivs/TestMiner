@@ -23,7 +23,7 @@
             var connectionManager = new ConnectionManager(
                 mockLogWrapper.Object,
                 new ConnectionConfigurationBuilder(),
-                new FileWrapper(),
+                new FileWrapper(mockLogWrapper.Object),
                 new ConnectionSerializer());
 
             var connectionString = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;";
