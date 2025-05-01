@@ -16,6 +16,8 @@
     <RepositoryUrl>https://github.com/lyndychivs/TestMiner</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>test;miner;unit;nunit;database;history;upload;record;testing</PackageTags>
+    <AssemblyVersion>3.1.0</AssemblyVersion>
+    <FileVersion>3.1.0</FileVersion>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <AnalysisLevel>latest-minimum</AnalysisLevel>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
