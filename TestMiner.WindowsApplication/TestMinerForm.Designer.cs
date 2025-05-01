@@ -20,6 +20,8 @@
         private Label _lblSelectedFiles;
         private Label _lblLogs;
         private LinkLabel _lblGithub;
+        private Button _btnClearLogs;
+        private PictureBox _pictureBoxLogo;
 
         private void InitializeComponent()
         {
@@ -39,6 +41,8 @@
             _lblLogs = new Label();
             _lblGithub = new LinkLabel();
             _btnClearLogs = new Button();
+            _pictureBoxLogo = new PictureBox();
+            ((ISupportInitialize)_pictureBoxLogo).BeginInit();
             SuspendLayout();
             // 
             // _rtbLogs
@@ -170,7 +174,7 @@
             // 
             _lblGithub.AutoSize = true;
             _lblGithub.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            _lblGithub.Location = new Point(755, 683);
+            _lblGithub.Location = new Point(712, 674);
             _lblGithub.Name = "_lblGithub";
             _lblGithub.Size = new Size(211, 15);
             _lblGithub.TabIndex = 14;
@@ -189,9 +193,20 @@
             _btnClearLogs.UseVisualStyleBackColor = true;
             _btnClearLogs.Click += BtnClearLogs_Click;
             // 
+            // _pictureBoxLogo
+            // 
+            _pictureBoxLogo.Image = Properties.Resources.pickaxe;
+            _pictureBoxLogo.Location = new Point(929, 667);
+            _pictureBoxLogo.Name = "_pictureBoxLogo";
+            _pictureBoxLogo.Size = new Size(39, 28);
+            _pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            _pictureBoxLogo.TabIndex = 17;
+            _pictureBoxLogo.TabStop = false;
+            // 
             // TestMinerForm
             // 
             ClientSize = new Size(980, 707);
+            Controls.Add(_pictureBoxLogo);
             Controls.Add(_btnClearLogs);
             Controls.Add(_lblGithub);
             Controls.Add(_lblLogs);
@@ -212,9 +227,9 @@
             Name = "TestMinerForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Test Miner";
+            ((ISupportInitialize)_pictureBoxLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
-        private Button _btnClearLogs;
     }
 }
