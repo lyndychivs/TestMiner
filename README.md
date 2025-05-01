@@ -18,7 +18,7 @@ The Database would provide users with the means to historically track and monito
 ## 🖥️ Test Miner Console Application
 Specify the following commands & arguments:
 
-### 🛠️Command Line Usages
+### 🛠️Command Line Interface Usages
 #### ⛏️ mine
 Mine Test Report files to the Database.
 ```bash
@@ -54,6 +54,11 @@ TestMiner.exe save --connection "Server=localhost\\SQLEXPRESS;Database=TestMiner
 The Database project exists at [TestMiner.Database](TestMiner.Database); you can publish this Database to your own SQL Server instance.
 
 I have included guidance on how to deploy the Database to localhost for testing (with Docker) [here](TestMiner.Database/README.md)
+
+## 🖥️ Test Miner Windows Application
+A Windows application exists that wraps all the CLI functionality in a GUI format, [TestMiner.WindowsApplication](TestMiner.WindowsApplication).
+
+![Test Miner Windows Application Screenshot](/TestMiner.WindowsApplication/Screenshots/TestMinerWindowsApplicationDefault.png)
 
 ## 🧪 Testing
 - Unit Testing
