@@ -6,7 +6,21 @@ Test Miner was designed to parse NUnit3 Test Reports and store the results into 
 
 The Database would provide users with the means to historically track and monitor trends of Test Results.
 
-![Test Miner Diagram](/Resources/TestMinerDiagram.png)
+**Simple Flow:**
+```mermaid
+---
+config:
+  theme: redux-dark
+  look: classic
+  layout: fixed
+---
+flowchart LR
+    A(["Start with"]) --> B["NUnit Report"]
+    B --> C["Test Miner"]
+    C --> D["Database"]
+    B@{ shape: out-in}
+    D@{ shape: db}
+```
 
 ## Prerequisites
 | Prerequisite        | Note |
