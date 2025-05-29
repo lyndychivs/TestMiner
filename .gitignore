@@ -484,5 +484,4 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-# Windows Installer files
-Installer/
+Installer/Output/
