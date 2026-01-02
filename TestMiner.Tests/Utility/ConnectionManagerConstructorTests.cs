@@ -12,13 +12,13 @@ using TestMiner.Utility;
 [TestFixture]
 public class ConnectionManagerConstructorTests
 {
-    private readonly Mock<ILogWrapper> _mockLogWrapper = new();
+    private readonly Mock<ILogWrapper> _mockLogWrapper = new ();
 
-    private readonly Mock<IConnectionConfigurationBuilder> _mockConnectionConfigurationBuilder = new();
+    private readonly Mock<IConnectionConfigurationBuilder> _mockConnectionConfigurationBuilder = new ();
 
-    private readonly Mock<IFileWrapper> _mockFileWrapper = new();
+    private readonly Mock<IFileWrapper> _mockFileWrapper = new ();
 
-    private readonly Mock<IConnectionSerializer> _mockConnectionSerializer = new();
+    private readonly Mock<IConnectionSerializer> _mockConnectionSerializer = new ();
 
     [Test]
     public void Constructor_ValidParameters_ReturnsConnectionManager()

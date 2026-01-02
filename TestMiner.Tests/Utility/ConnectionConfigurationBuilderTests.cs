@@ -13,7 +13,7 @@ using TestMiner.Utility;
 [TestFixture]
 public class ConnectionConfigurationBuilderTests
 {
-    private readonly Mock<IConfigurationBuilder> _mockConfigurationBuilder = new();
+    private readonly Mock<IConfigurationBuilder> _mockConfigurationBuilder = new ();
 
     [Test]
     public void BuildConnection_EmptyFilePath_ThrowsArgumentException()

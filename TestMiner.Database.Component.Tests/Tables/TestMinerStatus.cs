@@ -1,6 +1,6 @@
 namespace TestMiner.Database.Component.Tests.Tables;
 
-internal class TestMinerStatus
+internal sealed class TestMinerStatus
 {
     required public int Id { get; init; }
 

@@ -17,15 +17,15 @@ using TestMiner.Utility;
 [TestFixture]
 public class TestMinerApplicationTests
 {
-    private readonly Mock<ILogWrapper> _mockLogWrapper = new();
+    private readonly Mock<ILogWrapper> _mockLogWrapper = new ();
 
-    private readonly Mock<IFileWrapper> _mockFileWrapper = new();
+    private readonly Mock<IFileWrapper> _mockFileWrapper = new ();
 
-    private readonly Mock<ITestReportSerializer> _mockTestReportSerializer = new();
+    private readonly Mock<ITestReportSerializer> _mockTestReportSerializer = new ();
 
-    private readonly Mock<ITestRunMapper> _mockTestRunMapper = new();
+    private readonly Mock<ITestRunMapper> _mockTestRunMapper = new ();
 
-    private readonly Mock<ITestMinerDal> _mockTestMinerDal = new();
+    private readonly Mock<ITestMinerDal> _mockTestMinerDal = new ();
 
     private readonly TestMinerApplication _testMinerApplication;
 

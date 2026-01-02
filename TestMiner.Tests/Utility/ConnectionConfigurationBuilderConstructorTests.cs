@@ -13,7 +13,7 @@ using TestMiner.Utility;
 [TestFixture]
 public class ConnectionConfigurationBuilderConstructorTests
 {
-    private readonly Mock<IConfigurationBuilder> _configurationBuilderMock = new();
+    private readonly Mock<IConfigurationBuilder> _configurationBuilderMock = new ();
 
     [Test]
     public void Constructor_WhenCalled_ReturnsConnectionConfigurationBuilder()

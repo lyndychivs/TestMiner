@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using TestMiner.Database.Component.Tests;
 
-internal class EnvironmentUsersInformationSchema
+internal sealed class EnvironmentUsersInformationSchema
 {
     private const string TableCatalog = "TestMiner";
 

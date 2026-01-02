@@ -13,9 +13,9 @@ using TestMiner.Logger;
 [TestFixture]
 public class TestMinerDalConstructorTests
 {
-    private readonly Mock<IDatabase> _mockDatabase = new();
+    private readonly Mock<IDatabase> _mockDatabase = new ();
 
-    private readonly Mock<ILogWrapper> _mockLogWrapper = new();
+    private readonly Mock<ILogWrapper> _mockLogWrapper = new ();
 
     [Test]
     public void Constructor_ValidParameters_ReturnstestMinerDal()

@@ -13,7 +13,7 @@ using TestMiner.Logger;
 [TestFixture]
 public class LogWrapperTests
 {
-    private readonly Mock<ILogger> _mockLogger = new();
+    private readonly Mock<ILogger> _mockLogger = new ();
 
     private readonly LogWrapper _logWrapper;
 

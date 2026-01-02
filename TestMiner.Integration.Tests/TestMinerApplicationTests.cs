@@ -16,7 +16,7 @@ using TestMiner.Serializer;
 using TestMiner.Utility;
 
 [TestFixture]
-public class TestMinerApplicationIntegrationTests
+public class TestMinerApplicationTests
 {
     [Test]
     [Explicit("Limited Mocks Integration Test; Performs IO operations.")]

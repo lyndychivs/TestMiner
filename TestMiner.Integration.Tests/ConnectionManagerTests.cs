@@ -10,7 +10,7 @@ using TestMiner.Logger;
 using TestMiner.Utility;
 
 [TestFixture]
-public class ConnectionManagerIntegrationTests
+public class ConnectionManagerTests
 {
     [Test]
     [Explicit("Limited Mocks Integration Test; Performs IO operations.")]

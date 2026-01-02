@@ -1,101 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <ApplicationIcon>Resouces\pickaxe.ico</ApplicationIcon>
-    <Title>Test Miner</Title>
-    <Authors>lyndychivs</Authors>
-    <Company>lyndychivs</Company>
-    <PackageProjectUrl>https://github.com/lyndychivs/TestMiner</PackageProjectUrl>
-    <PackageIcon>pickaxe.png</PackageIcon>
-    <RepositoryUrl>https://github.com/lyndychivs/TestMiner</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <NeutralLanguage>en</NeutralLanguage>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <PublishAot>False</PublishAot>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Description>Test Miner for scraping NUnit3 Test Reports into a Database.</Description>
-    <Copyright>MIT</Copyright>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>test;miner;unit;nunit;database;history;upload;record;testing</PackageTags>
-    <AssemblyVersion>3.1.0</AssemblyVersion>
-    <FileVersion>3.1.0</FileVersion>
-    <AnalysisLevel>latest-minimum</AnalysisLevel>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-    <Configurations>Debug;Release;GitHub</Configurations>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningLevel>9999</WarningLevel>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GitHub|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningLevel>9999</WarningLevel>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningLevel>9999</WarningLevel>
-    <DebugType>none</DebugType>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>$(AssemblyName).Integration.Tests</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resouces\pickaxe.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resouces\pickaxe.ico" />
-    <EmbeddedResource Include="Resouces\pickaxe.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" />
-    <PackageReference Include="Dapper" />
-    <PackageReference Include="Microsoft.Data.SqlClient" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
-    <PackageReference Include="Serilog.Extensions.Logging" />
-    <PackageReference Include="Serilog.Sinks.Console" />
-    <PackageReference Include="Serilog.Sinks.File" />
-    <PackageReference Include="StyleCop.Analyzers">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestMiner.Models\TestMiner.Models.csproj" />
-    <ProjectReference Include="..\TestMiner.TestReports\TestMiner.TestReports.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Connection.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <ApplicationIcon>Resources\pickaxe.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>$(AssemblyName).Integration.Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Connection.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\pickaxe.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommandLineParser" />
+        <PackageReference Include="Dapper" />
+        <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" />
+        <PackageReference Include="Serilog.Extensions.Logging" />
+        <PackageReference Include="Serilog.Sinks.Console" />
+        <PackageReference Include="Serilog.Sinks.File" />
+        <PackageReference Include="StyleCop.Analyzers">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\TestMiner.Models\TestMiner.Models.csproj" />
+        <ProjectReference Include="..\TestMiner.TestReports\TestMiner.TestReports.csproj" />
+    </ItemGroup>
 </Project>

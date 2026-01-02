@@ -5,7 +5,7 @@
 #define MyAppVersion "3.1.0"
 #define MyAppPublisher "lyndychivs"
 #define MyAppURL "https://github.com/lyndychivs/TestMiner"
-#define MyAppExeName "TestMiner.WindowsApplication.exe"
+#define MyAppExeName "TestMiner.Windows.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -33,8 +33,8 @@ AllowNoIcons=yes
 LicenseFile=C:\git\TestMiner\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
-OutputBaseFilename=testminer-windows-app-setup-x64
-SetupIconFile=C:\git\TestMiner\TestMiner.WindowsApplication\Resouces\pickaxe.ico
+OutputBaseFilename=testminer-setup-x64
+SetupIconFile=C:\git\TestMiner\TestMiner.Windows\Resources\pickaxe.ico
 SolidCompression=yes
 WizardStyle=modern
 
@@ -45,8 +45,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\git\TestMiner\TestMiner.WindowsApplication\bin\Release\net8.0-windows\publish\win-x64\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\git\TestMiner\TestMiner.WindowsApplication\bin\Release\net8.0-windows\publish\win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\git\TestMiner\TestMiner.Windows\bin\Release\net8.0-windows\publish\win-x64\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\git\TestMiner\TestMiner.Windows\bin\Release\net8.0-windows\publish\win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

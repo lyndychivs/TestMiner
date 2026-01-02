@@ -2,6 +2,7 @@ namespace TestMiner.Serializer;
 
 using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 using TestMiner.Logger;
@@ -22,7 +23,16 @@ internal class TestReportSerializer : ITestReportSerializer
 
         try
         {
-            return new XmlSerializer(typeof(TestRun)).Deserialize(new StringReader(fileContent)) as TestRun ?? throw new NullReferenceException(nameof(TestRun));
+            using var stringReader = new StringReader(fileContent);
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null,
+            };
+
+            using var xmlReader = XmlReader.Create(stringReader, settings);
+
+            return new XmlSerializer(typeof(TestRun)).Deserialize(xmlReader) as TestRun ?? throw new NullReferenceException(nameof(TestRun));
         }
         catch (Exception exception)
         {

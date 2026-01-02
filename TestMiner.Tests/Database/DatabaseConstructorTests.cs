@@ -13,11 +13,11 @@ using TestMiner.Logger;
 [TestFixture]
 public class DatabaseConstructorTests
 {
-    private readonly Mock<ILogWrapper> _mockLogWrapper = new();
+    private readonly Mock<ILogWrapper> _mockLogWrapper = new ();
 
-    private readonly Mock<IDbConnection> _mockDbConnection = new();
+    private readonly Mock<IDbConnection> _mockDbConnection = new ();
 
-    private readonly Mock<IDynamicParametersWrapper> _mockDynamicParametersWrapper = new();
+    private readonly Mock<IDynamicParametersWrapper> _mockDynamicParametersWrapper = new ();
 
     [Test]
     public void Constructor_ValidParameters_ReturnsDatabase()

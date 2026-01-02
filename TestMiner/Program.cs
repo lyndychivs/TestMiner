@@ -1,6 +1,7 @@
 namespace TestMiner;
 
 using System;
+using System.Globalization;
 
 using CommandLine;
 
@@ -63,12 +64,14 @@ internal class Program
             new LoggerConfiguration()
             .MinimumLevel.Verbose()
             .WriteTo.Console(
-                restrictedToMinimumLevel: LogEventLevel.Information)
+                restrictedToMinimumLevel: LogEventLevel.Information,
+                formatProvider: CultureInfo.InvariantCulture)
             .WriteTo.File(
                 $"Logs\\{nameof(TestMiner)}.log",
                 restrictedToMinimumLevel: LogEventLevel.Verbose,
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 3)
+                retainedFileCountLimit: 3,
+                formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger()).CreateLogger<ILogWrapper>());
     }
 }

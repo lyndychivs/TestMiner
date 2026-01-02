@@ -1,0 +1,69 @@
+<Project>
+    <PropertyGroup>
+        <ImportDirectoryBuildProps>true</ImportDirectoryBuildProps>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+
+        <Configurations>Debug;Release;GitHub</Configurations>
+
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <EnableNETAnalyzers>True</EnableNETAnalyzers>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+
+        <Version>3.1.0</Version>
+        <AssemblyVersion>3.1.0</AssemblyVersion>
+        <FileVersion>3.1.0</FileVersion>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Authors>lyndychivs</Authors>
+        <Company>lyndychivs</Company>
+
+        <Product>Test Miner</Product>
+        <Title>Test Miner</Title>
+        <Copyright>lyndychivs Test Miner © 2026</Copyright>
+        <PackageTags>test;miner;unit;nunit;database;history;upload;record;testing</PackageTags>
+        <Description>Test Miner for scraping NUnit3 Test Reports into a Database.</Description>
+
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <PackageProjectUrl>https://github.com/lyndychivs/TestMiner</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/lyndychivs/TestMiner</RepositoryUrl>
+
+        <RepositoryType>git</RepositoryType>
+        <NeutralLanguage>en</NeutralLanguage>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <Optimize>true</Optimize>
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <Optimize>false</Optimize>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'GitHub|AnyCPU'">
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <Optimize>false</Optimize>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+</Project>

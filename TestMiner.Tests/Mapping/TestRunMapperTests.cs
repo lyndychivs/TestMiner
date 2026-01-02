@@ -1,6 +1,7 @@
 namespace TestMiner.Tests.Mapping;
 
 using System;
+using System.Globalization;
 
 using Moq;
 
@@ -43,7 +44,7 @@ public class TestRunMapperTests
     public void MapTestRunToDto_ValidTestRun_ReturnsTestRunDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.Parse(DateTimeString);
+        var expectedDateTime = DateTime.Parse(DateTimeString, CultureInfo.InvariantCulture);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
@@ -477,7 +478,7 @@ public class TestRunMapperTests
     public void MapTestRunToDto_NoAssemblyTestSuite_ReturnsTestRunDtoWithDefaultEnvironmentDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.Parse(DateTimeString);
+        var expectedDateTime = DateTime.Parse(DateTimeString, CultureInfo.InvariantCulture);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
