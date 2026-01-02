@@ -5,11 +5,11 @@ Versions currently supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x.x   | :x:                |
-| 2.0.x   | :x:                |
-| 2.1.x   | :x:                |
-| 3.0.0   | :white_check_mark: |
 | 3.1.0   | :white_check_mark: |
+| 3.0.0   | :white_check_mark: |
+| 2.1.x   | :x:                |
+| 2.0.x   | :x:                |
+| 1.x.x   | :x:                |
 
 ## Reporting a Vulnerability
 
