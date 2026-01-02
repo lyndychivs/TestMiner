@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 using Microsoft.Extensions.Logging;
@@ -33,12 +34,15 @@ internal partial class TestMinerForm : Form
             new SerilogLoggerFactory(
                 new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .WriteTo.RichTextBox(_rtbLogs)
+                .WriteTo.RichTextBox(
+                    _rtbLogs,
+                    formatProvider: CultureInfo.InvariantCulture)
                 .WriteTo.File(
                     $"Logs\\{nameof(TestMiner)}.log",
                     restrictedToMinimumLevel: LogEventLevel.Verbose,
                     rollingInterval: RollingInterval.Day,
-                    retainedFileCountLimit: 3)
+                    retainedFileCountLimit: 3,
+                    formatProvider: CultureInfo.InvariantCulture)
                 .CreateLogger()).CreateLogger<ILogWrapper>());
 
         _connectionManager = new ConnectionManager(_logWrapper);
