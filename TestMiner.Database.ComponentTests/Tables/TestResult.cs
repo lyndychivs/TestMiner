@@ -1,9 +1,8 @@
-﻿namespace TestMiner.Database.ComponentTests.Tables
-{
-    internal class TestResult
-    {
-        required public int Id { get; init; }
+namespace TestMiner.Database.ComponentTests.Tables;
 
-        required public string Result { get; init; }
-    }
+internal class TestResult
+{
+    required public int Id { get; init; }
+
+    required public string Result { get; init; }
 }

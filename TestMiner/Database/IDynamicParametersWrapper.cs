@@ -1,15 +1,14 @@
-﻿namespace TestMiner.Database
+namespace TestMiner.Database;
+
+using System.Data;
+
+using Dapper;
+
+internal interface IDynamicParametersWrapper
 {
-    using System.Data;
+    void Add(string name, object? value, DbType dbType);
 
-    using Dapper;
+    void Clear();
 
-    internal interface IDynamicParametersWrapper
-    {
-        void Add(string name, object? value, DbType dbType);
-
-        void Clear();
-
-        DynamicParameters GetDynamicParameters();
-    }
+    DynamicParameters GetDynamicParameters();
 }

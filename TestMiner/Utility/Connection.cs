@@ -1,7 +1,6 @@
-namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+internal class Connection
 {
-    internal class Connection
-    {
-        public string ConnectionString { get; init; } = string.Empty;
-    }
+    public string ConnectionString { get; init; } = string.Empty;
 }

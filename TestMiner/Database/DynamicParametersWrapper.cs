@@ -1,26 +1,25 @@
-﻿namespace TestMiner.Database
+namespace TestMiner.Database;
+
+using System.Data;
+
+using Dapper;
+
+internal class DynamicParametersWrapper : IDynamicParametersWrapper
 {
-    using System.Data;
+    private DynamicParameters _dynamicParameters = new ();
 
-    using Dapper;
-
-    internal class DynamicParametersWrapper : IDynamicParametersWrapper
+    public void Add(string name, object? value, DbType dbType)
     {
-        private DynamicParameters _dynamicParameters = new ();
+        _dynamicParameters.Add(name, value, dbType);
+    }
 
-        public void Add(string name, object? value, DbType dbType)
-        {
-            _dynamicParameters.Add(name, value, dbType);
-        }
+    public void Clear()
+    {
+        _dynamicParameters = new DynamicParameters();
+    }
 
-        public void Clear()
-        {
-            _dynamicParameters = new DynamicParameters();
-        }
-
-        public DynamicParameters GetDynamicParameters()
-        {
-            return _dynamicParameters;
-        }
+    public DynamicParameters GetDynamicParameters()
+    {
+        return _dynamicParameters;
     }
 }

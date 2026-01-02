@@ -1,165 +1,164 @@
-﻿namespace TestMiner.Models.Tests.TestRun
+namespace TestMiner.Models.Tests.TestRun;
+
+using System;
+
+using NUnit.Framework;
+
+using TestMiner.Models.TestRun;
+
+[TestFixture]
+public class TestRunDtoTests
 {
-    using System;
+    private readonly TestRunDto _testRunDto;
 
-    using NUnit.Framework;
-
-    using TestMiner.Models.TestRun;
-
-    [TestFixture]
-    public class TestRunDtoTests
+    public TestRunDtoTests()
     {
-        private readonly TestRunDto _testRunDto;
+        _testRunDto = new TestRunDto(
+            new DateTime(1, DateTimeKind.Utc),
+            new DateTime(2, DateTimeKind.Utc),
+            TimeSpan.FromSeconds(3),
+            new EnvironmentDto());
+    }
 
-        public TestRunDtoTests()
+    [Test]
+    public void AddTest_WithNullTestDto_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            _testRunDto = new TestRunDto(
-                new DateTime(1, DateTimeKind.Utc),
-                new DateTime(2, DateTimeKind.Utc),
-                TimeSpan.FromSeconds(3),
-                new EnvironmentDto());
-        }
+            var ex = Assert.Throws<ArgumentNullException>(() => _testRunDto.AddTest(null!));
 
-        [Test]
-        public void AddTest_WithNullTestDto_ThrowsArgumentNullException()
+            Assert.That(ex?.ParamName, Is.EqualTo("testDto"));
+            Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testDto')"));
+        });
+    }
+
+    [Test]
+    public void AddTest_WhenResultInconclusive_IncreasesTestCount()
+    {
+        var testDto = new TestDto
         {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => _testRunDto.AddTest(null!));
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Inconclusive,
+        };
 
-                Assert.That(ex?.ParamName, Is.EqualTo("testDto"));
-                Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testDto')"));
-            });
-        }
+        _testRunDto.AddTest(testDto);
 
-        [Test]
-        public void AddTest_WhenResultInconclusive_IncreasesTestCount()
+        Assert.Multiple(() =>
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Inconclusive,
-            };
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Inconclusive, Is.EqualTo(1));
+        });
+    }
 
-            _testRunDto.AddTest(testDto);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Inconclusive, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void AddTest_WhenResultPassed_IncreasesTestCount()
+    [Test]
+    public void AddTest_WhenResultPassed_IncreasesTestCount()
+    {
+        var testDto = new TestDto
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Passed,
-            };
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Passed,
+        };
 
-            _testRunDto.AddTest(testDto);
+        _testRunDto.AddTest(testDto);
 
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Passed, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void AddTest_WhenResultWarning_IncreasesTestCount()
+        Assert.Multiple(() =>
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Warning,
-            };
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Passed, Is.EqualTo(1));
+        });
+    }
 
-            _testRunDto.AddTest(testDto);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Warning, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void AddTest_WhenResultSkipped_IncreasesTestCount()
+    [Test]
+    public void AddTest_WhenResultWarning_IncreasesTestCount()
+    {
+        var testDto = new TestDto
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Skipped,
-            };
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Warning,
+        };
 
-            _testRunDto.AddTest(testDto);
+        _testRunDto.AddTest(testDto);
 
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Skipped, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void AddTest_WhenResultFailed_IncreasesTestCount()
+        Assert.Multiple(() =>
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Failed,
-            };
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Warning, Is.EqualTo(1));
+        });
+    }
 
-            _testRunDto.AddTest(testDto);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Failed, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void AddTest_WhenResultError_IncreasesTestCount()
+    [Test]
+    public void AddTest_WhenResultSkipped_IncreasesTestCount()
+    {
+        var testDto = new TestDto
         {
-            var testDto = new TestDto
-            {
-                Name = "a",
-                ClassName = "b",
-                Result = Result.Error,
-            };
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Skipped,
+        };
 
-            _testRunDto.AddTest(testDto);
+        _testRunDto.AddTest(testDto);
 
-            Assert.Multiple(() =>
-            {
-                Assert.That(_testRunDto.Total, Is.EqualTo(1));
-                Assert.That(_testRunDto.Error, Is.EqualTo(1));
-            });
-        }
-
-        [Test]
-        public void CalculateMd5Hash_WhenCalled_ReturnsMd5Hash()
+        Assert.Multiple(() =>
         {
-            var result = _testRunDto.CalculateMd5Hash();
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Skipped, Is.EqualTo(1));
+        });
+    }
 
-            Assert.That(result, Is.EqualTo("F0A67D0CA129A6CCC4E3381CADCDCCB6"));
-        }
-
-        [Test]
-        public void ToString_WhenCalled_ReturnsStringRepresentation()
+    [Test]
+    public void AddTest_WhenResultFailed_IncreasesTestCount()
+    {
+        var testDto = new TestDto
         {
-            var result = _testRunDto.ToString();
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Failed,
+        };
 
-            Assert.That(result, Is.EqualTo("Total: 0 Inconclusive: 0 Passed: 0 Warning: 0 Skipped: 0 Failed: 0 Error: 0 StartTime: 01/01/0001 00:00:00 EndTime: 01/01/0001 00:00:00 Duration: 00:00:03 Environment: Unknown@Unknown"));
-        }
+        _testRunDto.AddTest(testDto);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Failed, Is.EqualTo(1));
+        });
+    }
+
+    [Test]
+    public void AddTest_WhenResultError_IncreasesTestCount()
+    {
+        var testDto = new TestDto
+        {
+            Name = "a",
+            ClassName = "b",
+            Result = Result.Error,
+        };
+
+        _testRunDto.AddTest(testDto);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_testRunDto.Total, Is.EqualTo(1));
+            Assert.That(_testRunDto.Error, Is.EqualTo(1));
+        });
+    }
+
+    [Test]
+    public void CalculateMd5Hash_WhenCalled_ReturnsMd5Hash()
+    {
+        var result = _testRunDto.CalculateMd5Hash();
+
+        Assert.That(result, Is.EqualTo("F0A67D0CA129A6CCC4E3381CADCDCCB6"));
+    }
+
+    [Test]
+    public void ToString_WhenCalled_ReturnsStringRepresentation()
+    {
+        var result = _testRunDto.ToString();
+
+        Assert.That(result, Is.EqualTo("Total: 0 Inconclusive: 0 Passed: 0 Warning: 0 Skipped: 0 Failed: 0 Error: 0 StartTime: 01/01/0001 00:00:00 EndTime: 01/01/0001 00:00:00 Duration: 00:00:03 Environment: Unknown@Unknown"));
     }
 }

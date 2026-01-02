@@ -1,13 +1,12 @@
-﻿namespace TestMiner.TestReports.NUnit3
+namespace TestMiner.TestReports.NUnit3;
+
+using System.Xml.Serialization;
+
+public class TestFailure
 {
-    using System.Xml.Serialization;
+    [XmlElement("message")]
+    public string? Message { get; set; }
 
-    public class TestFailure
-    {
-        [XmlElement("message")]
-        public string? Message { get; set; }
-
-        [XmlElement("stack-trace")]
-        public string? StackTrace { get; set; }
-    }
+    [XmlElement("stack-trace")]
+    public string? StackTrace { get; set; }
 }

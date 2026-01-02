@@ -1,11 +1,10 @@
-﻿namespace TestMiner.Options
+namespace TestMiner.Options;
+
+using System.Collections.Generic;
+
+internal interface IMineOptions
 {
-    using System.Collections.Generic;
+    IEnumerable<string> ReportFilePaths { get; }
 
-    internal interface IMineOptions
-    {
-        IEnumerable<string> ReportFilePaths { get; }
-
-        string ConnectionString { get; }
-    }
+    string ConnectionString { get; }
 }

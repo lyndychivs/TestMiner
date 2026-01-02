@@ -1,59 +1,34 @@
-﻿namespace TestMiner.TestReports.NUnit3
+namespace TestMiner.TestReports.NUnit3;
+
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
+[XmlRoot("test-run")]
+public class TestRun
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Xml.Serialization;
+    [XmlAttribute("start-time")]
+    public string? StartTime { private get; set; }
 
-    [XmlRoot("test-run")]
-    public class TestRun
-    {
-        [XmlAttribute("start-time")]
-        public string? StartTime { private get; set; }
+    [XmlIgnore]
+    public DateTime StartDateTimeUtc => DateTime.TryParse(StartTime, out DateTime startDateTime)
+        ? startDateTime.ToUniversalTime()
+        : DateTime.MinValue;
 
-        [XmlIgnore]
-        public DateTime StartDateTimeUtc
-        {
-            get
-            {
-                if (DateTime.TryParse(StartTime, out DateTime startDateTime))
-                {
-                    return startDateTime.ToUniversalTime();
-                }
+    [XmlAttribute("end-time")]
+    public string? EndTime { private get; set; }
 
-                return DateTime.MinValue;
-            }
-        }
+    [XmlIgnore]
+    public DateTime EndDateTimeUtc => DateTime.TryParse(EndTime, out DateTime endDateTime)
+        ? endDateTime.ToUniversalTime()
+        : DateTime.MinValue;
 
-        [XmlAttribute("end-time")]
-        public string? EndTime { private get; set; }
+    [XmlAttribute("duration")]
+    public double Duration { private get; set; }
 
-        [XmlIgnore]
-        public DateTime EndDateTimeUtc
-        {
-            get
-            {
-                if (DateTime.TryParse(EndTime, out DateTime endDateTime))
-                {
-                    return endDateTime.ToUniversalTime();
-                }
+    [XmlIgnore]
+    public TimeSpan DurationTimeSpan => TimeSpan.FromSeconds(Duration);
 
-                return DateTime.MinValue;
-            }
-        }
-
-        [XmlAttribute("duration")]
-        public double Duration { private get; set; }
-
-        [XmlIgnore]
-        public TimeSpan DurationTimeSpan
-        {
-            get
-            {
-                return TimeSpan.FromSeconds(Duration);
-            }
-        }
-
-        [XmlElement("test-suite")]
-        public List<TestSuite> TestSuites { get; set; } = [];
-    }
+    [XmlElement("test-suite")]
+    public List<TestSuite> TestSuites { get; set; } = [];
 }

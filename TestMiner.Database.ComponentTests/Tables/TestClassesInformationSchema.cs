@@ -1,42 +1,41 @@
-﻿namespace TestMiner.Database.ComponentTests.Tables
+namespace TestMiner.Database.ComponentTests.Tables;
+
+using System.Collections.Generic;
+
+internal static class TestClassesInformationSchema
 {
-    using System.Collections.Generic;
+    private const string TableCatalog = "TestMiner";
 
-    internal static class TestClassesInformationSchema
+    private const string TableSchema = "dbo";
+
+    private const string TableName = "TestClasses";
+
+    internal static List<InformationSchemaTable> Get()
     {
-        private const string TableCatalog = "TestMiner";
-
-        private const string TableSchema = "dbo";
-
-        private const string TableName = "TestClasses";
-
-        internal static List<InformationSchemaTable> Get()
-        {
-            return
-                [
-                new ()
-                {
-                    TABLE_CATALOG = TableCatalog,
-                    TABLE_SCHEMA = TableSchema,
-                    TABLE_NAME = TableName,
-                    COLUMN_NAME = "Id",
-                    ORDINAL_POSITION = "1",
-                    IS_NULLABLE = "NO",
-                    DATA_TYPE = "int",
-                    CHARACTER_MAXIMUM_LENGTH = null,
-                },
-                new ()
-                {
-                    TABLE_CATALOG = TableCatalog,
-                    TABLE_SCHEMA = TableSchema,
-                    TABLE_NAME = TableName,
-                    COLUMN_NAME = "Class",
-                    ORDINAL_POSITION = "2",
-                    IS_NULLABLE = "NO",
-                    DATA_TYPE = "nvarchar",
-                    CHARACTER_MAXIMUM_LENGTH = "500",
-                },
-                ];
-        }
+        return
+            [
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "Id",
+                ORDINAL_POSITION = "1",
+                IS_NULLABLE = "NO",
+                DATA_TYPE = "int",
+                CHARACTER_MAXIMUM_LENGTH = null,
+            },
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "Class",
+                ORDINAL_POSITION = "2",
+                IS_NULLABLE = "NO",
+                DATA_TYPE = "nvarchar",
+                CHARACTER_MAXIMUM_LENGTH = "500",
+            },
+            ];
     }
 }

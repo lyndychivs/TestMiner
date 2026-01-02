@@ -1,9 +1,8 @@
-﻿namespace TestMiner.Models.TestRun
+namespace TestMiner.Models.TestRun;
+
+public enum TestMinerStatus
 {
-    public enum TestMinerStatus
-    {
-        Processing = 1,
-        Complete = 2,
-        Failed = 3,
-    }
+    Processing = 1,
+    Complete = 2,
+    Failed = 3,
 }

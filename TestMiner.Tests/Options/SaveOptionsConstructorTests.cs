@@ -1,27 +1,26 @@
-﻿namespace TestMiner.Tests.Options
+namespace TestMiner.Tests.Options;
+
+using NUnit.Framework;
+
+using TestMiner.Options;
+
+[TestFixture]
+public class SaveOptionsConstructorTests
 {
-    using NUnit.Framework;
-
-    using TestMiner.Options;
-
-    [TestFixture]
-    public class SaveOptionsConstructorTests
+    [Test]
+    public void Constructor_WithConnectionString_ReturnsSaveOptions()
     {
-        [Test]
-        public void Constructor_WithConnectionString_ReturnsSaveOptions()
+        var connectionString = "a";
+
+        var saveOptions = new SaveOptions()
         {
-            var connectionString = "a";
+            ConnectionString = connectionString,
+        };
 
-            var saveOptions = new SaveOptions()
-            {
-                ConnectionString = connectionString,
-            };
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(saveOptions, Is.Not.Null);
-                Assert.That(saveOptions.ConnectionString, Is.EqualTo(connectionString));
-            });
-        }
+        Assert.Multiple(() =>
+        {
+            Assert.That(saveOptions, Is.Not.Null);
+            Assert.That(saveOptions.ConnectionString, Is.EqualTo(connectionString));
+        });
     }
 }

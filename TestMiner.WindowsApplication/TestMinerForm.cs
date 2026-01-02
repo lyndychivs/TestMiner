@@ -1,137 +1,136 @@
-namespace TestMiner.WindowsApplication
+namespace TestMiner.WindowsApplication;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
+
+using Microsoft.Extensions.Logging;
+
+using Serilog;
+using Serilog.Events;
+using Serilog.Extensions.Logging;
+
+using TestMiner.Logger;
+using TestMiner.Utility;
+
+internal partial class TestMinerForm : Form
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.Windows.Forms;
+    private readonly ILogWrapper _logWrapper;
 
-    using Microsoft.Extensions.Logging;
+    private readonly ConnectionManager _connectionManager;
 
-    using Serilog;
-    using Serilog.Events;
-    using Serilog.Extensions.Logging;
+    private readonly ConnectionStringValidator _connectionStringValidator;
 
-    using TestMiner.Logger;
-    using TestMiner.Utility;
+    private TestMinerApplication _testMinerApplication = default!;
 
-    internal partial class TestMinerForm : Form
+    public TestMinerForm()
     {
-        private readonly ILogWrapper _logWrapper;
+        InitializeComponent();
 
-        private readonly ConnectionManager _connectionManager;
+        _logWrapper = new LogWrapper(
+            new SerilogLoggerFactory(
+                new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.RichTextBox(
+                    _rtbLogs,
+                    LogEventLevel.Verbose)
+                .WriteTo.File(
+                    $"Logs\\{nameof(TestMiner)}.log",
+                    restrictedToMinimumLevel: LogEventLevel.Verbose,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 3)
+                .CreateLogger()).CreateLogger<ILogWrapper>());
 
-        private readonly ConnectionStringValidator _connectionStringValidator;
+        _connectionManager = new ConnectionManager(_logWrapper);
 
-        private TestMinerApplication _testMinerApplication = default!;
+        _connectionStringValidator = new ConnectionStringValidator(_logWrapper);
+    }
 
-        public TestMinerForm()
+    private void BtnSaveConnectionString_Click(object sender, EventArgs eventArgs)
+    {
+        if (!_connectionStringValidator.IsConnectionStringValid(_tbConnectionString.Text))
         {
-            InitializeComponent();
-
-            _logWrapper = new LogWrapper(
-                new SerilogLoggerFactory(
-                    new LoggerConfiguration()
-                    .MinimumLevel.Verbose()
-                    .WriteTo.RichTextBox(
-                        _rtbLogs,
-                        LogEventLevel.Verbose)
-                    .WriteTo.File(
-                        $"Logs\\{nameof(TestMiner)}.log",
-                        restrictedToMinimumLevel: LogEventLevel.Verbose,
-                        rollingInterval: RollingInterval.Day,
-                        retainedFileCountLimit: 3)
-                    .CreateLogger()).CreateLogger<ILogWrapper>());
-
-            _connectionManager = new ConnectionManager(_logWrapper);
-
-            _connectionStringValidator = new ConnectionStringValidator(_logWrapper);
+            return;
         }
 
-        private void BtnSaveConnectionString_Click(object sender, EventArgs eventArgs)
-        {
-            if (!_connectionStringValidator.IsConnectionStringValid(_tbConnectionString.Text))
-            {
-                return;
-            }
+        _connectionManager.SaveConnectionString(_tbConnectionString.Text);
+    }
 
-            _connectionManager.SaveConnectionString(_tbConnectionString.Text);
+    private void BtnSelectFilesToMine_Click(object sender, EventArgs eventArgs)
+    {
+        if (_openFileDialog.ShowDialog() != DialogResult.OK)
+        {
+            return;
         }
 
-        private void BtnSelectFilesToMine_Click(object sender, EventArgs eventArgs)
+        foreach (string fileName in _openFileDialog.FileNames)
         {
-            if (_openFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
+            _listBoxFilesSelected.Items.Add(fileName);
+        }
+    }
 
-            foreach (string fileName in _openFileDialog.FileNames)
-            {
-                _listBoxFilesSelected.Items.Add(fileName);
-            }
+    private void BtnClearListBoxFilesSelected_Click(object sender, EventArgs eventArgs)
+    {
+        _listBoxFilesSelected.Items.Clear();
+    }
+
+    private void BtnMine_Click(object sender, EventArgs e)
+    {
+        string connectionString = _connectionManager.GetConnectionString(_tbConnectionString.Text);
+
+        if (!_connectionStringValidator.IsConnectionStringValid(connectionString))
+        {
+            return;
         }
 
-        private void BtnClearListBoxFilesSelected_Click(object sender, EventArgs eventArgs)
+        _testMinerApplication = new TestMinerApplication(_logWrapper, connectionString);
+
+        var filePaths = new List<string>();
+        foreach (string fileName in _listBoxFilesSelected.Items)
         {
-            _listBoxFilesSelected.Items.Clear();
+            filePaths.Add(fileName);
         }
 
-        private void BtnMine_Click(object sender, EventArgs e)
+        Cursor = Cursors.WaitCursor;
+        _testMinerApplication.MineFiles(filePaths);
+        Cursor = Cursors.Default;
+    }
+
+    private void BtnVerifyConnectionString_Click(object sender, EventArgs e)
+    {
+        string connectionString = _connectionManager.GetConnectionString(_tbConnectionString.Text);
+
+        if (_connectionStringValidator.IsConnectionStringValid(connectionString))
         {
-            string connectionString = _connectionManager.GetConnectionString(_tbConnectionString.Text);
-
-            if (!_connectionStringValidator.IsConnectionStringValid(connectionString))
-            {
-                return;
-            }
-
-            _testMinerApplication = new TestMinerApplication(_logWrapper, connectionString);
-
-            var filePaths = new List<string>();
-            foreach (string fileName in _listBoxFilesSelected.Items)
-            {
-                filePaths.Add(fileName);
-            }
-
-            Cursor = Cursors.WaitCursor;
-            _testMinerApplication.MineFiles(filePaths);
-            Cursor = Cursors.Default;
+            _lblConnectionStringStatus.Text = "Connection String: Valid";
+            _lblConnectionStringStatus.ForeColor = Color.Green;
         }
-
-        private void BtnVerifyConnectionString_Click(object sender, EventArgs e)
+        else
         {
-            string connectionString = _connectionManager.GetConnectionString(_tbConnectionString.Text);
-
-            if (_connectionStringValidator.IsConnectionStringValid(connectionString))
-            {
-                _lblConnectionStringStatus.Text = "Connection String: Valid";
-                _lblConnectionStringStatus.ForeColor = Color.Green;
-            }
-            else
-            {
-                _lblConnectionStringStatus.Text = "Connection String: Invalid";
-                _lblConnectionStringStatus.ForeColor = Color.Red;
-            }
+            _lblConnectionStringStatus.Text = "Connection String: Invalid";
+            _lblConnectionStringStatus.ForeColor = Color.Red;
         }
+    }
 
-        private void LblGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void LblGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        try
         {
-            try
+            Process.Start(new ProcessStartInfo
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "https://github.com/lyndychivs/TestMiner",
-                    UseShellExecute = true,
-                });
-            }
-            catch
-            {
-            }
+                FileName = "https://github.com/lyndychivs/TestMiner",
+                UseShellExecute = true,
+            });
         }
-
-        private void BtnClearLogs_Click(object sender, EventArgs e)
+        catch
         {
-            _rtbLogs.Clear();
         }
+    }
+
+    private void BtnClearLogs_Click(object sender, EventArgs e)
+    {
+        _rtbLogs.Clear();
     }
 }

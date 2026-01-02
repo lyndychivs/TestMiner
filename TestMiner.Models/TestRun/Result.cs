@@ -1,12 +1,11 @@
-﻿namespace TestMiner.Models.TestRun
+namespace TestMiner.Models.TestRun;
+
+public enum Result
 {
-    public enum Result
-    {
-        Inconclusive,
-        Passed,
-        Warning,
-        Skipped,
-        Failed,
-        Error,
-    }
+    Inconclusive,
+    Passed,
+    Warning,
+    Skipped,
+    Failed,
+    Error,
 }

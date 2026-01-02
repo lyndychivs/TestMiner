@@ -1,11 +1,10 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+internal interface IFileWrapper
 {
-    internal interface IFileWrapper
-    {
-        bool Exists(string filePath);
+    bool Exists(string filePath);
 
-        string ReadAllText(string filePath);
+    string ReadAllText(string filePath);
 
-        void WriteAllText(string filePath, string content);
-    }
+    void WriteAllText(string filePath, string content);
 }

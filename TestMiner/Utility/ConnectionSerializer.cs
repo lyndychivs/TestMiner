@@ -1,15 +1,14 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+using System;
+using System.Text.Json;
+
+internal class ConnectionSerializer : IConnectionSerializer
 {
-    using System;
-    using System.Text.Json;
-
-    internal class ConnectionSerializer : IConnectionSerializer
+    public string Serialize(Connection connection)
     {
-        public string Serialize(Connection connection)
-        {
-            ArgumentNullException.ThrowIfNull(connection);
+        ArgumentNullException.ThrowIfNull(connection);
 
-            return JsonSerializer.Serialize(connection);
-        }
+        return JsonSerializer.Serialize(connection);
     }
 }

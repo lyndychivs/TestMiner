@@ -1,153 +1,151 @@
-﻿namespace TestMiner.Tests.Utility
+namespace TestMiner.Tests.Utility;
+
+using System;
+
+using Moq;
+
+using NUnit.Framework;
+
+using TestMiner.Logger;
+
+using TestMiner.Utility;
+
+[TestFixture]
+public class ConnectionManagerTests
 {
-    using System;
-    using System.IO;
+    private const string FileName = "Connection.json";
 
-    using Moq;
+    private readonly Mock<ILogWrapper> _mockLogWrapper;
 
-    using NUnit.Framework;
+    private readonly Mock<IConnectionConfigurationBuilder> _mockConnectionConfigurationBuilder;
 
-    using TestMiner.Logger;
+    private readonly Mock<IFileWrapper> _mockFileWrapper;
 
-    using TestMiner.Utility;
+    private readonly Mock<IConnectionSerializer> _mockConnectionSerializer;
 
-    [TestFixture]
-    public class ConnectionManagerTests
+    private readonly ConnectionManager _connectionManager;
+
+    public ConnectionManagerTests()
     {
-        private const string FileName = "Connection.json";
+        _mockLogWrapper = new Mock<ILogWrapper>();
+        _mockConnectionConfigurationBuilder = new Mock<IConnectionConfigurationBuilder>();
+        _mockFileWrapper = new Mock<IFileWrapper>();
+        _mockConnectionSerializer = new Mock<IConnectionSerializer>();
 
-        private readonly Mock<ILogWrapper> _mockLogWrapper;
+        _connectionManager = new ConnectionManager(
+            _mockLogWrapper.Object,
+            _mockConnectionConfigurationBuilder.Object,
+            _mockFileWrapper.Object,
+            _mockConnectionSerializer.Object);
+    }
 
-        private readonly Mock<IConnectionConfigurationBuilder> _mockConnectionConfigurationBuilder;
+    [Test]
+    public void GetConnectionString_ValidConnectionString_ReturnsConnectionString()
+    {
+        var connectionString = _connectionManager.GetConnectionString("a");
 
-        private readonly Mock<IFileWrapper> _mockFileWrapper;
+        Assert.That(connectionString, Is.EqualTo("a"));
+        _mockLogWrapper.Verify(log => log.Info("Connection String provided as parameter."), Times.Once);
+    }
 
-        private readonly Mock<IConnectionSerializer> _mockConnectionSerializer;
+    [Test]
+    public void GetConnectionString_InvalidConnectionString_ReturnsConnectionStringFromFile()
+    {
+        _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
+        _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns(new Connection { ConnectionString = "a" });
 
-        private readonly ConnectionManager _connectionManager;
+        var connectionString = _connectionManager.GetConnectionString(string.Empty);
 
-        public ConnectionManagerTests()
-        {
-            _mockLogWrapper = new Mock<ILogWrapper>();
-            _mockConnectionConfigurationBuilder = new Mock<IConnectionConfigurationBuilder>();
-            _mockFileWrapper = new Mock<IFileWrapper>();
-            _mockConnectionSerializer = new Mock<IConnectionSerializer>();
+        Assert.That(connectionString, Is.EqualTo("a"));
+        _mockLogWrapper.Verify(log => log.Info($"Fetching Connection String from {FileName}"), Times.Once);
+    }
 
-            _connectionManager = new ConnectionManager(
-                _mockLogWrapper.Object,
-                _mockConnectionConfigurationBuilder.Object,
-                _mockFileWrapper.Object,
-                _mockConnectionSerializer.Object);
-        }
+    [Test]
+    public void GetConnectionString_FileNotFound_ReturnsStringEmpty()
+    {
+        _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(false);
 
-        [Test]
-        public void GetConnectionString_ValidConnectionString_ReturnsConnectionString()
-        {
-            var connectionString = _connectionManager.GetConnectionString("a");
+        var result = _connectionManager.GetConnectionString(string.Empty);
 
-            Assert.That(connectionString, Is.EqualTo("a"));
-            _mockLogWrapper.Verify(log => log.Info("Connection String provided as parameter."), Times.Once);
-        }
+        Assert.That(result, Is.EqualTo(string.Empty));
+        _mockLogWrapper.Verify(log => log.Error($"Connection String file not found: {FileName}"), Times.Once);
+    }
 
-        [Test]
-        public void GetConnectionString_InvalidConnectionString_ReturnsConnectionStringFromFile()
-        {
-            _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
-            _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns(new Connection { ConnectionString = "a" });
+    [Test]
+    public void GetConnectionString_NullConnection_ReturnsStringEmpty()
+    {
+        _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
+        _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns((Connection)null!);
 
-            var connectionString = _connectionManager.GetConnectionString(string.Empty);
+        var result = _connectionManager.GetConnectionString(string.Empty);
 
-            Assert.That(connectionString, Is.EqualTo("a"));
-            _mockLogWrapper.Verify(log => log.Info($"Fetching Connection String from {FileName}"), Times.Once);
-        }
+        Assert.That(result, Is.EqualTo(string.Empty));
+        _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
+    }
 
-        [Test]
-        public void GetConnectionString_FileNotFound_ReturnsStringEmpty()
-        {
-            _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(false);
+    [TestCase("")]
+    [TestCase(" ")]
+    [TestCase(null)]
 
-            var result = _connectionManager.GetConnectionString(string.Empty);
+    public void GetConnectionString_InvalidConnectionString_ReturnsStringEmpty(string? connectionString)
+    {
+        _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
+        _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns(new Connection { ConnectionString = connectionString! });
 
-            Assert.That(result, Is.EqualTo(string.Empty));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String file not found: {FileName}"), Times.Once);
-        }
+        var result = _connectionManager.GetConnectionString(string.Empty);
 
-        [Test]
-        public void GetConnectionString_NullConnection_ReturnsStringEmpty()
-        {
-            _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
-            _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns((Connection)null!);
+        Assert.That(result, Is.EqualTo(string.Empty));
+        _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
+    }
 
-            var result = _connectionManager.GetConnectionString(string.Empty);
+    [Test]
+    public void SaveConnectionString_ValidConnectionString_ReturnsZero()
+    {
+        _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("b");
+        _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), "b"));
 
-            Assert.That(result, Is.EqualTo(string.Empty));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
-        }
+        var result = _connectionManager.SaveConnectionString("a");
 
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase(null)]
+        Assert.That(result, Is.EqualTo(0));
+        _mockConnectionSerializer.Verify(
+            serializer => serializer.Serialize(
+            It.Is<Connection>(
+                c => c.ConnectionString.Equals("a"))),
+            Times.Once);
+        _mockLogWrapper.Verify(log => log.Info($"Connection String saved."), Times.Once);
+    }
 
-        public void GetConnectionString_InvalidConnectionString_ReturnsStringEmpty(string? connectionString)
-        {
-            _mockFileWrapper.Setup(file => file.Exists(FileName)).Returns(true);
-            _mockConnectionConfigurationBuilder.Setup(builder => builder.BuildConnection(FileName)).Returns(new Connection { ConnectionString = connectionString! });
+    [TestCase("")]
+    [TestCase(" ")]
+    [TestCase(null)]
+    public void SaveConnectionString_InvalidConnectionString_ReturnsOne(string? connectionString)
+    {
+        var result = _connectionManager.SaveConnectionString(connectionString!);
 
-            var result = _connectionManager.GetConnectionString(string.Empty);
+        Assert.That(result, Is.EqualTo(1));
+        _mockLogWrapper.Verify(log => log.Error($"Connection String cannot be null or empty."), Times.Once);
+    }
 
-            Assert.That(result, Is.EqualTo(string.Empty));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String not found in {FileName}; Try 'save' argument?"), Times.Once);
-        }
+    [Test]
+    public void SaveConnectionString_SerializerThrowsException_ReturnsOne()
+    {
+        _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Throws(new Exception());
 
-        [Test]
-        public void SaveConnectionString_ValidConnectionString_ReturnsZero()
-        {
-            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("b");
-            _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), "b"));
+        var result = _connectionManager.SaveConnectionString("a");
 
-            var result = _connectionManager.SaveConnectionString("a");
+        Assert.That(result, Is.EqualTo(1));
+        _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
+    }
 
-            Assert.That(result, Is.EqualTo(0));
-            _mockConnectionSerializer.Verify(
-                serializer => serializer.Serialize(
-                It.Is<Connection>(
-                    c => c.ConnectionString.Equals("a"))),
-                Times.Once);
-            _mockLogWrapper.Verify(log => log.Info($"Connection String saved."), Times.Once);
-        }
+    [Test]
+    public void SaveConnectionString_WriteAllTextThrowsExection_ReturnsOne()
+    {
+        _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("a");
+        _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
 
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase(null)]
-        public void SaveConnectionString_InvalidConnectionString_ReturnsOne(string? connectionString)
-        {
-            var result = _connectionManager.SaveConnectionString(connectionString!);
+        var result = _connectionManager.SaveConnectionString("a");
 
-            Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error($"Connection String cannot be null or empty."), Times.Once);
-        }
-
-        [Test]
-        public void SaveConnectionString_SerializerThrowsException_ReturnsOne()
-        {
-            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Throws(new Exception());
-
-            var result = _connectionManager.SaveConnectionString("a");
-
-            Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
-        }
-
-        [Test]
-        public void SaveConnectionString_WriteAllTextThrowsExection_ReturnsOne()
-        {
-            _mockConnectionSerializer.Setup(serializer => serializer.Serialize(It.IsAny<Connection>())).Returns("a");
-            _mockFileWrapper.Setup(file => file.WriteAllText(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
-
-            var result = _connectionManager.SaveConnectionString("a");
-
-            Assert.That(result, Is.EqualTo(1));
-            _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
-        }
+        Assert.That(result, Is.EqualTo(1));
+        _mockLogWrapper.Verify(log => log.Error(It.IsAny<Exception>(), $"Failed to save Connection String."), Times.Once);
     }
 }

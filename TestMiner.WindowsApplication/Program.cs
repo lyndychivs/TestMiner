@@ -1,15 +1,14 @@
-namespace TestMiner.WindowsApplication
-{
-    using System;
-    using System.Windows.Forms;
+namespace TestMiner.WindowsApplication;
 
-    internal static class Program
+using System;
+using System.Windows.Forms;
+
+internal static class Program
+{
+    [STAThread]
+    internal static void Main()
     {
-        [STAThread]
-        internal static void Main()
-        {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new TestMinerForm());
-        }
+        ApplicationConfiguration.Initialize();
+        Application.Run(new TestMinerForm());
     }
 }

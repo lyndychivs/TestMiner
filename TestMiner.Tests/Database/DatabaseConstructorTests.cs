@@ -1,86 +1,85 @@
-﻿namespace TestMiner.Tests.Database
+namespace TestMiner.Tests.Database;
+
+using System;
+using System.Data;
+
+using Moq;
+
+using NUnit.Framework;
+
+using TestMiner.Database;
+using TestMiner.Logger;
+
+[TestFixture]
+public class DatabaseConstructorTests
 {
-    using System;
-    using System.Data;
+    private readonly Mock<ILogWrapper> _mockLogWrapper = new();
 
-    using Moq;
+    private readonly Mock<IDbConnection> _mockDbConnection = new();
 
-    using NUnit.Framework;
+    private readonly Mock<IDynamicParametersWrapper> _mockDynamicParametersWrapper = new();
 
-    using TestMiner.Database;
-    using TestMiner.Logger;
-
-    [TestFixture]
-    public class DatabaseConstructorTests
+    [Test]
+    public void Constructor_ValidParameters_ReturnsDatabase()
     {
-        private readonly Mock<ILogWrapper> _mockLogWrapper = new();
+        var database = new Database(_mockLogWrapper.Object, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object);
 
-        private readonly Mock<IDbConnection> _mockDbConnection = new();
+        Assert.That(database, Is.Not.Null);
+    }
 
-        private readonly Mock<IDynamicParametersWrapper> _mockDynamicParametersWrapper = new();
+    [Test]
+    public void Constructor_ValidDbConnection_ReturnsDatabase()
+    {
+        var database = new Database(_mockLogWrapper.Object, _mockDbConnection.Object);
 
-        [Test]
-        public void Constructor_ValidParameters_ReturnsDatabase()
+        Assert.That(database, Is.Not.Null);
+    }
+
+    [Test]
+    public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            var database = new Database(_mockLogWrapper.Object, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object);
+            var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object));
 
-            Assert.That(database, Is.Not.Null);
-        }
+            Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+            Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
+        });
+    }
 
-        [Test]
-        public void Constructor_ValidDbConnection_ReturnsDatabase()
+    [Test]
+    public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            var database = new Database(_mockLogWrapper.Object, _mockDbConnection.Object);
+            var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object));
 
-            Assert.That(database, Is.Not.Null);
-        }
+            Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
+            Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
+        });
+    }
 
-        [Test]
-        public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
+    [Test]
+    public void Constructor_NullDbConnection_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object));
+            var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, null!, _mockDynamicParametersWrapper.Object));
 
-                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
-                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-            });
-        }
+            Assert.That(ex?.ParamName, Is.EqualTo("dbConnection"));
+            Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dbConnection')"));
+        });
+    }
 
-        [Test]
-        public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
+    [Test]
+    public void Constructor_NullDynamicParametersWrapper_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object));
+            var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, _mockDbConnection.Object, null!));
 
-                Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
-                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-            });
-        }
-
-        [Test]
-        public void Constructor_NullDbConnection_ThrowsArgumentNullException()
-        {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, null!, _mockDynamicParametersWrapper.Object));
-
-                Assert.That(ex?.ParamName, Is.EqualTo("dbConnection"));
-                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dbConnection')"));
-            });
-        }
-
-        [Test]
-        public void Constructor_NullDynamicParametersWrapper_ThrowsArgumentNullException()
-        {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, _mockDbConnection.Object, null!));
-
-                Assert.That(ex?.ParamName, Is.EqualTo("dynamicParametersWrapper"));
-                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dynamicParametersWrapper')"));
-            });
-        }
+            Assert.That(ex?.ParamName, Is.EqualTo("dynamicParametersWrapper"));
+            Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dynamicParametersWrapper')"));
+        });
     }
 }

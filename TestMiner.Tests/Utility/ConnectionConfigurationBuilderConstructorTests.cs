@@ -1,46 +1,45 @@
-﻿namespace TestMiner.Tests.Utility
+namespace TestMiner.Tests.Utility;
+
+using System;
+
+using Microsoft.Extensions.Configuration;
+
+using Moq;
+
+using NUnit.Framework;
+
+using TestMiner.Utility;
+
+[TestFixture]
+public class ConnectionConfigurationBuilderConstructorTests
 {
-    using System;
+    private readonly Mock<IConfigurationBuilder> _configurationBuilderMock = new();
 
-    using Microsoft.Extensions.Configuration;
-
-    using Moq;
-
-    using NUnit.Framework;
-
-    using TestMiner.Utility;
-
-    [TestFixture]
-    public class ConnectionConfigurationBuilderConstructorTests
+    [Test]
+    public void Constructor_WhenCalled_ReturnsConnectionConfigurationBuilder()
     {
-        private readonly Mock<IConfigurationBuilder> _configurationBuilderMock = new();
+        var connectionConfigurationBuilder = new ConnectionConfigurationBuilder();
 
-        [Test]
-        public void Constructor_WhenCalled_ReturnsConnectionConfigurationBuilder()
+        Assert.That(connectionConfigurationBuilder, Is.Not.Null);
+    }
+
+    [Test]
+    public void Constructor_WithValidParameters_ReturnsConnectionConfigurationBuilder()
+    {
+        var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_configurationBuilderMock.Object);
+
+        Assert.That(connectionConfigurationBuilder, Is.Not.Null);
+    }
+
+    [Test]
+    public void Constructor_NullConfigurationBuilder_ThrowsArgumentNullException()
+    {
+        Assert.Multiple(() =>
         {
-            var connectionConfigurationBuilder = new ConnectionConfigurationBuilder();
+            var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionConfigurationBuilder(null!));
 
-            Assert.That(connectionConfigurationBuilder, Is.Not.Null);
-        }
-
-        [Test]
-        public void Constructor_WithValidParameters_ReturnsConnectionConfigurationBuilder()
-        {
-            var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_configurationBuilderMock.Object);
-
-            Assert.That(connectionConfigurationBuilder, Is.Not.Null);
-        }
-
-        [Test]
-        public void Constructor_NullConfigurationBuilder_ThrowsArgumentNullException()
-        {
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionConfigurationBuilder(null!));
-
-                Assert.That(ex?.ParamName, Is.EqualTo("configurationBuilder"));
-                Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'configurationBuilder')"));
-            });
-        }
+            Assert.That(ex?.ParamName, Is.EqualTo("configurationBuilder"));
+            Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'configurationBuilder')"));
+        });
     }
 }

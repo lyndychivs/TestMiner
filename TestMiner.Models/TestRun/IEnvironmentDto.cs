@@ -1,11 +1,10 @@
-﻿namespace TestMiner.Models.TestRun
+namespace TestMiner.Models.TestRun;
+
+public interface IEnvironmentDto
 {
-    public interface IEnvironmentDto
-    {
-        string MachineName { get; init; }
+    string MachineName { get; init; }
 
-        string User { get; init; }
+    string User { get; init; }
 
-        string ToString();
-    }
+    string ToString();
 }

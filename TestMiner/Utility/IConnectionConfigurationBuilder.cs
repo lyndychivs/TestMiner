@@ -1,7 +1,6 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+internal interface IConnectionConfigurationBuilder
 {
-    internal interface IConnectionConfigurationBuilder
-    {
-        Connection? BuildConnection(string filePath);
-    }
+    Connection? BuildConnection(string filePath);
 }

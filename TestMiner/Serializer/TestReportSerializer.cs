@@ -1,34 +1,33 @@
-﻿namespace TestMiner.Serializer
+namespace TestMiner.Serializer;
+
+using System;
+using System.IO;
+using System.Xml.Serialization;
+
+using TestMiner.Logger;
+using TestMiner.TestReports.NUnit3;
+
+internal class TestReportSerializer : ITestReportSerializer
 {
-    using System;
-    using System.IO;
-    using System.Xml.Serialization;
+    private readonly ILogWrapper _logWrapper;
 
-    using TestMiner.Logger;
-    using TestMiner.TestReports.NUnit3;
-
-    internal class TestReportSerializer : ITestReportSerializer
+    internal TestReportSerializer(ILogWrapper logWrapper)
     {
-        private readonly ILogWrapper _logWrapper;
+        _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+    }
 
-        internal TestReportSerializer(ILogWrapper logWrapper)
+    public TestRun Deserialize(string fileContent)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(fileContent);
+
+        try
         {
-            _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+            return new XmlSerializer(typeof(TestRun)).Deserialize(new StringReader(fileContent)) as TestRun ?? throw new NullReferenceException(nameof(TestRun));
         }
-
-        public TestRun Deserialize(string fileContent)
+        catch (Exception exception)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(fileContent);
-
-            try
-            {
-                return new XmlSerializer(typeof(TestRun)).Deserialize(new StringReader(fileContent)) as TestRun ?? throw new NullReferenceException(nameof(TestRun));
-            }
-            catch (Exception exception)
-            {
-                _logWrapper.Error(exception, $"Failed to {nameof(Deserialize)} {nameof(TestRun)}.");
-                throw;
-            }
+            _logWrapper.Error(exception, $"Failed to {nameof(Deserialize)} {nameof(TestRun)}.");
+            throw;
         }
     }
 }

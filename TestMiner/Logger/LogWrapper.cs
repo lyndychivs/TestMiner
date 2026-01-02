@@ -1,37 +1,36 @@
-﻿namespace TestMiner.Logger
+namespace TestMiner.Logger;
+
+using System;
+
+using Microsoft.Extensions.Logging;
+
+public class LogWrapper : ILogWrapper
 {
-    using System;
+    private readonly ILogger _logger;
 
-    using Microsoft.Extensions.Logging;
-
-    public class LogWrapper : ILogWrapper
+    public LogWrapper(ILogger logger)
     {
-        private readonly ILogger _logger;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
-        public LogWrapper(ILogger logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+    public void Error(string message)
+    {
+        _logger.LogError(message);
+    }
 
-        public void Error(string message)
-        {
-            _logger.LogError(message);
-        }
+    public void Error(Exception exception, string message)
+    {
+        _logger.LogError(message);
+        _logger.LogDebug(exception.ToString());
+    }
 
-        public void Error(Exception exception, string message)
-        {
-            _logger.LogError(message);
-            _logger.LogDebug(exception.ToString());
-        }
+    public void Info(string message)
+    {
+        _logger.LogInformation(message);
+    }
 
-        public void Info(string message)
-        {
-            _logger.LogInformation(message);
-        }
-
-        public void Warning(string message)
-        {
-            _logger.LogWarning(message);
-        }
+    public void Warning(string message)
+    {
+        _logger.LogWarning(message);
     }
 }

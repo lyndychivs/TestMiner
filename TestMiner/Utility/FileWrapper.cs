@@ -1,64 +1,63 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+using System;
+using System.IO;
+
+using TestMiner.Logger;
+
+internal class FileWrapper : IFileWrapper
 {
-    using System;
-    using System.IO;
+    private readonly ILogWrapper _logWrapper;
 
-    using TestMiner.Logger;
-
-    internal class FileWrapper : IFileWrapper
+    internal FileWrapper(ILogWrapper logWrapper)
     {
-        private readonly ILogWrapper _logWrapper;
+        _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+    }
 
-        internal FileWrapper(ILogWrapper logWrapper)
+    public bool Exists(string filePath)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
+
+        try
         {
-            _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+            return File.Exists(filePath);
         }
-
-        public bool Exists(string filePath)
+        catch
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
-
-            try
-            {
-                return File.Exists(filePath);
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
+    }
 
-        public string ReadAllText(string filePath)
+    public string ReadAllText(string filePath)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
+
+        try
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
-
-            try
-            {
-                return File.ReadAllText(filePath);
-            }
-            catch (Exception exception)
-            {
-                _logWrapper.Error(exception, "Failed to read content from File.");
-
-                return string.Empty;
-            }
+            return File.ReadAllText(filePath);
         }
-
-        public void WriteAllText(string filePath, string content)
+        catch (Exception exception)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
-            ArgumentException.ThrowIfNullOrWhiteSpace(content);
+            _logWrapper.Error(exception, "Failed to read content from File.");
 
-            try
-            {
-                File.WriteAllText(filePath, content);
-            }
-            catch (Exception exception)
-            {
-                _logWrapper.Error(exception, "Failed to write content to File.");
+            return string.Empty;
+        }
+    }
 
-                throw;
-            }
+    public void WriteAllText(string filePath, string content)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(content);
+
+        try
+        {
+            File.WriteAllText(filePath, content);
+        }
+        catch (Exception exception)
+        {
+            _logWrapper.Error(exception, "Failed to write content to File.");
+
+            throw;
         }
     }
 }

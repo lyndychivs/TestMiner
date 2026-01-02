@@ -1,12 +1,11 @@
-﻿namespace TestMiner.TestReports.NUnit3
+namespace TestMiner.TestReports.NUnit3;
+
+public enum TestResult
 {
-    public enum TestResult
-    {
-        Inconclusive,
-        Passed,
-        Warning,
-        Skipped,
-        Failed,
-        Error,
-    }
+    Inconclusive,
+    Passed,
+    Warning,
+    Skipped,
+    Failed,
+    Error,
 }

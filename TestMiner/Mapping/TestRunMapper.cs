@@ -1,140 +1,139 @@
-﻿namespace TestMiner.Mapping
+namespace TestMiner.Mapping;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using TestMiner.Logger;
+using TestMiner.Models.TestRun;
+using TestMiner.TestReports.NUnit3;
+
+internal class TestRunMapper : ITestRunMapper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    private readonly ILogWrapper _logWrapper;
 
-    using TestMiner.Logger;
-    using TestMiner.Models.TestRun;
-    using TestMiner.TestReports.NUnit3;
-
-    internal class TestRunMapper : ITestRunMapper
+    internal TestRunMapper(ILogWrapper logWrapper)
     {
-        private readonly ILogWrapper _logWrapper;
+        _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+    }
 
-        internal TestRunMapper(ILogWrapper logWrapper)
+    public ITestRunDto MapTestRunToDto(TestRun testRun)
+    {
+        ArgumentNullException.ThrowIfNull(testRun);
+
+        try
         {
-            _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+            var testRunDto = new TestRunDto(
+                testRun.StartDateTimeUtc,
+                testRun.EndDateTimeUtc,
+                testRun.DurationTimeSpan,
+                GetTestEnvironmentDto(testRun.TestSuites));
+
+            IList<TestCase> testCases = GetTestCases(testRun.TestSuites);
+
+            foreach (TestCase testCase in testCases)
+            {
+                testRunDto.AddTest(MapTestCaseToTestRun(testCase));
+            }
+
+            return testRunDto;
+        }
+        catch (Exception exception)
+        {
+            _logWrapper.Error(exception, "Failed to map Test Run.");
+            throw;
+        }
+    }
+
+    private static TestDto MapTestCaseToTestRun(TestCase testCase)
+    {
+        var testDto = new TestDto()
+        {
+            Name = testCase.Name,
+            ClassName = testCase.ClassName,
+            Result = testCase.Result.MapToResult(),
+            Seed = testCase.Seed,
+            StartTime = testCase.StartDateTimeUtc,
+            EndTime = testCase.EndDateTimeUtc,
+            Duration = testCase.DurationTimeSpan,
+            Asserts = testCase.Asserts,
+        };
+
+        if (!string.IsNullOrWhiteSpace(testCase.Label))
+        {
+            testDto.Label = testCase.Label;
         }
 
-        public ITestRunDto MapTestRunToDto(TestRun testRun)
+        if (!string.IsNullOrWhiteSpace(testCase?.Reason?.Message))
         {
-            ArgumentNullException.ThrowIfNull(testRun);
-
-            try
-            {
-                var testRunDto = new TestRunDto(
-                    testRun.StartDateTimeUtc,
-                    testRun.EndDateTimeUtc,
-                    testRun.DurationTimeSpan,
-                    GetTestEnvironmentDto(testRun.TestSuites));
-
-                IList<TestCase> testCases = GetTestCases(testRun.TestSuites);
-
-                foreach (TestCase testCase in testCases)
-                {
-                    testRunDto.AddTest(MapTestCaseToTestRun(testCase));
-                }
-
-                return testRunDto;
-            }
-            catch (Exception exception)
-            {
-                _logWrapper.Error(exception, "Failed to map Test Run.");
-                throw;
-            }
+            testDto.Reason = testCase.Reason.Message;
         }
 
-        private static TestDto MapTestCaseToTestRun(TestCase testCase)
+        if (!string.IsNullOrWhiteSpace(testCase?.Failure?.Message))
         {
-            var testDto = new TestDto()
-            {
-                Name = testCase.Name,
-                ClassName = testCase.ClassName,
-                Result = testCase.Result.MapToResult(),
-                Seed = testCase.Seed,
-                StartTime = testCase.StartDateTimeUtc,
-                EndTime = testCase.EndDateTimeUtc,
-                Duration = testCase.DurationTimeSpan,
-                Asserts = testCase.Asserts,
-            };
-
-            if (!string.IsNullOrWhiteSpace(testCase.Label))
-            {
-                testDto.Label = testCase.Label;
-            }
-
-            if (!string.IsNullOrWhiteSpace(testCase?.Reason?.Message))
-            {
-                testDto.Reason = testCase.Reason.Message;
-            }
-
-            if (!string.IsNullOrWhiteSpace(testCase?.Failure?.Message))
-            {
-                testDto.FailureMessage = testCase.Failure.Message;
-            }
-
-            if (!string.IsNullOrWhiteSpace(testCase?.Failure?.StackTrace))
-            {
-                testDto.StackTrace = testCase.Failure.StackTrace;
-            }
-
-            return testDto;
+            testDto.FailureMessage = testCase.Failure.Message;
         }
 
-        private IList<TestCase> GetTestCases(IList<TestSuite> testSuites)
+        if (!string.IsNullOrWhiteSpace(testCase?.Failure?.StackTrace))
         {
-            return GetTestCases([], testSuites);
+            testDto.StackTrace = testCase.Failure.StackTrace;
         }
 
-        private IList<TestCase> GetTestCases(IList<TestCase> testCases, IEnumerable<Test> tests)
-        {
-            foreach (Test test in tests)
-            {
-                GetTestCase(testCases, test);
-            }
+        return testDto;
+    }
 
-            return testCases;
+    private IList<TestCase> GetTestCases(IList<TestSuite> testSuites)
+    {
+        return GetTestCases([], testSuites);
+    }
+
+    private IList<TestCase> GetTestCases(IList<TestCase> testCases, IEnumerable<Test> tests)
+    {
+        foreach (Test test in tests)
+        {
+            GetTestCase(testCases, test);
         }
 
-        private void GetTestCase(IList<TestCase> testCases, Test test)
-        {
-            if (test is TestCase testCase)
-            {
-                testCases.Add(testCase);
-            }
+        return testCases;
+    }
 
-            if (test is TestSuite testSuite)
-            {
-                _ = GetTestCases(testCases, testSuite.Tests);
-            }
+    private void GetTestCase(IList<TestCase> testCases, Test test)
+    {
+        if (test is TestCase testCase)
+        {
+            testCases.Add(testCase);
         }
 
-        private EnvironmentDto GetTestEnvironmentDto(IList<TestSuite> testSuites)
+        if (test is TestSuite testSuite)
         {
-            try
+            _ = GetTestCases(testCases, testSuite.Tests);
+        }
+    }
+
+    private EnvironmentDto GetTestEnvironmentDto(IList<TestSuite> testSuites)
+    {
+        try
+        {
+            TestSuite assemblyTestSuite = testSuites.First(testSuites => testSuites.Type == TestSuiteType.Assembly);
+
+            if (assemblyTestSuite.Environment == null)
             {
-                TestSuite assemblyTestSuite = testSuites.First(testSuites => testSuites.Type == TestSuiteType.Assembly);
-
-                if (assemblyTestSuite.Environment == null)
-                {
-                    _logWrapper.Warning("Failed to extract Test Environment configuration.");
-
-                    return new EnvironmentDto();
-                }
-
-                return new EnvironmentDto
-                {
-                    MachineName = assemblyTestSuite.Environment.MachineName,
-                    User = assemblyTestSuite.Environment.User,
-                };
-            }
-            catch (Exception exception)
-            {
-                _logWrapper.Error(exception, "Failed to extract Test Environment configuration.");
+                _logWrapper.Warning("Failed to extract Test Environment configuration.");
 
                 return new EnvironmentDto();
             }
+
+            return new EnvironmentDto
+            {
+                MachineName = assemblyTestSuite.Environment.MachineName,
+                User = assemblyTestSuite.Environment.User,
+            };
+        }
+        catch (Exception exception)
+        {
+            _logWrapper.Error(exception, "Failed to extract Test Environment configuration.");
+
+            return new EnvironmentDto();
         }
     }
 }

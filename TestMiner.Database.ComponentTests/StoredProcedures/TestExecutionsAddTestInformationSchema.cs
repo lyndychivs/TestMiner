@@ -1,21 +1,20 @@
-﻿namespace TestMiner.Database.ComponentTests.StoredProcedures
-{
-    using System.Collections.Generic;
+namespace TestMiner.Database.ComponentTests.StoredProcedures;
 
-    internal static class TestExecutionsAddTestInformationSchema
+using System.Collections.Generic;
+
+internal static class TestExecutionsAddTestInformationSchema
+{
+    internal static List<InformationSchemaRoutine> Get()
     {
-        internal static List<InformationSchemaRoutine> Get()
-        {
-            return
-                [
-                new ()
-                {
-                    ROUTINE_CATALOG = "TestMiner",
-                    ROUTINE_SCHEMA = "dbo",
-                    ROUTINE_NAME = "spTestExecutions_AddTest",
-                    ROUTINE_TYPE = "PROCEDURE",
-                },
-                ];
-        }
+        return
+            [
+            new ()
+            {
+                ROUTINE_CATALOG = "TestMiner",
+                ROUTINE_SCHEMA = "dbo",
+                ROUTINE_NAME = "spTestExecutions_AddTest",
+                ROUTINE_TYPE = "PROCEDURE",
+            },
+            ];
     }
 }

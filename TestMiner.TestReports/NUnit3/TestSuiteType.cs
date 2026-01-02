@@ -1,16 +1,15 @@
-﻿namespace TestMiner.TestReports.NUnit3
+namespace TestMiner.TestReports.NUnit3;
+
+public enum TestSuiteType
 {
-    public enum TestSuiteType
-    {
-        Project,
-        Assembly,
-        TestSuite,
-        TestFixture,
-        GenericFixture,
-        ParameterizedFixture,
-        SetUpFixture,
-        GenericMethod,
-        ParameterizedMethod,
-        Theory,
-    }
+    Project,
+    Assembly,
+    TestSuite,
+    TestFixture,
+    GenericFixture,
+    ParameterizedFixture,
+    SetUpFixture,
+    GenericMethod,
+    ParameterizedMethod,
+    Theory,
 }

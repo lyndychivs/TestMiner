@@ -1,28 +1,42 @@
-name: dotnet-restore-build-test
-run-name: .NET Restore, Build, Test
+name: Build & Test
+run-name: Build & Test
 permissions:
-  contents: read
+    contents: read
+    checks: write
+    pull-requests: write
 on:
-  push:
-  schedule:
-    - cron: '0 4 * * SUN'
+    push:
+    schedule:
+        - cron: "0 4 * * SUN"
 jobs:
-  dotnet-restore-build-test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@v5
+    build-test:
+        runs-on: ubuntu-latest
+        env:
+            CONFIGURATION: GitHub
+            TARGET_FRAMEWORK: net8.0
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v6
 
-    - name: setup dotnet
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.0.x
+            - name: Install .NET
+              uses: actions/setup-dotnet@v5
+              with:
+                  dotnet-version: 8.0.x
 
-    - name: dotnet restore
-      run: dotnet restore
+            - name: Restore
+              run: dotnet restore
 
-    - name: dotnet build
-      run: dotnet build --no-restore --configuration GitHub
+            - name: Build
+              id: build
+              run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
 
-    - name: dotnet test
-      run: dotnet test --no-build --configuration GitHub --verbosity normal --list-tests --blame
+            - name: Test
+              if: steps.build.outcome == 'success'
+              run: dotnet test --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Test.Results.trx"
+
+            - name: Publish All Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              if: (!cancelled())
+              with:
+                  files: "**/*.trx"
+                  action_fail_on_inconclusive: true

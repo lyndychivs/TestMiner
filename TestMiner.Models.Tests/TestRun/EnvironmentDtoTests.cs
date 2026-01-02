@@ -1,36 +1,35 @@
-﻿namespace TestMiner.Models.Tests.TestRun
+namespace TestMiner.Models.Tests.TestRun;
+
+using NUnit.Framework;
+
+using TestMiner.Models.TestRun;
+
+[TestFixture]
+public class EnvironmentDtoTests
 {
-    using NUnit.Framework;
-
-    using TestMiner.Models.TestRun;
-
-    [TestFixture]
-    public class EnvironmentDtoTests
+    [TestCase("", "@")]
+    [TestCase(" ", " @ ")]
+    [TestCase(null, "@")]
+    public void ToString_WithInput_ReturnsExpectedResult(string? input, string expectedResult)
     {
-        [TestCase("", "@")]
-        [TestCase(" ", " @ ")]
-        [TestCase(null, "@")]
-        public void ToString_WithInput_ReturnsExpectedResult(string? input, string expectedResult)
+        var environment = new EnvironmentDto
         {
-            var environment = new EnvironmentDto
-            {
-                MachineName = input!,
-                User = input!,
-            };
+            MachineName = input!,
+            User = input!,
+        };
 
-            var result = environment.ToString();
+        var result = environment.ToString();
 
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
 
-        [Test]
-        public void ToString_WithNoInput_ReturnsDefaultValues()
-        {
-            var environment = new EnvironmentDto();
+    [Test]
+    public void ToString_WithNoInput_ReturnsDefaultValues()
+    {
+        var environment = new EnvironmentDto();
 
-            var result = environment.ToString();
+        var result = environment.ToString();
 
-            Assert.That(result, Is.EqualTo("Unknown@Unknown"));
-        }
+        Assert.That(result, Is.EqualTo("Unknown@Unknown"));
     }
 }

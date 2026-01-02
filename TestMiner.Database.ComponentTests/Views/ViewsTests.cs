@@ -1,40 +1,39 @@
-﻿namespace TestMiner.Database.ComponentTests.Views
+namespace TestMiner.Database.ComponentTests.Views;
+
+using System.Data;
+using System.Linq;
+
+using Dapper;
+
+using NUnit.Framework;
+
+[TestFixture]
+[Explicit("Tests require a live Database Connection.")]
+public class ViewsTests : DatabaseTestsBase
 {
-    using System.Data;
-    using System.Linq;
-
-    using Dapper;
-
-    using NUnit.Framework;
-
-    [TestFixture]
-    [Explicit("Tests require a live Database Connection.")]
-    public class ViewsTests : DatabaseTestsBase
+    [Test]
+    public void Validate_vTestExecutions_Is_Deployed()
     {
-        [Test]
-        public void Validate_vTestExecutions_Is_Deployed()
-        {
-            var expected = ViewTestExecutionsInformationSchema.Get();
+        var expected = ViewTestExecutionsInformationSchema.Get();
 
-            var actual = DbConnection.Query<InformationSchemaTable>(
-                "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vTestExecutions'",
-                commandType: CommandType.Text)
-                .ToList();
+        var actual = DbConnection.Query<InformationSchemaTable>(
+            "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vTestExecutions'",
+            commandType: CommandType.Text)
+            .ToList();
 
-            AssertTableInformationSchemasAreEqual(actual, expected);
-        }
+        AssertTableInformationSchemasAreEqual(actual, expected);
+    }
 
-        [Test]
-        public void Validate_vTestRuns_Is_Deployed()
-        {
-            var expected = ViewTestRunsInformationSchema.Get();
+    [Test]
+    public void Validate_vTestRuns_Is_Deployed()
+    {
+        var expected = ViewTestRunsInformationSchema.Get();
 
-            var actual = DbConnection.Query<InformationSchemaTable>(
-                "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vTestRuns'",
-                commandType: CommandType.Text)
-                .ToList();
+        var actual = DbConnection.Query<InformationSchemaTable>(
+            "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vTestRuns'",
+            commandType: CommandType.Text)
+            .ToList();
 
-            AssertTableInformationSchemasAreEqual(actual, expected);
-        }
+        AssertTableInformationSchemasAreEqual(actual, expected);
     }
 }

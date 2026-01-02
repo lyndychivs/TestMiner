@@ -1,57 +1,56 @@
-﻿namespace TestMiner.Tests.Utility
+namespace TestMiner.Tests.Utility;
+
+using System;
+
+using Microsoft.Extensions.Configuration;
+
+using Moq;
+
+using NUnit.Framework;
+
+using TestMiner.Utility;
+
+[TestFixture]
+public class ConnectionConfigurationBuilderTests
 {
-    using System;
+    private readonly Mock<IConfigurationBuilder> _mockConfigurationBuilder = new();
 
-    using Microsoft.Extensions.Configuration;
-
-    using Moq;
-
-    using NUnit.Framework;
-
-    using TestMiner.Utility;
-
-    [TestFixture]
-    public class ConnectionConfigurationBuilderTests
+    [Test]
+    public void BuildConnection_EmptyFilePath_ThrowsArgumentException()
     {
-        private readonly Mock<IConfigurationBuilder> _mockConfigurationBuilder = new();
+        var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        [Test]
-        public void BuildConnection_EmptyFilePath_ThrowsArgumentException()
+        Assert.Multiple(() =>
         {
-            var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
+            var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(string.Empty));
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(string.Empty));
+            Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
+        });
+    }
 
-                Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
-            });
-        }
+    [Test]
+    public void BuildConnection_WhitespaceFilePath_ThrowsNullReferenceException()
+    {
+        var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        [Test]
-        public void BuildConnection_WhitespaceFilePath_ThrowsNullReferenceException()
+        Assert.Multiple(() =>
         {
-            var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
+            var ex = Assert.Throws<NullReferenceException>(() => connectionConfigurationBuilder.BuildConnection(" "));
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<NullReferenceException>(() => connectionConfigurationBuilder.BuildConnection(" "));
+            Assert.That(ex?.Message, Does.Contain("Object reference not set to an instance of an object."));
+        });
+    }
 
-                Assert.That(ex?.Message, Does.Contain("Object reference not set to an instance of an object."));
-            });
-        }
+    [Test]
+    public void BuildConnection_NullFilePath_ThrowsArgumentException()
+    {
+        var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        [Test]
-        public void BuildConnection_NullFilePath_ThrowsArgumentException()
+        Assert.Multiple(() =>
         {
-            var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
+            var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(null!));
 
-            Assert.Multiple(() =>
-            {
-                var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(null!));
-
-                Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
-            });
-        }
+            Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
+        });
     }
 }

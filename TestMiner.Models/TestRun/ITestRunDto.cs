@@ -1,40 +1,39 @@
-﻿namespace TestMiner.Models.TestRun
+namespace TestMiner.Models.TestRun;
+
+using System;
+using System.Collections.Generic;
+
+public interface ITestRunDto
 {
-    using System;
-    using System.Collections.Generic;
+    DateTime StartTime { get; }
 
-    public interface ITestRunDto
-    {
-        DateTime StartTime { get; }
+    DateTime EndTime { get; }
 
-        DateTime EndTime { get; }
+    TimeSpan Duration { get; }
 
-        TimeSpan Duration { get; }
+    int Total { get; }
 
-        int Total { get; }
+    int Inconclusive { get; }
 
-        int Inconclusive { get; }
+    int Passed { get; }
 
-        int Passed { get; }
+    int Warning { get; }
 
-        int Warning { get; }
+    int Skipped { get; }
 
-        int Skipped { get; }
+    int Failed { get; }
 
-        int Failed { get; }
+    int Error { get; }
 
-        int Error { get; }
+    IEnvironmentDto Environment { get; }
 
-        IEnvironmentDto Environment { get; }
+    TestMinerStatus TestMinerStatus { get; }
 
-        TestMinerStatus TestMinerStatus { get; }
+    IList<ITestDto> Tests { get; }
 
-        IList<ITestDto> Tests { get; }
+    public void AddTest(ITestDto testDto);
 
-        public void AddTest(ITestDto testDto);
+    string ToString();
 
-        string ToString();
-
-        string CalculateMd5Hash();
-    }
+    string CalculateMd5Hash();
 }

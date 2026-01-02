@@ -1,10 +1,9 @@
-﻿namespace TestMiner.TestReports.NUnit3
-{
-    using System.Xml.Serialization;
+namespace TestMiner.TestReports.NUnit3;
 
-    public class TestReason
-    {
-        [XmlElement("message")]
-        public string? Message { get; set; }
-    }
+using System.Xml.Serialization;
+
+public class TestReason
+{
+    [XmlElement("message")]
+    public string? Message { get; set; }
 }

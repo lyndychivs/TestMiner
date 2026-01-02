@@ -1,11 +1,10 @@
-﻿namespace TestMiner.Options
-{
-    using CommandLine;
+namespace TestMiner.Options;
 
-    [Verb("save", false, ["s", "S"], HelpText = "Saves the Database Connection String locally.")]
-    internal class SaveOptions : ISaveOptions
-    {
-        [Option('c', "connection", Required = true, HelpText = "\nThe Connection String to the Database.")]
-        required public string ConnectionString { get; init; }
-    }
+using CommandLine;
+
+[Verb("save", false, ["s", "S"], HelpText = "Saves the Database Connection String locally.")]
+internal class SaveOptions : ISaveOptions
+{
+    [Option('c', "connection", Required = true, HelpText = "\nThe Connection String to the Database.")]
+    required public string ConnectionString { get; init; }
 }

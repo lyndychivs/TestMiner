@@ -1,38 +1,37 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+using System;
+
+using Microsoft.Data.SqlClient;
+
+using TestMiner.Logger;
+
+public class ConnectionStringValidator
 {
-    using System;
+    private readonly ILogWrapper _logWrapper;
 
-    using Microsoft.Data.SqlClient;
-
-    using TestMiner.Logger;
-
-    public class ConnectionStringValidator
+    public ConnectionStringValidator(ILogWrapper logWrapper)
     {
-        private readonly ILogWrapper _logWrapper;
+        _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+    }
 
-        public ConnectionStringValidator(ILogWrapper logWrapper)
+    public bool IsConnectionStringValid(string connectionString)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
         {
-            _logWrapper = logWrapper ?? throw new ArgumentNullException(nameof(logWrapper));
+            _logWrapper.Error("Connection String is empty or null.");
+            return false;
         }
 
-        public bool IsConnectionStringValid(string connectionString)
+        try
         {
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                _logWrapper.Error("Connection String is empty or null.");
-                return false;
-            }
-
-            try
-            {
-                _ = new SqlConnection(connectionString);
-                return true;
-            }
-            catch (Exception)
-            {
-                _logWrapper.Error("Connection String is invalid.");
-                return false;
-            }
+            _ = new SqlConnection(connectionString);
+            return true;
+        }
+        catch (Exception)
+        {
+            _logWrapper.Error("Connection String is invalid.");
+            return false;
         }
     }
 }

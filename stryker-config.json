@@ -3,9 +3,9 @@
     "project-info": {
       "name": "github.com/lyndychivs/TestMiner",
       "module": "TestMiner",
-      "version": "master"
+      "version": "main"
     },
-    "concurrency": 2,
+    "concurrency": 4,
     "mutation-level": "Complete",
     "language-version": "latest",
     "additional-timeout": 5000,
@@ -29,19 +29,18 @@
     "verbosity": "info",
     "reporters": [
       "Progress",
-      "Html",
-      "dashboard"
+      "Html"
     ],
     "since": {
       "enabled": false,
       "ignore-changes-in": [],
-      "target": "master"
+      "target": "main"
     },
     "baseline": {
       "enabled": false,
       "provider": "disk",
       "azure-fileshare-url": "",
-      "fallback-version": "master"
+      "fallback-version": "main"
     },
     "dashboard-url": "https://dashboard.stryker-mutator.io",
     "test-projects": ["/TestMiner.Tests/TestMiner.Tests.csproj", "/TestMiner.Models.Tests/TestMiner.Models.Tests.csproj"],

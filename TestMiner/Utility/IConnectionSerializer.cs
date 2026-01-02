@@ -1,7 +1,6 @@
-﻿namespace TestMiner.Utility
+namespace TestMiner.Utility;
+
+internal interface IConnectionSerializer
 {
-    internal interface IConnectionSerializer
-    {
-        string Serialize(Connection connection);
-    }
+    string Serialize(Connection connection);
 }

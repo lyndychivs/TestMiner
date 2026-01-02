@@ -1,7 +1,6 @@
-﻿namespace TestMiner.Options
+namespace TestMiner.Options;
+
+internal interface ISaveOptions
 {
-    internal interface ISaveOptions
-    {
-        string ConnectionString { get; }
-    }
+    string ConnectionString { get; }
 }

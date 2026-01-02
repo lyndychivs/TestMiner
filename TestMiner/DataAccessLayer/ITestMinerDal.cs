@@ -1,11 +1,10 @@
-﻿namespace TestMiner.DataAccessLayer
+namespace TestMiner.DataAccessLayer;
+
+using TestMiner.Models.TestRun;
+
+internal interface ITestMinerDal
 {
-    using TestMiner.Models.TestRun;
+    bool IsTestRunPreviouslyRecorded(string md5Hash);
 
-    internal interface ITestMinerDal
-    {
-        bool IsTestRunPreviouslyRecorded(string md5Hash);
-
-        void RecordTestRun(ITestRunDto testRunDto);
-    }
+    void RecordTestRun(ITestRunDto testRunDto);
 }

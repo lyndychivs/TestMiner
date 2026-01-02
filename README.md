@@ -1,6 +1,6 @@
 <p align="center"><img src="Resources/TestMinerTitle.png" alt="Test Miner"></p>
   
-[![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Flyndychivs%2FTestMiner%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/master)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Flyndychivs%2FTestMiner%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/main)
 
 ## 🔭 High Level
 Test Miner was designed to parse NUnit3 Test Reports and store the results into a Relational Database.
@@ -84,4 +84,4 @@ A Windows application exists that wraps all the CLI functionality in a GUI forma
 - Integration Testing
   - [TestMiner.IntegrationTests](TestMiner.IntegrationTests)
 - Mutation Testing
-  - [Strkyer.NET](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/master) with [my GitHub Action](https://github.com/lyndychivs/dotnet-stryker-action)
+  - [Strkyer.NET](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/main) with [my GitHub Action](https://github.com/lyndychivs/dotnet-stryker-action)
