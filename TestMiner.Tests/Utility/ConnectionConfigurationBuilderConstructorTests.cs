@@ -34,12 +34,12 @@ public class ConnectionConfigurationBuilderConstructorTests
     [Test]
     public void Constructor_NullConfigurationBuilder_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionConfigurationBuilder(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("configurationBuilder"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'configurationBuilder')"));
-        });
+        }
     }
 }

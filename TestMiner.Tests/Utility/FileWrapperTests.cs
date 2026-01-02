@@ -27,99 +27,99 @@ public class FileWrapperTests
     [TestCase(" ")]
     public void Exists_InvalidFilePath_ThrowsArgumentException(string? filePath)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _fileWrapper.Exists(filePath!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [Test]
     public void Exists_NullFilePath_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _fileWrapper.Exists(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [TestCase("")]
     [TestCase(" ")]
     public void ReadAllText_InvalidFilePath_ThrowsArgumentException(string? filePath)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _fileWrapper.ReadAllText(filePath!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [Test]
     public void ReadAllText_NullFilePath_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _fileWrapper.ReadAllText(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [TestCase("")]
     [TestCase(" ")]
     public void WriteAllText_InvalidFilePath_ThrowsArgumentException(string filePath)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _fileWrapper.WriteAllText(filePath, "a"));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [Test]
     public void WriteAllText_NullFilePath_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _fileWrapper.WriteAllText(null!, "a"));
 
             Assert.That(ex?.ParamName, Is.EqualTo("filePath"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'filePath')"));
-        });
+        }
     }
 
     [TestCase("")]
     [TestCase(" ")]
     public void WriteAllText_InvalidContent_ThrowsArgumentException(string content)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _fileWrapper.WriteAllText("a", content));
 
             Assert.That(ex?.ParamName, Is.EqualTo("content"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'content')"));
-        });
+        }
     }
 
     [Test]
     public void WriteAllText_NullContent_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _fileWrapper.WriteAllText("a", null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("content"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'content')"));
-        });
+        }
     }
 }

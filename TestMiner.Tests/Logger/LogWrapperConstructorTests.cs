@@ -26,12 +26,12 @@ public class LogWrapperConstructorTests
     [Test]
     public void Constructor_NullILogger_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new LogWrapper(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logger"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'logger')"));
-        });
+        }
     }
 }

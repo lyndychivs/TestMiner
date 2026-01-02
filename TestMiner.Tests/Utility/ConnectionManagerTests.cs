@@ -106,7 +106,7 @@ public class ConnectionManagerTests
 
         var result = _connectionManager.SaveConnectionString("a");
 
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
         _mockConnectionSerializer.Verify(
             serializer => serializer.Serialize(
             It.Is<Connection>(

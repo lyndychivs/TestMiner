@@ -14,12 +14,12 @@ public class ConnectionSerializerTests
     {
         var connectionSerializer = new ConnectionSerializer();
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => connectionSerializer.Serialize(null!));
 
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'connection')"));
             Assert.That(ex?.ParamName, Is.EqualTo("connection"));
-        });
+        }
     }
 }

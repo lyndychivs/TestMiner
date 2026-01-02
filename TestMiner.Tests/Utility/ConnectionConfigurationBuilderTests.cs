@@ -20,12 +20,12 @@ public class ConnectionConfigurationBuilderTests
     {
         var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(string.Empty));
 
             Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
-        });
+        }
     }
 
     [Test]
@@ -33,12 +33,12 @@ public class ConnectionConfigurationBuilderTests
     {
         var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<NullReferenceException>(() => connectionConfigurationBuilder.BuildConnection(" "));
 
             Assert.That(ex?.Message, Does.Contain("Object reference not set to an instance of an object."));
-        });
+        }
     }
 
     [Test]
@@ -46,11 +46,11 @@ public class ConnectionConfigurationBuilderTests
     {
         var connectionConfigurationBuilder = new ConnectionConfigurationBuilder(_mockConfigurationBuilder.Object);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => connectionConfigurationBuilder.BuildConnection(null!));
 
             Assert.That(ex?.Message, Does.Contain("File path must be a non-empty string. (Parameter 'path')"));
-        });
+        }
     }
 }

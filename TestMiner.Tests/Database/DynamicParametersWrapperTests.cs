@@ -20,11 +20,11 @@ public class DynamicParametersWrapperTests
         var dynamicParameters = wrapper.GetDynamicParameters();
 
         // Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(dynamicParameters.ParameterNames, Does.Contain("a"));
             Assert.That(dynamicParameters.Get<string>("a"), Is.EqualTo("b"));
-        });
+        }
     }
 
     [Test]

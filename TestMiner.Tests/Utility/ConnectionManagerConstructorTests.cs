@@ -31,60 +31,60 @@ public class ConnectionManagerConstructorTests
     [Test]
     public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(null!, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object, _mockConnectionSerializer.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullConnectionConfigurationBuilder_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(_mockLogWrapper.Object, null!, _mockFileWrapper.Object, _mockConnectionSerializer.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("connectionConfigurationBuilder"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'connectionConfigurationBuilder')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullFileWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(_mockLogWrapper.Object, _mockConnectionConfigurationBuilder.Object, null!, _mockConnectionSerializer.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("fileWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'fileWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullConnectionSerializer_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new ConnectionManager(_mockLogWrapper.Object, _mockConnectionConfigurationBuilder.Object, _mockFileWrapper.Object, null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("connectionSerializer"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'connectionSerializer')"));
-        });
+        }
     }
 }

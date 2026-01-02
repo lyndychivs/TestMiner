@@ -30,13 +30,13 @@ public class TestRunMapperTests
     [Test]
     public void MapTestRunToDto_NullTestRun_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _testRunMapper.MapTestRunToDto(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("testRun"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testRun')"));
-        });
+        }
     }
 
     [Test]
@@ -195,7 +195,7 @@ public class TestRunMapperTests
         var result = _testRunMapper.MapTestRunToDto(testRun);
 
         // Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result, Is.Not.Null);
 
@@ -239,7 +239,7 @@ public class TestRunMapperTests
             Assert.That(result.Tests[2].Result, Is.EqualTo(Result.Warning));
             Assert.That(result.Tests[3].Result, Is.EqualTo(Result.Skipped));
             Assert.That(result.Tests[4].Result, Is.EqualTo(Result.Failed));
-        });
+        }
     }
 
     [Test]
@@ -265,14 +265,14 @@ public class TestRunMapperTests
         };
 
         // Act & Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _testRunMapper.MapTestRunToDto(testRun));
 
             Assert.That(ex?.ParamName, Is.EqualTo("startTime"));
             Assert.That(ex?.Message, Does.Contain("startTime ('01/01/0001 00:00:00') must not be equal to '01/01/0001 00:00:00'. (Parameter 'startTime')"));
             _mockLogWrapper.Verify(x => x.Error(It.IsAny<ArgumentOutOfRangeException>(), "Failed to map Test Run."), Times.Once);
-        });
+        }
     }
 
     [Test]
@@ -298,14 +298,14 @@ public class TestRunMapperTests
         };
 
         // Act & Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _testRunMapper.MapTestRunToDto(testRun));
 
             Assert.That(ex?.ParamName, Is.EqualTo("endTime"));
             Assert.That(ex?.Message, Does.Contain("endTime ('01/01/0001 00:00:00') must not be equal to '01/01/0001 00:00:00'. (Parameter 'endTime')"));
             _mockLogWrapper.Verify(x => x.Error(It.IsAny<ArgumentOutOfRangeException>(), "Failed to map Test Run."), Times.Once);
-        });
+        }
     }
 
     [TestCase("")]
@@ -495,7 +495,7 @@ public class TestRunMapperTests
         var result = _testRunMapper.MapTestRunToDto(testRun);
 
         // Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result, Is.Not.Null);
 
@@ -503,7 +503,7 @@ public class TestRunMapperTests
             Assert.That(result.Environment.User, Is.EqualTo("Unknown"));
             Assert.That(result.Environment.MachineName, Is.EqualTo("Unknown"));
             _mockLogWrapper.Verify(x => x.Error(It.IsAny<InvalidOperationException>(), "Failed to extract Test Environment configuration."), Times.Once);
-        });
+        }
     }
 
     [Test]
@@ -528,7 +528,7 @@ public class TestRunMapperTests
         var result = _testRunMapper.MapTestRunToDto(testRun);
 
         // Assert
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result, Is.Not.Null);
 
@@ -536,6 +536,6 @@ public class TestRunMapperTests
             Assert.That(result.Environment.User, Is.EqualTo("Unknown"));
             Assert.That(result.Environment.MachineName, Is.EqualTo("Unknown"));
             _mockLogWrapper.Verify(x => x.Warning("Failed to extract Test Environment configuration."), Times.Once);
-        });
+        }
     }
 }

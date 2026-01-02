@@ -17,10 +17,10 @@ public class SaveOptionsConstructorTests
             ConnectionString = connectionString,
         };
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(saveOptions, Is.Not.Null);
             Assert.That(saveOptions.ConnectionString, Is.EqualTo(connectionString));
-        });
+        }
     }
 }

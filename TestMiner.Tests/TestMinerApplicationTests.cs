@@ -57,7 +57,7 @@ public class TestMinerApplicationTests
         var result = _testMinerApplication.MineFiles(filePaths);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
         _mockTestMinerDal.Verify(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>()), Times.Once);
         _mockLogWrapper.Verify(log => log.Info($"Finished mining File: md5hash : {filePath}"), Times.Once);
     }
@@ -80,7 +80,7 @@ public class TestMinerApplicationTests
         var result = _testMinerApplication.MineFiles(filePaths);
 
         // Assert
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
         _mockTestMinerDal.Verify(dal => dal.RecordTestRun(It.IsAny<ITestRunDto>()), Times.Exactly(2));
         _mockLogWrapper.Verify(log => log.Info($"Finished mining File: md5hash : {filePath}"), Times.Exactly(2));
     }
@@ -101,7 +101,7 @@ public class TestMinerApplicationTests
 
         var result = _testMinerApplication.MineFiles(filePaths);
 
-        Assert.That(result, Is.EqualTo(0));
+        Assert.That(result, Is.Zero);
         _mockLogWrapper.Verify(log => log.Warning("No Files to mine."), Times.Once);
     }
 

@@ -25,12 +25,12 @@ public class TestRunMapperConstructorTests
     [Test]
     public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestRunMapper(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 }

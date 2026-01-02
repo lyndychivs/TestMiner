@@ -38,48 +38,48 @@ public class DatabaseConstructorTests
     [Test]
     public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object, _mockDynamicParametersWrapper.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new Database(null!, _mockDbConnection.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullDbConnection_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, null!, _mockDynamicParametersWrapper.Object));
 
             Assert.That(ex?.ParamName, Is.EqualTo("dbConnection"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dbConnection')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullDynamicParametersWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new Database(_mockLogWrapper.Object, _mockDbConnection.Object, null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("dynamicParametersWrapper"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'dynamicParametersWrapper')"));
-        });
+        }
     }
 }

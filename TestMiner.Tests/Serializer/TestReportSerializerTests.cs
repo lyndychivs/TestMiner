@@ -32,7 +32,7 @@ public class TestReportSerializerTests
 
         var result = _testReportSerializer.Deserialize(fileContent);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result, Is.Not.Null);
             Assert.That(result.StartDateTimeUtc, Is.EqualTo(new DateTime(638759310160000000, DateTimeKind.Utc)));
@@ -52,7 +52,7 @@ public class TestReportSerializerTests
             Assert.That(result.TestSuites[0].Tests[index: 0].Asserts, Is.EqualTo(1));
             Assert.That(result.TestSuites[0].Tests[index: 0].Reason, Is.Null);
             Assert.That(result.TestSuites[0].Tests[index: 0].Failure, Is.Null);
-        });
+        }
     }
 
     [Test]
@@ -60,37 +60,37 @@ public class TestReportSerializerTests
     {
         string fileContent = TestRunReport.InvalidNunit3TestReport;
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<InvalidOperationException>(() => _testReportSerializer.Deserialize(fileContent));
 
             Assert.That(ex?.Message, Is.EqualTo("There is an error in XML document (2, 2)."));
             _mockLogWrapper.Verify(x => x.Error(It.IsAny<Exception>(), "Failed to Deserialize TestRun."), Times.Once);
-        });
+        }
     }
 
     [TestCase("")]
     [TestCase(" ")]
     public void Deserialize_InvalidFileContent_ThrowsArgumentException(string? fileContent)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _testReportSerializer.Deserialize(fileContent!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("fileContent"));
             Assert.That(ex?.Message, Does.Contain("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'fileContent')"));
-        });
+        }
     }
 
     [Test]
     public void Deserialize_NullFileContent_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _testReportSerializer.Deserialize(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("fileContent"));
             Assert.That(ex?.Message, Does.Contain("Value cannot be null. (Parameter 'fileContent')"));
-        });
+        }
     }
 }

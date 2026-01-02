@@ -17,11 +17,11 @@ public class MineOptionsConstructorTests
             ReportFilePaths = reportFilePaths,
         };
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(mineOptions, Is.Not.Null);
             Assert.That(mineOptions.ReportFilePaths, Is.EqualTo(reportFilePaths));
             Assert.That(mineOptions.ConnectionString, Is.EqualTo(string.Empty));
-        });
+        }
     }
 }

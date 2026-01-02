@@ -23,13 +23,13 @@ public class TestRunDtoTests
     [Test]
     public void AddTest_WithNullTestDto_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _testRunDto.AddTest(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("testDto"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testDto')"));
-        });
+        }
     }
 
     [Test]
@@ -44,11 +44,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Inconclusive, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]
@@ -63,11 +63,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Passed, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]
@@ -82,11 +82,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Warning, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]
@@ -101,11 +101,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Skipped, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]
@@ -120,11 +120,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Failed, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]
@@ -139,11 +139,11 @@ public class TestRunDtoTests
 
         _testRunDto.AddTest(testDto);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_testRunDto.Total, Is.EqualTo(1));
             Assert.That(_testRunDto.Error, Is.EqualTo(1));
-        });
+        }
     }
 
     [Test]

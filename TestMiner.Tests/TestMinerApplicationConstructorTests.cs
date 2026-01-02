@@ -49,44 +49,44 @@ public class TestMinerApplicationConstructorTests
     [Test]
     public void Constructor_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(null!, "Data Source=localhost\\Database=DatabaseName;"));
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [TestCase("")]
     [TestCase(" ")]
     public void Constructor_InvalidConnectionString_ThrowsArgumentException(string? connectionString)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => new TestMinerApplication(_mockLogWrapper.Object, connectionString!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'connectionString')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullConnectionString_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(_mockLogWrapper.Object, null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("connectionString"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'connectionString')"));
-        });
+        }
     }
 
     [Test]
     public void ConstructorTwo_NullLogWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(
                 null!,
@@ -97,13 +97,13 @@ public class TestMinerApplicationConstructorTests
 
             Assert.That(ex?.ParamName, Is.EqualTo("logWrapper"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'logWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullFileWrapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(
                 _mockLogWrapper.Object,
@@ -114,13 +114,13 @@ public class TestMinerApplicationConstructorTests
 
             Assert.That(ex?.ParamName, Is.EqualTo("fileWrapper"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'fileWrapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullTestReportSerializer_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(
                 _mockLogWrapper.Object,
@@ -131,13 +131,13 @@ public class TestMinerApplicationConstructorTests
 
             Assert.That(ex?.ParamName, Is.EqualTo("testReportSerializer"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testReportSerializer')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullTestRunMapper_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(
                 _mockLogWrapper.Object,
@@ -148,13 +148,13 @@ public class TestMinerApplicationConstructorTests
 
             Assert.That(ex?.ParamName, Is.EqualTo("testRunMapper"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testRunMapper')"));
-        });
+        }
     }
 
     [Test]
     public void Constructor_NullTestMinerDal_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new TestMinerApplication(
                 _mockLogWrapper.Object,
@@ -165,6 +165,6 @@ public class TestMinerApplicationConstructorTests
 
             Assert.That(ex?.ParamName, Is.EqualTo("testMinerDal"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testMinerDal')"));
-        });
+        }
     }
 }

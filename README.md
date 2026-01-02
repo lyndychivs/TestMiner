@@ -70,18 +70,18 @@ The Database project exists at [TestMiner.Database](TestMiner.Database); you can
 
 I have included guidance on how to deploy the Database to localhost for testing (with Docker) [here](TestMiner.Database/README.md)
 
-## 🖥️ Test Miner Windows Application
-A Windows application exists that wraps all the CLI functionality in a GUI format, [TestMiner.WindowsApplication](TestMiner.WindowsApplication).
+## 🖥️ Test Miner Windows
+A Windows application exists that wraps all the CLI functionality in a GUI format, [TestMiner.Windows](TestMiner.Windows).
 
-![Test Miner Windows Application Screenshot](/TestMiner.WindowsApplication/Screenshots/TestMinerWindowsApplicationDefault.png)
+![Test Miner Windows Screenshot](/TestMiner.Windows/Screenshots/TestMinerWindowsDefault.png)
 
 ## 🧪 Testing
 - Unit Testing
   - [TestMiner.Tests](TestMiner.Tests)
   - [TestMiner.Models.Tests](TestMiner.Models.Tests)
 - Component Testing
-  - [TestMiner.Database.ComponentTests](TestMiner.Database.ComponentTests)
+  - [TestMiner.Database.Component.Tests](TestMiner.Database.Component.Tests)
 - Integration Testing
-  - [TestMiner.IntegrationTests](TestMiner.IntegrationTests)
+  - [TestMiner.Integration.Tests](TestMiner.Integration.Tests)
 - Mutation Testing
   - [Strkyer.NET](https://dashboard.stryker-mutator.io/reports/github.com/lyndychivs/TestMiner/main) with [my GitHub Action](https://github.com/lyndychivs/dotnet-stryker-action)

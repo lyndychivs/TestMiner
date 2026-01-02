@@ -42,25 +42,25 @@ public class TestMinerDalTests
     [TestCase(" ")]
     public void IsTestRunPreviouslyRecorded_InvalidMd5Hash_ThrowsArgumentException(string? md5Hash)
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentException>(() => _testMinerDal.IsTestRunPreviouslyRecorded(md5Hash!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("md5Hash"));
             Assert.That(ex?.Message, Is.EqualTo("The value cannot be an empty string or composed entirely of whitespace. (Parameter 'md5Hash')"));
-        });
+        }
     }
 
     [Test]
     public void IsTestRunPreviouslyRecorded_NullMd5Hash_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _testMinerDal.IsTestRunPreviouslyRecorded(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("md5Hash"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'md5Hash')"));
-        });
+        }
     }
 
     [Test]
@@ -88,13 +88,13 @@ public class TestMinerDalTests
     [Test]
     public void RecordTestRun_NullTestRunDto_ThrowsArgumentNullException()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _testMinerDal.RecordTestRun(null!));
 
             Assert.That(ex?.ParamName, Is.EqualTo("testRunDto"));
             Assert.That(ex?.Message, Is.EqualTo("Value cannot be null. (Parameter 'testRunDto')"));
-        });
+        }
     }
 
     [TestCase(0)]
