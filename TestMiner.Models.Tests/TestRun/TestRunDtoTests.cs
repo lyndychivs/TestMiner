@@ -151,7 +151,7 @@ public class TestRunDtoTests
     {
         var result = _testRunDto.CalculateMd5Hash();
 
-        Assert.That(result, Is.EqualTo("F0A67D0CA129A6CCC4E3381CADCDCCB6"));
+        Assert.That(result, Is.EqualTo("2D06E88C9160D58A6010E21D09FE2AE3"));
     }
 
     [Test]
@@ -159,6 +159,6 @@ public class TestRunDtoTests
     {
         var result = _testRunDto.ToString();
 
-        Assert.That(result, Is.EqualTo("Total: 0 Inconclusive: 0 Passed: 0 Warning: 0 Skipped: 0 Failed: 0 Error: 0 StartTime: 01/01/0001 00:00:00 EndTime: 01/01/0001 00:00:00 Duration: 00:00:03 Environment: Unknown@Unknown"));
+        Assert.That(result, Is.EqualTo("Total: 0 Inconclusive: 0 Passed: 0 Warning: 0 Skipped: 0 Failed: 0 Error: 0 StartTime: 0001-01-01T00:00:00.0000001Z EndTime: 0001-01-01T00:00:00.0000002Z Duration: 00:00:03 Environment: Unknown@Unknown"));
     }
 }

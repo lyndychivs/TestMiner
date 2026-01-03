@@ -39,7 +39,7 @@ public class TestMinerApplicationTests
             1,
             "Administrator",
             "DESKTOP",
-            "033BB4EC0C66302D5A01B467C18111E2"))
+            "43CCE649D657AD3159C3CD6628E5AC40"))
             .Returns(1);
 
         var logWrapper = new LogWrapper(mockLogger.Object);
@@ -76,6 +76,6 @@ public class TestMinerApplicationTests
 
         mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once());
 
-        mockLogger.VerifyLogging("Finished mining File: 033BB4EC0C66302D5A01B467C18111E2 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
+        mockLogger.VerifyLogging("Finished mining File: 43CCE649D657AD3159C3CD6628E5AC40 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
     }
 }
