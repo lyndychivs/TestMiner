@@ -1,6 +1,7 @@
 namespace TestMiner.TestReports.NUnit3;
 
 using System;
+using System.Globalization;
 using System.Xml.Serialization;
 
 public class Test
@@ -15,7 +16,7 @@ public class Test
     public string? StartTime { private get; set; }
 
     [XmlIgnore]
-    public DateTime StartDateTimeUtc => DateTime.TryParse(StartTime, out DateTime startDateTime)
+    public DateTime StartDateTimeUtc => DateTime.TryParse(StartTime, CultureInfo.InvariantCulture, out DateTime startDateTime)
         ? startDateTime.ToUniversalTime()
         : DateTime.MinValue;
 
@@ -23,7 +24,7 @@ public class Test
     public string? EndTime { private get; set; }
 
     [XmlIgnore]
-    public DateTime EndDateTimeUtc => DateTime.TryParse(EndTime, out DateTime endDateTime)
+    public DateTime EndDateTimeUtc => DateTime.TryParse(EndTime, CultureInfo.InvariantCulture, out DateTime endDateTime)
         ? endDateTime.ToUniversalTime()
         : DateTime.MinValue;
 

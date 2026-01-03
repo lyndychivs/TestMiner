@@ -44,7 +44,11 @@ public class TestRunMapperTests
     public void MapTestRunToDto_ValidTestRun_ReturnsTestRunDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.ParseExact(DateTimeString, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+        var expectedDateTime = DateTime.ParseExact(
+            DateTimeString,
+            "yyyy-MM-ddTHH:mm:ssK",
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.AdjustToUniversal);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
@@ -478,7 +482,11 @@ public class TestRunMapperTests
     public void MapTestRunToDto_NoAssemblyTestSuite_ReturnsTestRunDtoWithDefaultEnvironmentDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.ParseExact(DateTimeString, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+        var expectedDateTime = DateTime.ParseExact(
+            DateTimeString,
+            "yyyy-MM-ddTHH:mm:ssK",
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.AdjustToUniversal);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
