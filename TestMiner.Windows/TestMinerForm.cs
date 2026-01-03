@@ -16,7 +16,7 @@ using Serilog.Extensions.Logging;
 using TestMiner.Logger;
 using TestMiner.Utility;
 
-internal partial class TestMinerForm : Form
+internal sealed partial class TestMinerForm : Form
 {
     private readonly ILogWrapper _logWrapper;
 
