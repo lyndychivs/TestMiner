@@ -15,7 +15,7 @@ using TestMiner.TestReports.NUnit3;
 [TestFixture]
 public class TestRunMapperTests
 {
-    private const string DateTimeString = "01/02/2025 03:04:05";
+    private const string DateTimeString = "01/02/2025 03:04:05Z";
 
     private readonly Mock<ILogWrapper> _mockLogWrapper;
 
@@ -44,7 +44,7 @@ public class TestRunMapperTests
     public void MapTestRunToDto_ValidTestRun_ReturnsTestRunDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.ParseExact(DateTimeString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+        var expectedDateTime = DateTime.ParseExact(DateTimeString, "dd/MM/yyyy HH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
@@ -478,7 +478,7 @@ public class TestRunMapperTests
     public void MapTestRunToDto_NoAssemblyTestSuite_ReturnsTestRunDtoWithDefaultEnvironmentDto()
     {
         // Arrange
-        var expectedDateTime = DateTime.ParseExact(DateTimeString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+        var expectedDateTime = DateTime.ParseExact(DateTimeString, "dd/MM/yyyy HH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
         var testRun = new TestRun
         {
             StartTime = DateTimeString,
