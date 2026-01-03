@@ -10,16 +10,18 @@ using TestMiner.Database.Component.Tests.StoredProcedures;
 
 public abstract class DatabaseTestsBase
 {
-    protected const string ConnectionString = "";
+    private const string ConnectionStringKey = "ConnectionString";
 
     protected DatabaseTestsBase()
     {
-        if (string.IsNullOrWhiteSpace(ConnectionString))
+        string connectionString = TestContext.Parameters.Get(ConnectionStringKey, string.Empty);
+
+        if (string.IsNullOrWhiteSpace(connectionString))
         {
-            Assert.Ignore("ConnectionString is not set. Test requires a live Database Connection.");
+            Assert.Ignore("ConnectionString is not set via .runsettings - Test requires a live Database Connection.");
         }
 
-        DbConnection = new SqlConnection(ConnectionString);
+        DbConnection = new SqlConnection(connectionString);
     }
 
     protected SqlConnection DbConnection { get; private init; }
