@@ -223,7 +223,7 @@ public class TestRunMapperTests
 
             Assert.That(result.TestMinerStatus, Is.EqualTo(TestMinerStatus.Processing));
 
-            Assert.That(result.CalculateMd5Hash(), Is.EqualTo("299BA82A19E08D4F55B7686FBCBCC7CB"));
+            Assert.That(result.CalculateMd5Hash(), Is.EqualTo("4C5B92CF1B29105CBD3DD843177E7329"));
 
             Assert.That(result.Tests, Has.Count.EqualTo(6));
 

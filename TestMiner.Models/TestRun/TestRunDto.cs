@@ -85,7 +85,7 @@ public class TestRunDto : ITestRunDto
 
     public override string ToString()
     {
-        return $"{nameof(Total)}: {Total} {nameof(Inconclusive)}: {Inconclusive} {nameof(Passed)}: {Passed} {nameof(Warning)}: {Warning} {nameof(Skipped)}: {Skipped} {nameof(Failed)}: {Failed} {nameof(Error)}: {Error} {nameof(StartTime)}: {StartTime} {nameof(EndTime)}: {EndTime} {nameof(Duration)}: {Duration} {nameof(Environment)}: {Environment}";
+        return $"{nameof(Total)}: {Total} {nameof(Inconclusive)}: {Inconclusive} {nameof(Passed)}: {Passed} {nameof(Warning)}: {Warning} {nameof(Skipped)}: {Skipped} {nameof(Failed)}: {Failed} {nameof(Error)}: {Error} {nameof(StartTime)}: {StartTime:O} {nameof(EndTime)}: {EndTime:O} {nameof(Duration)}: {Duration} {nameof(Environment)}: {Environment}";
     }
 
     public string CalculateMd5Hash()
