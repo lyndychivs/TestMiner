@@ -64,8 +64,17 @@ jobs:
             - name: Build Database Docker Image
               run: docker compose -f TestMiner.Database/compose.yaml build
 
-            - name: Test
-              run: dotnet test --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=Results.trx"
+            - name: Test - TestMiner.Tests
+              run: dotnet test TestMiner.Tests/TestMiner.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Tests.trx"
+
+            - name: Test - TestMiner.Models.Tests
+              run: dotnet test TestMiner.Models.Tests/TestMiner.Models.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Models.Tests.trx"
+
+            - name: Test - TestMiner.Integration.Tests
+              run: dotnet test TestMiner.Integration.Tests/TestMiner.Integration.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Integration.Tests.trx"
+
+            - name: Test - TestMiner.Database.Component.Tests
+              run: dotnet test TestMiner.Database.Component.Tests/TestMiner.Database.Component.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Database.Component.Tests.trx" --settings TestMiner.Database.Component.Tests/.runsettings
 
             - name: Publish All Test Results
               uses: EnricoMi/publish-unit-test-result-action@v2
