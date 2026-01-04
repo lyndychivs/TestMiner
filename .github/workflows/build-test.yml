@@ -23,22 +23,22 @@ jobs:
               with:
                   dotnet-version: 8.0.x
 
-            - name: Install SQL Database Build Tools
-              run: |
-                  dotnet new install Microsoft.Build.Sql.Templates
-                  dotnet tool install -g microsoft.sqlpackage
+            - name: Install SqlPackage
+              run: dotnet tool install -g microsoft.sqlpackage
 
             - name: Restore
-              run: dotnet restore TestMiner.sln
+              run: dotnet restore
 
-            - name: Build Database Project
+            - name: Build Database DACPAC
               run: |
-                  cd TestMiner.Database
-                  dotnet build TestMiner.Database.sqlproj --configuration ${{ env.CONFIGURATION }} /p:NetCoreBuild=true
+                  mkdir -p TestMiner.Database/bin/${{ env.CONFIGURATION }}
+                  sqlpackage /Action:Build \
+                    /SourceFiles:"TestMiner.Database/**/*.sql" \
+                    /TargetFile:"TestMiner.Database/bin/${{ env.CONFIGURATION }}/TestMiner.dacpac" \
+                    /Properties:DatabaseName=TestMiner
 
             - name: Build
-              id: build
-              run: dotnet build TestMiner.sln --configuration ${{ env.CONFIGURATION }} --no-restore
+              run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
 
             - name: Build Database Docker Image
               run: docker compose -f TestMiner.Database/compose.yaml build
