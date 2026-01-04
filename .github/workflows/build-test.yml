@@ -23,18 +23,22 @@ jobs:
               with:
                   dotnet-version: 8.0.x
 
-            - name: Setup MSBuild
-              uses: microsoft/setup-msbuild@v2
+            - name: Install SQL Database Build Tools
+              run: |
+                  dotnet new install Microsoft.Build.Sql.Templates
+                  dotnet tool install -g microsoft.sqlpackage
 
             - name: Restore
               run: dotnet restore TestMiner.sln
 
-            - name: Build Database
-              run: msbuild TestMiner.Database\TestMiner.Database.sqlproj /p:Configuration=${{ env.CONFIGURATION }} /t:Build
+            - name: Build Database Project
+              run: |
+                  cd TestMiner.Database
+                  dotnet build TestMiner.Database.sqlproj --configuration ${{ env.CONFIGURATION }} /p:NetCoreBuild=true
 
             - name: Build
               id: build
-              run: msbuild TestMiner.sln /p:Configuration=${{ env.CONFIGURATION }} /t:Build
+              run: dotnet build TestMiner.sln --configuration ${{ env.CONFIGURATION }} --no-restore
 
             - name: Build Database Docker Image
               run: docker compose -f TestMiner.Database/compose.yaml build
