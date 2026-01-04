@@ -50,7 +50,7 @@ public class TestMinerApplicationTests
             new TestRunMapper(logWrapper),
             testMinerDal);
 
-        var result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);
+        int result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);
 
         Assert.That(result, Is.Zero);
 
