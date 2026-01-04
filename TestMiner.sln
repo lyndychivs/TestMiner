@@ -45,7 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{E435
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{35F3DAFB-D75D-4B40-BAF4-E07890EA2895}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnet-restore-build-test.yml = .github\workflows\dotnet-restore-build-test.yml
+		.github\workflows\build-test.yml = .github\workflows\build-test.yml
 		.github\workflows\dotnet-stryker-action.yml = .github\workflows\dotnet-stryker-action.yml
 	EndProjectSection
 EndProject
