@@ -13,7 +13,6 @@ using TestMiner.Utility;
 public class ConnectionManagerTests
 {
     [Test]
-    [Explicit("Limited Mocks Integration Test; Performs IO operations.")]
     public void ConnectionManager_WhenSaveConnectionStringIsCalled_OverwritesConnectionFile()
     {
         File.Delete("Connection.json");

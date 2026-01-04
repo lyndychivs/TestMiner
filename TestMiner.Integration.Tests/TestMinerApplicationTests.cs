@@ -19,7 +19,6 @@ using TestMiner.Utility;
 public class TestMinerApplicationTests
 {
     [Test]
-    [Explicit("Limited Mocks Integration Test; Performs IO operations.")]
     public void TestMinerApplication_WhenCalledWithFilesToMine_AddsTestRunToTheDatabase()
     {
         var mockLogger = new Mock<ILogger>();
