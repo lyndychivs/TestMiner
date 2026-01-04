@@ -10,7 +10,7 @@ on:
         - cron: "0 4 * * SUN"
 jobs:
     build-test:
-        runs-on: windows-latest
+        runs-on: ubuntu-latest
         env:
             CONFIGURATION: Release
             TARGET_FRAMEWORK: net8.0
