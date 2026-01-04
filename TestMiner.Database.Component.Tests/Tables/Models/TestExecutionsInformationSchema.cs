@@ -1,21 +1,21 @@
-namespace TestMiner.Database.Component.Tests.Tables;
+namespace TestMiner.Database.Component.Tests.Tables.Models;
 
 using System.Collections.Generic;
 
-using TestMiner.Database.Component.Tests;
+using TestMiner.Database.Component.Tests.Models;
 
-internal static class TestRunsInformationSchema
+internal static class TestExecutionsInformationSchema
 {
     private const string TableCatalog = "TestMiner";
 
     private const string TableSchema = "dbo";
 
-    private const string TableName = "TestRuns";
+    private const string TableName = "TestExecutions";
 
-    internal static List<InformationSchemaTable> Get()
+    public static List<InformationSchemaTable> Get()
     {
         return
-        [
+            [
             new ()
             {
                 TABLE_CATALOG = TableCatalog,
@@ -32,8 +32,41 @@ internal static class TestRunsInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "StartTime",
+                COLUMN_NAME = "TestId",
                 ORDINAL_POSITION = "2",
+                IS_NULLABLE = "NO",
+                DATA_TYPE = "int",
+                CHARACTER_MAXIMUM_LENGTH = null,
+            },
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "TestResultId",
+                ORDINAL_POSITION = "3",
+                IS_NULLABLE = "NO",
+                DATA_TYPE = "tinyint",
+                CHARACTER_MAXIMUM_LENGTH = null,
+            },
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "TestRunId",
+                ORDINAL_POSITION = "4",
+                IS_NULLABLE = "NO",
+                DATA_TYPE = "int",
+                CHARACTER_MAXIMUM_LENGTH = null,
+            },
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "StartTime",
+                ORDINAL_POSITION = "5",
                 IS_NULLABLE = "NO",
                 DATA_TYPE = "datetime",
                 CHARACTER_MAXIMUM_LENGTH = null,
@@ -44,7 +77,7 @@ internal static class TestRunsInformationSchema
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
                 COLUMN_NAME = "EndTime",
-                ORDINAL_POSITION = "3",
+                ORDINAL_POSITION = "6",
                 IS_NULLABLE = "NO",
                 DATA_TYPE = "datetime",
                 CHARACTER_MAXIMUM_LENGTH = null,
@@ -55,7 +88,7 @@ internal static class TestRunsInformationSchema
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
                 COLUMN_NAME = "Duration",
-                ORDINAL_POSITION = "4",
+                ORDINAL_POSITION = "7",
                 IS_NULLABLE = "NO",
                 DATA_TYPE = "bigint",
                 CHARACTER_MAXIMUM_LENGTH = null,
@@ -65,43 +98,10 @@ internal static class TestRunsInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "Total",
-                ORDINAL_POSITION = "5",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "Inconclusive",
-                ORDINAL_POSITION = "6",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "Passed",
-                ORDINAL_POSITION = "7",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "Warning",
+                COLUMN_NAME = "Seed",
                 ORDINAL_POSITION = "8",
                 IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
+                DATA_TYPE = "bigint",
                 CHARACTER_MAXIMUM_LENGTH = null,
             },
             new ()
@@ -109,18 +109,18 @@ internal static class TestRunsInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "Skipped",
+                COLUMN_NAME = "Label",
                 ORDINAL_POSITION = "9",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
+                IS_NULLABLE = "YES",
+                DATA_TYPE = "nvarchar",
+                CHARACTER_MAXIMUM_LENGTH = "500",
             },
             new ()
             {
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "Failed",
+                COLUMN_NAME = "AssertCount",
                 ORDINAL_POSITION = "10",
                 IS_NULLABLE = "NO",
                 DATA_TYPE = "int",
@@ -131,56 +131,34 @@ internal static class TestRunsInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "Error",
+                COLUMN_NAME = "Reason",
                 ORDINAL_POSITION = "11",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "UserId",
-                ORDINAL_POSITION = "12",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "MachineId",
-                ORDINAL_POSITION = "13",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
-            },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "Hex",
-                ORDINAL_POSITION = "14",
-                IS_NULLABLE = "NO",
+                IS_NULLABLE = "YES",
                 DATA_TYPE = "nvarchar",
-                CHARACTER_MAXIMUM_LENGTH = "32",
+                CHARACTER_MAXIMUM_LENGTH = "500",
             },
             new ()
             {
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "TestMinerStatusId",
-                ORDINAL_POSITION = "15",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "tinyint",
-                CHARACTER_MAXIMUM_LENGTH = null,
+                COLUMN_NAME = "FailureMessage",
+                ORDINAL_POSITION = "12",
+                IS_NULLABLE = "YES",
+                DATA_TYPE = "nvarchar",
+                CHARACTER_MAXIMUM_LENGTH = "500",
             },
-        ];
+            new ()
+            {
+                TABLE_CATALOG = TableCatalog,
+                TABLE_SCHEMA = TableSchema,
+                TABLE_NAME = TableName,
+                COLUMN_NAME = "StackTrace",
+                ORDINAL_POSITION = "13",
+                IS_NULLABLE = "YES",
+                DATA_TYPE = "nvarchar",
+                CHARACTER_MAXIMUM_LENGTH = "2000",
+            },
+            ];
     }
 }

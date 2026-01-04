@@ -1,16 +1,16 @@
-namespace TestMiner.Database.Component.Tests.Tables;
+namespace TestMiner.Database.Component.Tests.Tables.Models;
 
 using System.Collections.Generic;
 
-using TestMiner.Database.Component.Tests;
+using TestMiner.Database.Component.Tests.Models;
 
-internal sealed class EnvironmentUsersInformationSchema
+internal sealed class TestMinerStatusInformationSchema
 {
     private const string TableCatalog = "TestMiner";
 
     private const string TableSchema = "dbo";
 
-    private const string TableName = "EnvironmentUsers";
+    private const string TableName = "TestMinerStatus";
 
     internal static List<InformationSchemaTable> Get()
     {
@@ -24,7 +24,7 @@ internal sealed class EnvironmentUsersInformationSchema
                 COLUMN_NAME = "Id",
                 ORDINAL_POSITION = "1",
                 IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
+                DATA_TYPE = "tinyint",
                 CHARACTER_MAXIMUM_LENGTH = null,
             },
             new ()
@@ -32,11 +32,11 @@ internal sealed class EnvironmentUsersInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "User",
+                COLUMN_NAME = "Status",
                 ORDINAL_POSITION = "2",
                 IS_NULLABLE = "NO",
                 DATA_TYPE = "nvarchar",
-                CHARACTER_MAXIMUM_LENGTH = "200",
+                CHARACTER_MAXIMUM_LENGTH = "10",
             },
             ];
     }

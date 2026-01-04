@@ -1,16 +1,16 @@
-namespace TestMiner.Database.Component.Tests.Tables;
+namespace TestMiner.Database.Component.Tests.Tables.Models;
 
 using System.Collections.Generic;
 
-using TestMiner.Database.Component.Tests;
+using TestMiner.Database.Component.Tests.Models;
 
-internal static class TestsInformationSchema
+internal static class TestResultsInformationSchema
 {
     private const string TableCatalog = "TestMiner";
 
     private const string TableSchema = "dbo";
 
-    private const string TableName = "Tests";
+    private const string TableName = "TestResults";
 
     internal static List<InformationSchemaTable> Get()
     {
@@ -24,7 +24,7 @@ internal static class TestsInformationSchema
                 COLUMN_NAME = "Id",
                 ORDINAL_POSITION = "1",
                 IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
+                DATA_TYPE = "tinyint",
                 CHARACTER_MAXIMUM_LENGTH = null,
             },
             new ()
@@ -32,23 +32,12 @@ internal static class TestsInformationSchema
                 TABLE_CATALOG = TableCatalog,
                 TABLE_SCHEMA = TableSchema,
                 TABLE_NAME = TableName,
-                COLUMN_NAME = "TestClassId",
+                COLUMN_NAME = "Result",
                 ORDINAL_POSITION = "2",
                 IS_NULLABLE = "NO",
-                DATA_TYPE = "int",
-                CHARACTER_MAXIMUM_LENGTH = null,
+                DATA_TYPE = "varchar",
+                CHARACTER_MAXIMUM_LENGTH = "12",
             },
-            new ()
-            {
-                TABLE_CATALOG = TableCatalog,
-                TABLE_SCHEMA = TableSchema,
-                TABLE_NAME = TableName,
-                COLUMN_NAME = "Name",
-                ORDINAL_POSITION = "3",
-                IS_NULLABLE = "NO",
-                DATA_TYPE = "nvarchar",
-                CHARACTER_MAXIMUM_LENGTH = "500",
-            },
-            ];
+        ];
     }
 }

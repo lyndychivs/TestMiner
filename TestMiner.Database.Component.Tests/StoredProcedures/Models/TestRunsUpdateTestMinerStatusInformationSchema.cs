@@ -1,8 +1,8 @@
-namespace TestMiner.Database.Component.Tests.StoredProcedures;
+namespace TestMiner.Database.Component.Tests.StoredProcedures.Models;
 
 using System.Collections.Generic;
 
-internal static class TestExecutionsAddTestInformationSchema
+internal static class TestRunsUpdateTestMinerStatusInformationSchema
 {
     internal static List<InformationSchemaRoutine> Get()
     {
@@ -12,7 +12,7 @@ internal static class TestExecutionsAddTestInformationSchema
             {
                 ROUTINE_CATALOG = "TestMiner",
                 ROUTINE_SCHEMA = "dbo",
-                ROUTINE_NAME = "spTestExecutions_AddTest",
+                ROUTINE_NAME = "spTestRuns_UpdateTestMinerStatus",
                 ROUTINE_TYPE = "PROCEDURE",
             },
             ];

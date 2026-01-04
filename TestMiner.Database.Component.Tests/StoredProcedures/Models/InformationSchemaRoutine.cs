@@ -1,4 +1,4 @@
-namespace TestMiner.Database.Component.Tests.StoredProcedures;
+namespace TestMiner.Database.Component.Tests.StoredProcedures.Models;
 
 public class InformationSchemaRoutine
 {

@@ -1,30 +1,45 @@
 namespace TestMiner.Database.Component.Tests;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.Data.SqlClient;
 
 using NUnit.Framework;
 
-using TestMiner.Database.Component.Tests.StoredProcedures;
+using TestMiner.Database.Component.Tests.Models;
+using TestMiner.Database.Component.Tests.Setup;
+using TestMiner.Database.Component.Tests.StoredProcedures.Models;
 
 public abstract class DatabaseTestsBase
 {
-    private const string ConnectionStringKey = "ConnectionString";
+    private static string? _connectionString;
 
-    protected DatabaseTestsBase()
+    protected SqlConnection DbConnection { get; private set; } = null!;
+
+    [OneTimeSetUp]
+    public static async Task OneTimeSetUp()
     {
-        string connectionString = TestContext.Parameters.Get(ConnectionStringKey, string.Empty);
-
-        if (string.IsNullOrWhiteSpace(connectionString))
-        {
-            Assert.Ignore("ConnectionString is not set via .runsettings - Test requires a live Database Connection.");
-        }
-
-        DbConnection = new SqlConnection(connectionString);
+        _connectionString = await ContainerSetup.CreateTestMinerDatabase();
     }
 
-    protected SqlConnection DbConnection { get; private init; }
+    [OneTimeTearDown]
+    public static async Task OneTimeTearDown()
+    {
+        await ContainerSetup.CleanupTestMinerDatabase();
+    }
+
+    [SetUp]
+    public void SetUp()
+    {
+        DbConnection = new SqlConnection(_connectionString);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        DbConnection?.Dispose();
+    }
 
     protected static void AssertTableInformationSchemasAreEqual(List<InformationSchemaTable> actual, List<InformationSchemaTable> expected)
     {
@@ -98,11 +113,5 @@ public abstract class DatabaseTestsBase
                     $"{actual[i].ROUTINE_NAME}: ROUTINE_TYPE expected '{expected[i].ROUTINE_TYPE}' but was '{actual[i].ROUTINE_TYPE}'");
             }
         }
-    }
-
-    [OneTimeTearDown]
-    protected void OneTimeTearDown()
-    {
-        DbConnection?.Dispose();
     }
 }

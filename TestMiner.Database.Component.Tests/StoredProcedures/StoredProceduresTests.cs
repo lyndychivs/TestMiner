@@ -8,9 +8,9 @@ using Dapper;
 using NUnit.Framework;
 
 using TestMiner.Database.Component.Tests;
+using TestMiner.Database.Component.Tests.StoredProcedures.Models;
 
 [TestFixture]
-[Explicit("Tests require a live Database Connection.")]
 public class StoredProceduresTests : DatabaseTestsBase
 {
     [Test]
