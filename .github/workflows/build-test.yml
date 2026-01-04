@@ -9,10 +9,36 @@ on:
     schedule:
         - cron: "0 4 * * SUN"
 jobs:
-    build-test:
-        runs-on: ubuntu-latest
+    build-database:
+        runs-on: windows-latest
         env:
             CONFIGURATION: Release
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v6
+
+            - name: Install .NET
+              uses: actions/setup-dotnet@v5
+              with:
+                  dotnet-version: 8.0.x
+
+            - name: Setup MSBuild
+              uses: microsoft/setup-msbuild@v2
+
+            - name: Build Database
+              run: msbuild TestMiner.Database\TestMiner.Database.sqlproj /p:Configuration=${{ env.CONFIGURATION }} /t:Build
+
+            - name: Upload DACPAC
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dacpac
+                  path: TestMiner.Database/bin/${{ env.CONFIGURATION }}/TestMiner.dacpac
+
+    build-test:
+        needs: build-database
+        runs-on: ubuntu-latest
+        env:
+            CONFIGURATION: GitHub
             TARGET_FRAMEWORK: net8.0
         steps:
             - name: Checkout Repository
@@ -23,19 +49,14 @@ jobs:
               with:
                   dotnet-version: 8.0.x
 
-            - name: Install SqlPackage
-              run: dotnet tool install -g microsoft.sqlpackage
+            - name: Download DACPAC
+              uses: actions/download-artifact@v4
+              with:
+                  name: dacpac
+                  path: TestMiner.Database/bin/${{ env.CONFIGURATION }}
 
             - name: Restore
               run: dotnet restore
-
-            - name: Build Database DACPAC
-              run: |
-                  mkdir -p TestMiner.Database/bin/${{ env.CONFIGURATION }}
-                  sqlpackage /Action:Build \
-                    /SourceFiles:"TestMiner.Database/**/*.sql" \
-                    /TargetFile:"TestMiner.Database/bin/${{ env.CONFIGURATION }}/TestMiner.dacpac" \
-                    /Properties:DatabaseName=TestMiner
 
             - name: Build
               run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
