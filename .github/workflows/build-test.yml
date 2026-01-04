@@ -26,6 +26,9 @@ jobs:
             - name: Setup MSBuild
               uses: microsoft/setup-msbuild@v2
 
+            - name: Restore
+              run: dotnet restore TestMiner.sln
+
             - name: Build Database
               run: msbuild TestMiner.Database\TestMiner.Database.sqlproj /p:Configuration=${{ env.CONFIGURATION }} /t:Build
 
@@ -34,7 +37,6 @@ jobs:
               run: msbuild TestMiner.sln /p:Configuration=${{ env.CONFIGURATION }} /t:Build
 
             - name: Build Database Docker Image
-              id : build-db-image
               run: docker compose -f TestMiner.Database/compose.yaml build
 
             - name: Test
