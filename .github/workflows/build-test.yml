@@ -1,0 +1,84 @@
+name: Build & Test
+run-name: Build & Test
+permissions:
+    contents: read
+    checks: write
+    pull-requests: write
+on:
+    push:
+    schedule:
+        - cron: "0 4 * * SUN"
+jobs:
+    build-database:
+        runs-on: windows-latest
+        env:
+            CONFIGURATION: Release
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v6
+
+            - name: Install .NET
+              uses: actions/setup-dotnet@v5
+              with:
+                  dotnet-version: 8.0.x
+
+            - name: Setup MSBuild
+              uses: microsoft/setup-msbuild@v2
+
+            - name: Build Database
+              run: msbuild TestMiner.Database\TestMiner.Database.sqlproj /p:Configuration=${{ env.CONFIGURATION }} /t:Build
+
+            - name: Upload DACPAC
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dacpac
+                  path: TestMiner.Database/bin/${{ env.CONFIGURATION }}/TestMiner.dacpac
+
+    build-test:
+        needs: build-database
+        runs-on: ubuntu-latest
+        env:
+            CONFIGURATION: GitHub
+            TARGET_FRAMEWORK: net8.0
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v6
+
+            - name: Install .NET
+              uses: actions/setup-dotnet@v5
+              with:
+                  dotnet-version: 8.0.x
+
+            - name: Download DACPAC
+              uses: actions/download-artifact@v4
+              with:
+                  name: dacpac
+                  path: TestMiner.Database/bin/Release
+
+            - name: Restore
+              run: dotnet restore
+
+            - name: Build
+              run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+
+            - name: Build Database Docker Image
+              run: docker compose -f TestMiner.Database/compose.yaml build
+
+            - name: Test - TestMiner.Tests
+              run: dotnet test TestMiner.Tests/TestMiner.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Tests.trx"
+
+            - name: Test - TestMiner.Models.Tests
+              run: dotnet test TestMiner.Models.Tests/TestMiner.Models.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Models.Tests.trx"
+
+            - name: Test - TestMiner.Integration.Tests
+              run: dotnet test TestMiner.Integration.Tests/TestMiner.Integration.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Integration.Tests.trx"
+
+            - name: Test - TestMiner.Database.Component.Tests
+              run: dotnet test TestMiner.Database.Component.Tests/TestMiner.Database.Component.Tests.csproj --no-build --configuration ${{ env.CONFIGURATION }} --logger "trx;LogFileName=TestMiner.Database.Component.Tests.trx" --settings TestMiner.Database.Component.Tests/.runsettings
+
+            - name: Publish All Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              if: (!cancelled())
+              with:
+                  files: "**/*.trx"
+                  action_fail_on_inconclusive: true

@@ -51,31 +51,34 @@ public class TestMinerApplicationTests
             new TestRunMapper(logWrapper),
             testMinerDal);
 
-        var result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);
+        int result = testMinerApplication.MineFiles(["SampleData\\TestResultSample.xml"]);
 
-        Assert.That(result, Is.Zero);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.Zero);
 
-        mockDatabase.Verify(db => db.GetTestRunIdFromHex(It.IsAny<string>()), Times.Once());
+            mockDatabase.Verify(db => db.GetTestRunIdFromHex(It.IsAny<string>()), Times.Once());
 
-        mockDatabase.Verify(
-            db => db.AddTestExecution(
-                1,
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<long>(),
-                It.IsAny<string>(),
-                It.IsAny<DateTime>(),
-                It.IsAny<DateTime>(),
-                It.IsAny<long>(),
-                It.IsAny<int>(),
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>()),
-            Times.Exactly(6));
+            mockDatabase.Verify(
+                db => db.AddTestExecution(
+                    1,
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<long>(),
+                    It.IsAny<string>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<long>(),
+                    It.IsAny<int>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Exactly(6));
 
-        mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once());
+            mockDatabase.Verify(db => db.UpdateTestRunTestMinerStatus(1, 2), Times.Once());
 
-        mockLogger.VerifyLogging("Finished mining File: 43CCE649D657AD3159C3CD6628E5AC40 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
+            mockLogger.VerifyLogging("Finished mining File: 43CCE649D657AD3159C3CD6628E5AC40 : SampleData\\TestResultSample.xml", LogLevel.Information, Times.Once());
+        }
     }
 }

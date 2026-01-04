@@ -2,41 +2,95 @@
 ## Prerequisites
 | Prerequisite         | Note |
 | :---                 | :--- |
-| Microsoft SqlPackage | SqlPackage is required to publish the Database (Visual Studio can also) - Download [here](https://learn.microsoft.com/en-us/sql/tools/sqlpackage/sqlpackage) |
-| Docker               | Docker is required for local testing and validation, it is also possible to use an (local or remote) instance of Sql Server. |
+| Docker               | Docker is required for local testing and validation, it is also possible to use a (local or remote) instance of SQL Server. |
 
-## Hosting Sql Server using Docker
-When you're ready, navigate to `TestMiner/TestMiner.Database` directory.
+## Setup and Deployment
+
+### Step 1: Build the Database Project
+Before running Docker, build the database project to generate the DACPAC file:
+
+```bash
+msbuild TestMiner.Database.sqlproj /p:Configuration=Release
+```
+
+This creates `TestMiner.dacpac` in the `bin/Release/` directory, which will be automatically deployed when the container starts.
+
+### Step 2: Configure Environment Variables
+Create a `.env` file in the `TestMiner.Database` directory from the template:
+
+```bash
+cp .env.template .env
+```
+
+Edit `.env` to set your SA password (default is `Password1!`):
+```dotenv
+MSSQL_SA_PASSWORD=YourSecurePassword123!
+```
+
+> [!WARNING]
+> The password must meet SQL Server complexity requirements (at least 8 characters, including uppercase, lowercase, numbers, and symbols).
+
+### Step 3: Start the Container
+Navigate to the `TestMiner.Database` directory and run:
 
 ```bash
 docker compose up --build -d
 ```
 
-Execute the following command until the `Status` reports `healthy`
+The container will:
+1. Start SQL Server 2022 Express
+2. Automatically deploy the TestMiner database using the DACPAC
+3. Run health checks to ensure it's ready
+
+### Step 4: Verify Deployment
+Check the container status:
 ```bash
 docker ps -a
 ```
-Example:
+
+Example output:
 ```bash
-CONTAINER ID   IMAGE                                        COMMAND                  CREATED         STATUS                   PORTS                    NAMES
-95fd8c61886e   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   9 seconds ago   Up 9 seconds (healthy)   0.0.0.0:1433->1433/tcp   testminer
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS                    PORTS                    NAMES
+95fd8c61886e   testminer-db:latest    "/tmp/entrypoint.sh"     20 seconds ago   Up 18 seconds (healthy)   0.0.0.0:1433->1433/tcp   testminer
 ```
 
-## Publish TestMiner Database to Docker
-Once the Docker instance is deployed and healthy, using PowerShell execute:
-```ps1
-.\DeployToDocker.ps1
-```
-The following result should be present.
+View deployment logs:
 ```bash
-TestMiner deployed to localhost,1433
+docker logs testminer
 ```
 
-You should now be able to connect to the SQL Server, using `localhost` on port `1433` with the username `sa` and password `TestMinerPass1!`
-*Connection String Example:*
+Look for the message: `TestMiner.Database deployed successfully!`
+
+## Connecting to the Database
+You can now connect to SQL Server using:
+- **Host:** `localhost`
+- **Port:** `1433`
+- **Username:** `sa`
+- **Password:** (value from your `.env` file)
+- **Database:** `TestMiner`
+
+**Connection String Example:**
 ```
-Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1!;Encrypt=true;TrustServerCertificate=true;
+Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=Password1!;Encrypt=true;TrustServerCertificate=true;
+```
+
+## Managing the Container
+
+**Stop the container:**
+```bash
+docker compose down
+```
+
+**Rebuild and redeploy:**
+```bash
+msbuild TestMiner.Database.sqlproj /p:Configuration=Release
+docker compose up --build -d
+```
+
+**View container logs:**
+```bash
+docker logs testminer -f
 ```
 
 > [!CAUTION]
-> When you stop and remove a container, your SQL Server data in the container is permanently deleted.
+> When you stop and remove a container with `docker compose down`, your SQL Server data in the container is permanently deleted. For persistent data, consider adding a volume mount in `compose.yaml`.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
     <TestRunParameters>
-        <Parameter name="ConnectionString" value="Data Source=localhost,1433;Database=TestMiner;User ID=sa;Password=TestMinerPass1!;Encrypt=true;TrustServerCertificate=true;" />
+        <Parameter name="SqlPassword" value="Password1!" />
     </TestRunParameters>
 </RunSettings>

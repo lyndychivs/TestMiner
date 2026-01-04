@@ -1,4 +1,4 @@
-namespace TestMiner.Database.Component.Tests.Tables;
+namespace TestMiner.Database.Component.Tests.Tables.Models;
 
 internal sealed class TestMinerStatus
 {

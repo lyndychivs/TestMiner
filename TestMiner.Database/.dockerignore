@@ -14,7 +14,8 @@
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
-**/bin
+**/bin/Debug
+**/bin/GitHub
 **/charts
 **/docker-compose*
 **/compose.y*ml
@@ -26,3 +27,4 @@
 **/values.dev.yaml
 LICENSE
 README.md
+**/.env.template
