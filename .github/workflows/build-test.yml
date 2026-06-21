@@ -15,7 +15,7 @@ jobs:
             CONFIGURATION: Release
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: Install .NET
               uses: actions/setup-dotnet@v5
@@ -42,7 +42,7 @@ jobs:
             TARGET_FRAMEWORK: net8.0
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: Install .NET
               uses: actions/setup-dotnet@v5
